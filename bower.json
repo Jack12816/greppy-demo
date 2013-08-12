@@ -1,0 +1,14 @@
+{
+  "name": "greppy-demo",
+  "version": "0.1.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+     "bootstrap": "3.0.0-rc1"
+  }
+}
