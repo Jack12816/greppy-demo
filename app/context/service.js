@@ -22,6 +22,11 @@ var ServiceContext = function()
 util.inherits(ServiceContext, greppy.get('app.worker.context'));
 
 /**
+ * Worker context description.
+ */
+ServiceContext.prototype.description = 'Service context which houses the project API';
+
+/**
  * Worker context backends configuration.
  */
 ServiceContext.prototype.backends = {};
