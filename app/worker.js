@@ -24,7 +24,7 @@ var server = http.createServer(app);
 // Setup the application worker
 var worker = new Worker(app, server, {
     title   : 'greppy-demo-worker',
-    modules : ['service'],
+    modules : ['commons'],
     logger  : {
         colors : {debug : 'white'}
     }

@@ -20,8 +20,7 @@ var master = new Master({
         colors : {debug : 'white'}
     },
     worker: {
-        amount : 2,
-        args   : ['--module', 'service']
+        amount : 2
     }
 });
 
