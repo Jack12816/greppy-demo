@@ -1,0 +1,58 @@
+.navbar-wrapper
+  .container
+    .navbar.navbar-inverse.navbar-static-top
+      .container
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='/') Greppy
+        .navbar-collapse
+          ul.nav.navbar-nav
+            li.active
+              a(href='/') Home
+            li
+              a(href='/about') About
+            li
+              a(href='/contributors') Contributors
+
+#myCarousel.carousel.slide
+  ol.carousel-indicators
+    li.active(data-target='#myCarousel', data-slide-to='0')
+    li(data-target='#myCarousel', data-slide-to='1')
+    li(data-target='#myCarousel', data-slide-to='2')
+  .carousel-inner
+    .item.active
+      img(src='img/slides/slide01.png', alt='')
+      .container
+        .carousel-caption
+          h1 Example headline.
+          p
+            | Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+          p
+            a.btn.btn-large.btn-primary(href='#') Sign up today
+    .item
+      img(src='img/slides/slide01.png', alt='')
+      .container
+        .carousel-caption
+          h1 Another example headline.
+          p
+            | Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+          p
+            a.btn.btn-large.btn-primary(href='#') Learn more
+    .item
+      img(src='img/slides/slide01.png', alt='')
+      .container
+        .carousel-caption
+          h1 One more for good measure.
+          p
+            | Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+          p
+            a.btn.btn-large.btn-primary(href='#') Browse gallery
+
+  a.left.carousel-control(href='#myCarousel', data-slide='prev')
+    // span.icon-chevron-left
+  a.right.carousel-control(href='#myCarousel', data-slide='next')
+    // span.icon-chevron-right
+

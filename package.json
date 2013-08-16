@@ -11,7 +11,7 @@
     ],
     "dependencies" : {
         "express"           : "3.x",
-        "jade"              : "~0.31.2",
+        "jade"              : "~0.34.1",
         "piler"             : "~0.4.1",
         "async"             : "~0.2.5",
         "moment"            : "~2.0.0",

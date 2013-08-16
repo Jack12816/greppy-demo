@@ -50,6 +50,9 @@ ServiceContext.prototype.controllers = {
  */
 ServiceContext.prototype.configure = function(app, server, callback)
 {
+    // Start listening for connections
+    server.listen(1338);
+
     callback && callback();
 };
 

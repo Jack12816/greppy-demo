@@ -30,9 +30,6 @@ var worker = new Worker(app, server, {
     }
 });
 
-// Start listening for connections
-server.listen(1337);
-
 // Print simple notification
 logger.info('Greppy demo project started.');
 
