@@ -2,59 +2,63 @@ extends ../layout
 
 block content
 
-  .row
-    .col-lg-4
-      i.img-circle.icon-search.icon-4x
-      h2 Explore
-      p
-        | Explore Greppy's possibilities and get excited for more!
-        | You will be surprised how easy it is to build an fully
-        | working high availability cluster application.
-      p
-        a.btn.btn-default(href='#') View details »
-    .col-lg-4
-      i.img-circle.icon-rocket.icon-4x
-      h2 Get Started
-      p
-        | Prepare yourself for Greppy. Learn how to use it by its
-        | great getting started guide, detailed examples, and
-        | completive API documentation.
-      p
-        a.btn.btn-default(href='#') View details »
-    .col-lg-4
-      i.img-circle.icon-code.icon-4x
-      h2 Contribute
-      p
-        | Greppy is an open source project licensed under the LGPLv3.
-        | Everyone can fork it on Github and contribute to the project
-        | by sending pull requests.
-      p
-        a.btn.btn-default(href='#') View details »
+  .marketing
+    .row
+      .col-lg-4
+        i.img-circle.icon-search.icon-4x
+        h2 Explore
+        p
+          | Explore Greppy's possibilities and get excited for more!
+          | You will be surprised how easy it is to build an fully
+          | working high availability cluster application.
+        p
+          a.btn.btn-default(href='#explore') View details »
+      .col-lg-4
+        i.img-circle.icon-rocket.icon-4x
+        h2 Get Started
+        p
+          | Prepare yourself for Greppy. Learn how to use it by its
+          | great getting started guide, detailed examples, and
+          | completive API documentation.
+        p
+          a.btn.btn-default(href='#getting-started') View details »
+      .col-lg-4
+        i.img-circle.icon-code.icon-4x
+        h2 Contribute
+        p
+          | Greppy is an open source project licensed under the LGPLv3.
+          | Everyone can fork it on Github and contribute to the project
+          | by sending pull requests.
+        p
+          a.btn.btn-default(href='#contribute') View details »
 
-  hr.featurette-divider
-  .featurette
-    img.featurette-image.img-circle.pull-right(data-src='holder.js/512x512')
-    h2.featurette-heading
-      | First featurette heading.
-      span.text-muted It'll blow your mind.
-    p.lead
-      | Content
+    hr.featurette-divider
+    .featurette
+      a(name="explore")
+      img.featurette-image.img-circle.pull-right(src='/img/home/explore.png')
+      h2.featurette-heading
+        | First featurette heading.
+        span.text-muted It'll blow your mind.
+      p.lead
+        | Content
 
-  hr.featurette-divider
-  .featurette
-    img.featurette-image.img-circle.pull-left(data-src='holder.js/512x512')
-    h2.featurette-heading
-      | Oh yeah, it's that good.
-      span.text-muted See for yourself.
-    p.lead
-      | Content
+    hr.featurette-divider
+    .featurette
+      a(name="getting-started")
+      img.featurette-image.img-circle.pull-left(src='/img/home/getting-started.png')
+      h2.featurette-heading
+        | Oh yeah, it's that good.
+        span.text-muted See for yourself.
+      p.lead
+        | Content
 
-  hr.featurette-divider
-  .featurette
-    img.featurette-image.img-circle.pull-right(data-src='holder.js/512x512')
-    h2.featurette-heading
-      | And lastly, this one.
-      span.text-muted Checkmate.
-    p.lead
-      | Content
+    hr.featurette-divider
+    .featurette
+      a(name="contribute")
+      img.featurette-image.img-circle.pull-right(src='/img/home/contribute.png')
+      h2.featurette-heading
+        | And lastly, this one.
+        span.text-muted Checkmate.
+      p.lead
+        | Content
 

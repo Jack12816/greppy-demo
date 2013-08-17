@@ -66,6 +66,22 @@ IndexController.prototype.actions.imprint =
 };
 
 /**
+ * Deliver the crew page.
+ *
+ * @type {ControllerAction}
+ * @public
+ */
+IndexController.prototype.actions.crew =
+{
+    methods : ['GET'],
+    action  : function(req, res) {
+
+        // Render the view
+        res.render('app/crew');
+    }
+};
+
+/**
  * Deliver the contributors page.
  *
  * @type {ControllerAction}

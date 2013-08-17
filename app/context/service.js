@@ -14,36 +14,28 @@ var ServiceContext = function()
 {
     // Call the super constructor
     ServiceContext.super_.call(this, __filename);
+
+    // Worker context description.
+    this.description = 'Service context which houses the project API';
+
+    // Worker context backends configuration.
+    this.backends = {}
+
+    // Worker context modules configuration.
+    this.modules = ['service']
+
+    // Worker context controllers configuration.
+    this.controllers = {
+        ipc: {
+            enabled: true
+        }
+    };
 }
 
 /**
  * Extend the Greppy framework worker context
  */
 util.inherits(ServiceContext, greppy.get('app.worker.context'));
-
-/**
- * Worker context description.
- */
-ServiceContext.prototype.description = 'Service context which houses the project API';
-
-/**
- * Worker context backends configuration.
- */
-ServiceContext.prototype.backends = {};
-
-/**
- * Worker context modules configuration.
- */
-ServiceContext.prototype.modules = ['service'];
-
-/**
- * Worker context controllers configuration.
- */
-ServiceContext.prototype.controllers = {
-    ipc: {
-        enabled: true
-    }
-};
 
 /**
  * Worker context configure method.

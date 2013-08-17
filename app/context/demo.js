@@ -15,36 +15,28 @@ var DemoContext = function()
 {
     // Call the super constructor
     DemoContext.super_.call(this, __filename);
+
+    // Worker context description.
+    this.description = 'Demo frontend context for the domain greppy.org';
+
+    // Worker context backends configuration.
+    this.backends = {}
+
+    // Worker context modules configuration.
+    this.modules = ['demo']
+
+    // Worker context controllers configuration.
+    this.controllers = {
+        ipc: {
+            enabled: false
+        }
+    };
 }
 
 /**
  * Extend the Greppy framework worker context
  */
 util.inherits(DemoContext, greppy.get('app.worker.context'));
-
-/**
- * Worker context description.
- */
-DemoContext.prototype.description = 'Demo frontend context for the domain greppy.org';
-
-/**
- * Worker context backends configuration.
- */
-DemoContext.prototype.backends = {};
-
-/**
- * Worker context modules configuration.
- */
-DemoContext.prototype.modules = ['demo'];
-
-/**
- * Worker context controllers configuration.
- */
-DemoContext.prototype.controllers = {
-    ipc: {
-        enabled: false
-    }
-};
 
 /**
  * Worker context configure method.
@@ -57,7 +49,7 @@ DemoContext.prototype.configure = function(app, server, callback)
     app.locals.pretty = true;
 
     // Start listening for connections
-    server.listen(8337);
+    server.listen(3000);
 
     callback && callback();
 };
