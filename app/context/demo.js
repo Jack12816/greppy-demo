@@ -17,7 +17,7 @@ var DemoContext = function()
     DemoContext.super_.call(this, __filename);
 
     // Worker context description.
-    this.description = 'Demo frontend context for the domain greppy.org';
+    this.description = 'Demo frontend context for the domain greppy.org'
 
     // Worker context backends configuration.
     this.backends = {}

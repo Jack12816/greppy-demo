@@ -18,8 +18,21 @@ var app     = express();
 greppy     = require('greppy');
 var Worker = greppy.get('app.cluster.worker');
 
+// Load the application config if you need to setup
+// a default configuration which will be merged by the file
+// greppy.config.load(process.cwd() + '/app/config/application.js', 'app', {
+//     default: 'key'
+// });
+
 // Bootstrap an Express providing HTTP server
 var server = http.createServer(app);
+
+// Method to run after the worker was initalized
+var postSetup = function()
+{
+    // Print simple notification
+    logger.info('Greppy demo project started.');
+}
 
 // Setup the application worker
 var worker = new Worker(app, server, {
@@ -28,8 +41,5 @@ var worker = new Worker(app, server, {
     logger  : {
         colors : {debug : 'white'}
     }
-});
-
-// Print simple notification
-logger.info('Greppy demo project started.');
+}, postSetup);
 
