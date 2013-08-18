@@ -10,13 +10,13 @@
           a.navbar-brand(href='/') Greppy
         .navbar-collapse
           ul.nav.navbar-nav
-            li.active
+            li(class="#{helper.route.current(url, '/', 'active')}")
               a(href='/') Home
-            li
+            li(class="#{helper.route.current(url, '/about', 'active')}")
               a(href='/about') About
-            li
+            li(class="#{helper.route.current(url, '/crew', 'active')}")
               a(href='/crew') Crew
-            li
+            li(class="#{helper.route.current(url, '/contributors', 'active')}")
               a(href='/contributors') Contributors
 
 #myCarousel.carousel.slide
@@ -29,31 +29,31 @@
       img(src='img/slides/slide01.png', alt='')
       .container
         .carousel-caption
-          h1 Writting high availability applications made easy.
+          h1 Writing high availability applications made easy.
           p
-            | Use the power of <b>node.js</b>, the stack of <b>expressjs</b>,
-            | and the cluster structure of Greppy.
+            | Use the power of <b>Node.js</b>, the stack of <b>Express</b>,
+            | and the cluster structure of <b>Greppy</b>.
           p
             a.btn.btn-large.btn-primary(target="_blank", href='/docs/tutorial-app.cluster.html') Watch the examples
     .item
       img(src='img/slides/slide02.png', alt='')
       .container
         .carousel-caption
-          h1 Simple but powerfull by design.
+          h1 Simple but powerful by design.
           p
             | We built enterprise applications with the help of this framework.
             | <br>
-            | All our concepts, feature-requests and expiriences resulted in Greppy.
+            | All our concepts, feature-requests and experiences resulted in Greppy.
           p
             a.btn.btn-large.btn-primary(target="_blank", href='https://github.com/Jack12816/greppy-demo') Take a look at the demo
     .item
       img(src='img/slides/slide03.png', alt='')
       .container
         .carousel-caption
-          h1 Just concentrate on the your application needs,<br>not on the framework.
+          h1 Just concentrate on your application needs,<br>not on the framework.
           p
-            | While building Greppy we focused on the ability to write easily
-            | applications. <br> Doesen't matter which kind or size.
+            | While building Greppy we focused on the ability to write
+            | applications easily. <br> Doesn't matter which kind or size.
           p
             a.btn.btn-large.btn-primary(target="_blank", href='/docs/getting-started.html') Learn Greppy
 

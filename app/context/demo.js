@@ -43,10 +43,14 @@ util.inherits(DemoContext, greppy.get('app.worker.context'));
  */
 DemoContext.prototype.configure = function(app, server, callback)
 {
-    app.use(express.static(process.cwd() + '/public'));
+    // Templating Engine
     app.set('views', process.cwd() + '/modules/demo/resources/views');
     app.set('view engine', 'jade');
     app.locals.pretty = true;
+
+    // Common Middleware
+    app.use(express.compress());
+    app.use(express.static(process.cwd() + '/public'));
 
     // Start listening for connections
     server.listen(3000);
