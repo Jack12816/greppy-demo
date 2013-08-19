@@ -1,7 +1,9 @@
 # Greppy Demo Application
 
 Demo application for the Greppy framework.
-For more details take a look at [greppy.org](http://greppy.org) or the [Greppy API](http://greppy.org/docs).
+
+For more details take a look at [greppy.org](http://greppy.org)
+or the [Greppy API](http://greppy.org/docs).
 
 ## Dependencies
 
