@@ -1,29 +1,44 @@
 {
-    "name"         : "greppy-demo",
-    "description"  : "Demo project based on the greppy framework",
-    "version"      : "0.1.0",
-    "private"      : false,
-    "contributors" : [
+    "name": "greppy-demo",
+    "description": "Demo project based on the Greppy framework",
+    "version": "0.2.0",
+    "private": false,
+    "contributors": [
         {
-            "name"  : "Hermann Mayer",
-            "email" : "hermann.mayer92@gmail.com"
+            "email": "hermann.mayer92@gmail.com",
+            "name": "Hermann Mayer",
+            "web": "hermann-mayer.net"
+        },
+        {
+            "email": "patrick@jaksch.biz",
+            "name": "Patrick Jaksch"
+        },
+        {
+            "email": "lars@dietrich-hosting.de",
+            "name": "Lars Dietrich"
+        },
+        {
+            "email": "r.grawunder@gmail.com",
+            "name": "Ralf Grawunder",
+            "web": "black-magic-voodoo-stuff.net"
+        },
+        {
+            "email": "nabil.krause@silberlicht.eu",
+            "name": "Nabil Krause"
         }
     ],
-    "dependencies" : {
-        "express"           : "3.x",
-        "jade"              : "~0.34.1",
-        "piler"             : "~0.4.1",
-        "async"             : "~0.2.5",
-        "moment"            : "~2.0.0",
-        "node-fs"           : "~0.1.5",
-        "memory-cache"      : "~0.0.5",
-        "node-uuid"         : "~1.4.0",
-        "validator"         : "~1.2.1",
-        "express-validator" : "~0.3.2",
-        "winston"           : "~0.7.2",
-        "express-winston"   : "~0.2.0"
-    },
-    "bundledDependencies": [
-        "greppy"
-    ]
+    "dependencies": {
+        "greppy": "~0.2.0",
+        "async": "~0.2.5",
+        "express": "3.x",
+        "express-validator": "~0.3.2",
+        "express-winston": "~0.2.0",
+        "jade": "~0.34.1",
+        "memory-cache": "~0.0.5",
+        "moment": "~2.0.0",
+        "node-fs": "~0.1.5",
+        "node-uuid": "~1.4.0",
+        "validator": "~1.2.1",
+        "winston": "~0.7.2"
+    }
 }
