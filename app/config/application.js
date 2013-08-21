@@ -22,7 +22,7 @@ config.infrastructure = {
 config.database = {
 
     mysql: {
-
+/*
         demo: {
             plain    : true,
             orm      : true,
@@ -32,6 +32,7 @@ config.database = {
             host     : '127.0.0.1',
             port     : 3306
         }
+*/
     }
 };
 

@@ -66,18 +66,18 @@ IndexController.prototype.actions.imprint =
 };
 
 /**
- * Deliver the crew page.
+ * Deliver the gang page.
  *
  * @type {ControllerAction}
  * @public
  */
-IndexController.prototype.actions.crew =
+IndexController.prototype.actions.gang =
 {
     methods : ['GET'],
     action  : function(req, res) {
 
         // Render the view
-        res.render('app/crew');
+        res.render('app/gang');
     }
 };
 
