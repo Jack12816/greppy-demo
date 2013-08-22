@@ -37,7 +37,7 @@ var postSetup = function()
 // Setup the application worker
 var worker = new Worker(app, server, {
     title   : 'greppy-demo-worker',
-    modules : ['commons'],
+    modules : [],
     logger  : {
         colors : {debug : 'white'}
     }
