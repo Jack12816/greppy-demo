@@ -1,0 +1,45 @@
+form.form-horizontal(role="form", method="POST", action="#{response.path}")
+
+  .form-group
+    label.col-lg-2.control-label Fullname
+    .col-lg-10
+      input.form-control(
+        type="text",
+        name="user_fullname"
+        placeholder="Fullname of the user",
+        required="required",
+        value="#{(typeof user !== 'undefined') ? user.fullname : ''}")
+      span.help-block.
+        Some help tests for the user
+
+  .form-group
+    label.col-lg-2.control-label Email
+    .col-lg-10
+      input.form-control(
+        type="email",
+        name="user_email"
+        placeholder="Email of the user",
+        required="required",
+        value="#{(typeof user !== 'undefined') ? user.email : ''}")
+      span.help-block.
+        Some help tests for the user
+
+  .form-group
+    label.col-lg-2.control-label Password
+    .col-lg-10
+      input.form-control(
+        type="password",
+        name="user_password"
+        required="required",
+        value="")
+      span.help-block.
+        Some help tests for the user
+
+  .form-group
+    .col-lg-offset-2.col-lg-10
+      button.btn.btn-primary
+        i.icon-ok
+        &nbsp;
+        | #{response.action === 'create' ? 'Create' : 'Save'}
+
+

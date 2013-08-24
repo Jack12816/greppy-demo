@@ -1,15 +1,17 @@
 {
-  "name": "greppy-demo",
-  "version": "0.1.0",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-     "bootstrap": "3.0.0-rc1",
-     "font-awesome": "3.2.1"
-  }
+    "name": "greppy-demo",
+    "version": "0.1.0",
+    "dependencies": {
+        "bootstrap": "3.0.0",
+        "font-awesome": "3.2.1",
+        "DataTables": "1.9.4",
+        "bootbox": "3.3.0"
+    },
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ]
 }

@@ -1,0 +1,32 @@
+extends ../layout
+
+block content
+
+  - if ('undefined' !== typeof user)
+
+    h2.page-headline User details
+      .pull-right
+        include _operations
+
+    table.table.table-bordered.table-striped
+      tbody
+        tr
+          th Fullname
+          td #{user.fullname}
+        tr
+          th Email
+          td #{user.email}
+        tr
+          th Created at
+          td #{helper.date.format(user.created_at, 'LLLL')}
+        tr(class="#{user.deleted_at ? 'danger' : 'success'}")
+          th Deleted
+          td #{user.deleted_at ? 'Yes' : 'No'}
+
+  - else
+
+    - var entity = 'User'
+    include ../error/notfound
+
+  include _scripts
+

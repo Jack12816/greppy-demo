@@ -20,7 +20,7 @@ var master = new Master({
         colors : {debug : 'white'}
     },
     worker: {
-        amount : 2
+        amount : 1
     }
 });
 

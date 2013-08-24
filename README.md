@@ -20,6 +20,7 @@ To prepare the demo run these commands, which will setup all dependencies:
 
     npm install
     bower install
+    greppy --assets install
 
 ## Usage
 

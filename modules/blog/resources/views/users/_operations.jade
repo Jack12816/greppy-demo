@@ -1,0 +1,40 @@
+- var disableBackLink = false
+
+- if ('index' == req.greppy.route.action && 'undefined' !== typeof user)
+  - disableBackLink = true
+
+- if (!disableBackLink)
+
+  a.btn(onclick="history.back();", title="Back")
+    i.icon-arrow-left
+
+  &nbsp;
+  a.btn.btn-primary(href="/users/new", title="Create a new user")
+    i.icon-plus
+
+- if ('show' == req.greppy.route.action || 'index' == req.greppy.route.action)
+
+  - if ('undefined' !== typeof user)
+
+    - if ('show' != req.greppy.route.action)
+
+      &nbsp;
+      a.btn.btn-default(href="/users/#{user.id}", title="Show user details")
+        i.icon-search
+
+    &nbsp;
+    a.btn.btn-warning(href="/users/#{user.id}/edit", title="Edit this user")
+      i.icon-pencil
+
+    &nbsp;
+
+    - if (!user.deleted_at)
+
+      a.btn.btn-danger.delete(title="Delete", data-id="#{user.id}")
+        i.icon-trash
+
+    - else
+
+      a.btn.btn-danger.restore(title="Restore", data-id="#{user.id}")
+        i.icon-refresh
+

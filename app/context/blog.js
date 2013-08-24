@@ -1,7 +1,7 @@
 /**
- * Demo Worker Context
+ * Blog Worker Context
  *
- * @module greppy-demo/app/worker/context/demo
+ * @module greppy-demo/app/worker/context/blog
  * @author Hermann Mayer <hermann.mayer92@gmail.com>
  */
 
@@ -11,52 +11,55 @@ var express = require('express');
 /**
  * @constructor
  */
-var DemoContext = function()
+var BlogContext = function()
 {
     // Call the super constructor
-    DemoContext.super_.call(this, __filename);
+    BlogContext.super_.call(this, __filename);
 
     // Worker context description.
-    this.description = 'Demo frontend context for the domain greppy.org'
+    this.description = 'Blog frontend context for the domain greppy.org'
 
     // Worker context backends configuration.
-    this.backends = null
+    this.backends = {
+        mysql: [] // All MySQL connections
+    }
 
     // Worker context modules configuration.
-    this.modules = ['demo']
+    this.modules = ['blog']
 
     // Worker context controllers configuration.
     this.controllers = {
         ipc: {
             enabled: false
         }
-    }
+    };
 }
 
 /**
  * Extend the Greppy framework worker context
  */
-util.inherits(DemoContext, greppy.get('app.worker.context'));
+util.inherits(BlogContext, greppy.get('app.worker.context'));
 
 /**
  * Worker context configure method.
  */
-DemoContext.prototype.configure = function(app, server, callback)
+BlogContext.prototype.configure = function(app, server, callback)
 {
     // Templating Engine
-    app.set('views', process.cwd() + '/modules/demo/resources/views');
+    app.set('views', process.cwd() + '/modules/blog/resources/views');
     app.set('view engine', 'jade');
     app.locals.pretty = true;
 
     // Common Middleware
     app.use(express.compress());
     app.use(express.static(process.cwd() + '/public'));
+    app.use(express.bodyParser());
 
     // Start listening for connections
-    server.listen(3000);
+    server.listen(3001);
 
     callback && callback();
 };
 
-module.exports = DemoContext;
+module.exports = BlogContext;
 

@@ -29,6 +29,16 @@ module.exports = {
                     allowNull : false
                 },
 
+                email: {
+                    type      : DataTypes.STRING,
+                    allowNull : false
+                },
+
+                password: {
+                    type      : DataTypes.STRING,
+                    allowNull : false
+                },
+
                 created_at: {
                     type      : DataTypes.DATE,
                     allowNull : true
@@ -58,6 +68,15 @@ module.exports = {
                 ['role_id'],
                 {
                     indexName: 'role_id'
+                }
+            );
+
+            migration.addIndex(
+                'Users',
+                ['email'],
+                {
+                    indexName: 'email',
+                    indicesType: 'UNIQUE'
                 }
             );
 

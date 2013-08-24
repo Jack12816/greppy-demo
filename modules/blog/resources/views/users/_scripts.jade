@@ -1,0 +1,44 @@
+script.
+
+  $('.delete').click(function() {
+
+    var id = $(this).attr('data-id');
+    app.dialog(
+      'Do you really want to delete this user?',
+      {
+        ok: function(callback) {
+
+          $.ajax({
+              type: "DELETE",
+              url: "/users/" + id
+          }).done(function(data) {
+              window.location.reload();
+          });
+
+          callback && callback();
+        }
+      }
+    );
+  });
+
+  $('.restore').click(function() {
+
+    var id = $(this).attr('data-id');
+    app.dialog(
+      'Do you really want to restore this user?',
+      {
+        ok: function(callback) {
+
+          $.ajax({
+              type: "POST",
+              url: "/users/" + id + '/restore'
+          }).done(function(data) {
+              window.location.reload();
+          });
+
+          callback && callback();
+        }
+      }
+    );
+  });
+

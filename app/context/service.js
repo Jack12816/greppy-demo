@@ -19,7 +19,7 @@ var ServiceContext = function()
     this.description = 'Service context which houses the project API';
 
     // Worker context backends configuration.
-    this.backends = {}
+    this.backends = null
 
     // Worker context modules configuration.
     this.modules = ['service']
@@ -42,8 +42,11 @@ util.inherits(ServiceContext, greppy.get('app.worker.context'));
  */
 ServiceContext.prototype.configure = function(app, server, callback)
 {
+    // Common middleware
+    app.use(express.bodyParser());
+
     // Start listening for connections
-    server.listen(1338);
+    server.listen(3002);
 
     callback && callback();
 };

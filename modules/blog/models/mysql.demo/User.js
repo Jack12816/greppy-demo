@@ -30,6 +30,20 @@ module.exports = function(sequelize, DataTypes)
                 }
             },
 
+            email: {
+                type: DataTypes.STRING,
+                validate: {
+                    isEmail: true
+                }
+            },
+
+            password: {
+                type: DataTypes.STRING,
+                validate: {
+                    notEmpty: true
+                }
+            },
+
             deleted_at: {
                 type: DataTypes.DATE
             }
