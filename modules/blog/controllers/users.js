@@ -28,9 +28,16 @@ UsersController.prototype.actions.index =
     methods : ['GET'],
     action  : function(req, res) {
 
+        var page   = req.query.page || 1;
+        var limit  = req.query.limit || 2;
+        var offset = (1 < page) ? ((page * limit) - limit) : 0;
+
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.User.findAll().success(function(records) {
+            models.User.findAll({
+                offset : offset,
+                limit  : limit
+            }).success(function(records) {
 
                 // Render the view
                 res.render('users/index', {
