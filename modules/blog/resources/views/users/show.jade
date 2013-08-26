@@ -2,7 +2,7 @@ extends ../layout
 
 block content
 
-  - if ('undefined' !== typeof user)
+  - if (null !== user)
 
     h2.page-headline User details
       .pull-right
