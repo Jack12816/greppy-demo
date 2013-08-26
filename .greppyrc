@@ -1,0 +1,15 @@
+{
+    "scaffolding": {
+        "db": {
+            "fixtrue": {},
+            "migration": {},
+            "model": {}
+        },
+        "mvc": {
+            "controller": {},
+            "view": {
+                "path": "var/scaffolds/mvc/view/"
+            }
+        }
+    }
+}

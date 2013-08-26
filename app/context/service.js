@@ -5,7 +5,8 @@
  * @author Hermann Mayer <hermann.mayer92@gmail.com>
  */
 
-var util = require('util');
+var util    = require('util');
+var express = require('express');
 
 /**
  * @constructor
