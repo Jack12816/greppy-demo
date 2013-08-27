@@ -53,7 +53,6 @@ BlogContext.prototype.configure = function(app, server, callback)
     // Common Middleware
     app.use(express.compress());
     app.use(express.static(process.cwd() + '/public'));
-    app.use(express.bodyParser());
 
     // Start listening for connections
     server.listen(3001);

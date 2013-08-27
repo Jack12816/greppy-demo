@@ -3,6 +3,8 @@
  */
 module.exports = function(orm, models, share, utils, callback)
 {
+    var randomNames = require('password');
+
     var users = [
         {
             "role_id"  : 1,
@@ -29,6 +31,25 @@ module.exports = function(orm, models, share, utils, callback)
             "password" : "c4ef76b05908a729f4f857ddee667c14"
         }
     ];
+
+    for (var i = 0; i < 100; i += 1) {
+
+        var name = randomNames(2).split(' ');
+        name     = name[0].capitalize() + ' ' + name[1].capitalize();
+        var deletedAt = undefined;
+
+        if (Math.round(Math.random())) {
+            deletedAt = new Date();
+        }
+
+        users.push({
+            role_id    : 1,
+            fullname   : name,
+            email      : (name.replace(' ', '.') + '@' + randomNames(1) + '.com').toLowerCase(),
+            password   : 'h4ef76b05908a795284a51233792fe14',
+            deleted_at : deletedAt
+        });
+    }
 
     async.map(users, function(user, callback) {
 

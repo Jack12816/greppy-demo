@@ -29,7 +29,7 @@ UsersController.prototype.actions.index =
     action  : function(req, res) {
 
         var criteria = greppy.helper.get('controller.data-grid').buildCriteria(req, res, {
-            limit        : 2,
+            limit        : 10,
             properties   : ['fullname', 'email', 'created_at'],
             fuzzySearch  : true,
             softDeletion : true

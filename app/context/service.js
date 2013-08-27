@@ -43,9 +43,6 @@ util.inherits(ServiceContext, greppy.get('app.worker.context'));
  */
 ServiceContext.prototype.configure = function(app, server, callback)
 {
-    // Common middleware
-    app.use(express.bodyParser());
-
     // Start listening for connections
     server.listen(3002);
 
