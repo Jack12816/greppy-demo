@@ -1,5 +1,14 @@
 script.
 
+  // wrap twitter bs events to prevent race conditions
+  $('.btn').on({
+    change : function(e) {
+      setTimeout(function() {
+        $(e.currentTarget).trigger('lateChange');
+      }, 20);
+    }
+  });
+
   $(document).on('click', '.datagrid .delete', function() {
 
     var id = $(this).attr('data-id');
@@ -57,8 +66,8 @@ script.
     this.sort    = new Sort(this, table);
     this.options = options;
 
-    this.options.softDeletion = ('undefined' !== typeof options.softDeletion)
-      ? options.softDeletion : true;
+    this.options.softDeletion = ('undefined' !== typeof options.softDeletion) ?
+      options.softDeletion : true;
   }
 
   /**
@@ -137,25 +146,20 @@ script.
 
     // Bind events
 
-    // Search button clicked
-    $('#search-btn').click(function() {
-      self.datagrid.load();
-    });
-
-    // Search button clicked
-    $('#search-trash').click(function() {
-      self.datagrid.load();
+    // Search or trash button clicked
+    $('#search-btn, #search-trash').on('lateChange', function() {
+        self.datagrid.load();
     });
 
     // Search selector clicked
-    $('.search-trigger').click(function() {
+    $('.search-trigger').on('click', function() {
       var cur = $(this).parent();
       self.setting(cur.attr('data-property'), cur.text());
       $('#search-input').focus();
     });
 
     // Clear search button clicked
-    $('#search-clear').click(function() {
+    $('#search-clear').on('click', function() {
       self.clear();
       self.setting('fuzzy');
       self.datagrid.reset();
@@ -234,7 +238,7 @@ script.
     // Bind events
 
     // Table header clicked
-    this.datagridElement.find($('th[data-property] span')).click(function() {
+    this.datagridElement.find($('th[data-property] span')).on('click', function() {
       self.toggle($(this).parent());
     });
   }
