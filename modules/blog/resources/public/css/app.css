@@ -20,9 +20,27 @@ body {
     white-space: nowrap;
 }
 
-.center {
-    text-align: center;
+.small-gutter {
+    padding-right: 0px;
+    padding-left: 8px;
 }
+
+.page-headline .input-group-btn > .btn + .btn {
+    margin-left: -8px !important;
+}
+
+.datagrid th {
+    cursor: pointer;
+}
+
+.search-trigger:hover {
+    color: #428BCA;
+}
+
+
+
+
+
 
 /* Sticky footer styles
 -------------------------------------------------- */

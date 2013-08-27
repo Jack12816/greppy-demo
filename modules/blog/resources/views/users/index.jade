@@ -3,30 +3,20 @@ extends ../layout
 block content
 
   h2.page-headline Users
-    .pull-right
-      include _operations
+    include _search
 
   - if ('undefined' !== typeof users && users.length > 0)
 
-    table.table.table-bordered.table-striped
+    table.table.table-bordered.table-striped.datagrid
       thead
         tr
           th Status
-          th Fullname
-          th Email
-          th.no-wrap Created at
+          th(data-property="fullname") Fullname
+          th(data-property="email") Email
+          th.no-wrap(data-property="created_at") Created at
           th Operations
       tbody
-        - each user in users
-          tr(class="#{user.deleted_at ? 'danger' : ''}")
-            td.min.center
-              i(title="User is #{user.deleted_at ? '' : 'not'} deleted",
-                data-toggle="tooltip", class="#{user.deleted_at ? 'icon-remove' : 'icon-ok'}")
-            td #{user.fullname}
-            td #{user.email}
-            td.min #{helper.date.format(user.created_at, 'L')}
-            td.min.no-wrap
-              include _operations
+        include _index_rows
 
   - else
 

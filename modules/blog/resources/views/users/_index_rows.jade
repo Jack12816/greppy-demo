@@ -1,0 +1,11 @@
+- each user in users
+  tr(class="#{user.deleted_at ? 'danger' : ''}")
+    td.min.text-center
+      i(title="User is #{user.deleted_at ? '' : 'not'} deleted",
+        data-toggle="tooltip", class="#{user.deleted_at ? 'icon-remove' : 'icon-ok'}")
+    td #{user.fullname}
+    td #{user.email}
+    td.min #{helper.date.format(user.created_at, 'L')}
+    td.min.no-wrap
+      include _operations
+
