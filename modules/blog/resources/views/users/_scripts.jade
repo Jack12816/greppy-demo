@@ -6,7 +6,7 @@ script.
   $(document).on('click', '.datagrid .delete', function() {
 
     var id = $(this).attr('data-id');
-    app.dialog(
+    greppy.app.dialog(
       'Do you really want to delete this user?',
       {
         ok: function(callback) {
@@ -30,7 +30,7 @@ script.
   $(document).on('click', '.datagrid .restore', function() {
 
     var id = $(this).attr('data-id');
-    app.dialog(
+    greppy.app.dialog(
       'Do you really want to restore this user?',
       {
         ok: function(callback) {

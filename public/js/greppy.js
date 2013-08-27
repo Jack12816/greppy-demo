@@ -111,19 +111,16 @@ greppy.DataGrid = function(table, options)
 }
 
 /**
- * Perform a AJAX request with given params.
- * And fill the table with the results.
+ * Build URL with given params.
  *
  * @params {Array} params - Parameters to add to the request
  * @return void
  */
-greppy.DataGrid.prototype.loadAndRebuild = function(params)
+greppy.DataGrid.prototype.buildUrl = function(params)
 {
     var self = this;
     var url  = document.URL;
-    params = params || [];
-
-    params.unshift({name: 'render', value: 'rows'});
+    params   = params || [];
 
     if (this.options.softDeletion) {
 
@@ -144,9 +141,26 @@ greppy.DataGrid.prototype.loadAndRebuild = function(params)
         url += ('&' + param.name + '=' + encodeURIComponent(param.value));
     });
 
+    return url;
+}
+
+/**
+ * Perform an AJAX request to load table rows
+ * and fill the table with the results.
+ *
+ * @return void
+ */
+greppy.DataGrid.prototype.loadAndRebuild = function(params)
+{
+    var self = this;
+    params   = params || [];
+    params.unshift({name: 'render', value: 'rows'});
+
+    this.paginate.load();
+
     $.ajax({
         type : "GET",
-        url  : url,
+        url  : this.buildUrl(params)
     }).done(function(data) {
         self.table.find('tr').not(':first').remove();
         self.table.find('tbody').append(data);
@@ -363,9 +377,34 @@ greppy.Paginator = function(datagrid, datagridElement)
     // Bind events
 
     // Page clicked
-    $('.pagination a[data-page]').click(function() {
+    $(document).on('click', '.pagination a[data-page]', function() {
         self.page = $(this).attr('data-page');
         self.datagrid.load();
+        self.load();
+    });
+}
+
+
+/**
+ * Load the pagination partial.
+ *
+ * @return void
+ */
+greppy.Paginator.prototype.load = function()
+{
+    var params = [];
+
+    params = params.concat(this.datagrid.search.getParameters());
+    params = params.concat(this.datagrid.sort.getParameters());
+    params = params.concat(this.datagrid.paginate.getParameters());
+
+    params.unshift({name: 'render', value: 'pagination'});
+
+    $.ajax({
+        type : "GET",
+        url  : this.datagrid.buildUrl(params)
+    }).done(function(data) {
+        $('.pagination').html(data);
     });
 }
 

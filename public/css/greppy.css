@@ -32,3 +32,10 @@
     color: #428BCA;
 }
 
+.small-bottom-margin {
+    margin : 0px 0px 5px 0px;
+}
+
+.pointer {
+    cursor : pointer;
+}

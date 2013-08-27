@@ -7,7 +7,7 @@ block content
 
   - if ('undefined' !== typeof users && users.length > 0)
 
-    table.table.table-bordered.table-striped.datagrid
+    table.table.table-bordered.table-striped.datagrid.small-bottom-margin
       thead
         tr
           th Status
@@ -17,6 +17,8 @@ block content
           th Operations
       tbody
         include _index_rows
+
+    include _pagination
 
   - else
 

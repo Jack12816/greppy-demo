@@ -28,7 +28,11 @@ UsersController.prototype.actions.index =
     methods : ['GET'],
     action  : function(req, res) {
 
-        var criteria = greppy.helper.get('controller.data-grid').buildCriteria(req, res, {
+        var connection     = 'mysql.demo';
+        var entity         = 'User';
+        var criteriaHelper = greppy.helper.get('controller.data-grid');
+
+        var criteria = criteriaHelper.buildCriteria(req, res, {
             limit        : 10,
             properties   : ['fullname', 'email', 'created_at'],
             fuzzySearch  : true,
@@ -39,17 +43,56 @@ UsersController.prototype.actions.index =
             return;
         }
 
-        greppy.db.get('mysql.demo').getORM(function(orm, models) {
+        var count = function(callback) {
 
-            models.User.findAll(criteria).success(function(records) {
+            criteriaHelper.buildPagination(criteria, {
+                connection : connection,
+                entity     : entity
+            }, function(err, pagination) {
 
-                // Render the view
-                res.render('users/' + criteria.view, {
-                    users : records
+                if (err) {
+                    console.log(err);
+                    return res.end();
+                }
+
+                callback && callback(pagination);
+            });
+        };
+
+        var fetch = function(callback) {
+
+            greppy.db.get(connection).getORM(function(orm, models) {
+
+                models[entity].findAll(criteria).success(function(records) {
+
+                    callback && callback(undefined, records);
+
+                }).error(function(err) {
+                    console.log(err);
                 });
+            });
+        };
 
-            }).error(function(err) {
-                console.log(err);
+        var render = function(pagination, records) {
+
+            // Render the view
+            res.render('users/' + criteria.view, {
+                users      : records,
+                pagination : pagination
+            });
+        };
+
+        if ('_index_rows' === criteria.view) {
+            return fetch(render);
+        }
+
+        if ('_pagination' === criteria.view) {
+            return count(render);
+        }
+
+        fetch(function(err, records) {
+            count(function(pagination) {
+                render(pagination, records);
             });
         });
     }
