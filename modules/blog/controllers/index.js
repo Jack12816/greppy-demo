@@ -29,7 +29,23 @@ IndexController.prototype.actions.index =
     action  : function(req, res) {
 
         // Render the view
-        res.render('app/home');
+        
+        
+        greppy.db.get('mysql.demo').getORM(function(orm, models) {
+
+            models.Post.findAll().success(function(records) {
+
+                // Render the view
+                res.render('app/home', {
+                    posts : records
+                });
+                
+            }).error(function(err) {
+                console.log(err);
+            });
+        });
+        
+        
     }
 };
 
