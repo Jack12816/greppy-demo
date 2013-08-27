@@ -9,6 +9,12 @@ module.exports = function(orm, models, share, utils, callback)
             'slug': 'test',
             'title': 'test',
             'content': 'test',
+        },
+        {
+            'author_id': '1338',
+            'slug': 'test2',
+            'title': 'I\'m test no. 2 ...',
+            'content': '... and I\'m one step ahead!'
         }
     ];
 
