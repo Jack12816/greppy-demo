@@ -25,5 +25,12 @@ block content
 
     p No users present.
 
-  include _scripts
+  script.
+
+    /**
+     * Build DataGrid instances for the whole index page
+     */
+    var datagrid = new greppy.DataGrid($('table.datagrid'), {
+      softDeletion: true
+    });
 
