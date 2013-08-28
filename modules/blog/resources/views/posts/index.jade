@@ -2,18 +2,18 @@ extends ../layout
 
 block content
 
-  h2.page-headline Users
+  h2.page-headline Posts
     include _search
 
-  - if ('undefined' !== typeof users && users.length > 0)
+  - if ('undefined' !== typeof posts && posts.length > 0)
 
     table.table.table-bordered.table-striped.datagrid.small-bottom-margin
       thead
         tr
           th Status
-          th(data-property="fullname") Fullname
-          th(data-property="email") Email
-          th(data-property="password") Password
+          th(data-property="slug") Slug
+          th(data-property="title") Title
+          th(data-property="content") Content
           th.no-wrap(data-property="created_at") Created at
           th Operations
       tbody
@@ -23,7 +23,7 @@ block content
 
   - else
 
-    p No users present.
+    p No posts present.
 
   include _scripts
 

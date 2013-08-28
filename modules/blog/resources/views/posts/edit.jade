@@ -2,9 +2,9 @@ extends ../layout
 
 block content
 
-  - if (null !== user)
+  - if (null !== post)
 
-    h2.page-headline Edit user details
+    h2.page-headline Edit post details
       .pull-right
         include _operations
 
@@ -13,7 +13,7 @@ block content
 
   - else
 
-    - var entity = 'User'
+    - var entity = 'Post'
     include ../error/notfound
 
   include _scripts

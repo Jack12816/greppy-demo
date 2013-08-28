@@ -10,18 +10,26 @@ block content
 
     table.table.table-bordered.table-striped
       tbody
+
         tr
           th Fullname
-          td #{user.fullname}
+          td #{ user.fullname }
+
         tr
           th Email
-          td #{user.email}
+          td #{ user.email }
+
+        tr
+          th Password
+          td #{ user.password }
+
         tr
           th Created at
           td #{helper.date.format(user.created_at, 'LLLL')}
-        tr(class="#{user.deleted_at ? 'danger' : 'success'}")
+
+        tr(class="#{ user.deleted_at ? 'danger' : 'success' }")
           th Deleted
-          td #{user.deleted_at ? 'Yes' : 'No'}
+          td #{ user.deleted_at ? 'Yes' : 'No' }
 
   - else
 

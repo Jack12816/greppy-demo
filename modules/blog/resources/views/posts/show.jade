@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+
+  - if (null !== post)
+
+    h2.page-headline Post details
+      .pull-right
+        include _operations
+
+    table.table.table-bordered.table-striped
+      tbody
+
+        tr
+          th Slug
+          td #{ post.slug }
+
+        tr
+          th Title
+          td #{ post.title }
+
+        tr
+          th Content
+          td #{ post.content }
+
+        tr
+          th Created at
+          td #{helper.date.format(post.created_at, 'LLLL')}
+
+        tr(class="#{ post.deleted_at ? 'danger' : 'success' }")
+          th Deleted
+          td #{ post.deleted_at ? 'Yes' : 'No' }
+
+  - else
+
+    - var entity = 'Post'
+    include ../error/notfound
+
+  include _scripts
+

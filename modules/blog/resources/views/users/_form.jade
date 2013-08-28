@@ -6,34 +6,32 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
       input.form-control(
         type="text",
         name="user_fullname"
-        placeholder="Fullname of the user",
-        required="required",
-        value="#{(typeof user !== 'undefined') ? user.fullname : ''}")
+        placeholder="Just type the fullname ..",
+        value="#{('undefined' !== typeof user && null !== user) ? user.fullname : ''}")
       span.help-block.
-        Some help tests for the user
+        Some useful hints for the fullname input
 
   .form-group
     label.col-lg-2.control-label Email
     .col-lg-10
       input.form-control(
-        type="email",
+        type="text",
         name="user_email"
-        placeholder="Email of the user",
-        required="required",
-        value="#{(typeof user !== 'undefined') ? user.email : ''}")
+        placeholder="Just type the email ..",
+        value="#{('undefined' !== typeof user && null !== user) ? user.email : ''}")
       span.help-block.
-        Some help tests for the user
+        Some useful hints for the email input
 
   .form-group
     label.col-lg-2.control-label Password
     .col-lg-10
       input.form-control(
-        type="password",
+        type="text",
         name="user_password"
-        required="required",
-        value="")
+        placeholder="Just type the password ..",
+        value="#{('undefined' !== typeof user && null !== user) ? user.password : ''}")
       span.help-block.
-        Some help tests for the user
+        Some useful hints for the password input
 
   .form-group
     .col-lg-offset-2.col-lg-10
@@ -41,5 +39,4 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
         i.icon-ok
         &nbsp;
         | #{response.action === 'create' ? 'Create' : 'Save'}
-
 

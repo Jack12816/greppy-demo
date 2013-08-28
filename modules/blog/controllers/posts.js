@@ -1,7 +1,7 @@
 /**
- * User Controller
+ * Post Controller
  *
- * @module blog/controller/users
+ * @module blog/controller/posts
  * @author Hermann Mayer <hermann.mayer92@gmail.com>
  */
 
@@ -13,32 +13,32 @@ var dataGrid = greppy.helper.get('controller.data-grid');
 /**
  * @constructor
  */
-var UsersController = function()
+var PostsController = function()
 {
 };
 
 /**
  * Extend Greppy framework base controller
  */
-util.inherits(UsersController, greppy.get('http.mvc.controller'));
+util.inherits(PostsController, greppy.get('http.mvc.controller'));
 
 /**
- * Deliver the users overview page.
+ * Deliver the posts overview page.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.index =
+PostsController.prototype.actions.index =
 {
     methods : ['GET'],
     action  : function(req, res) {
 
         var connection = 'mysql.demo';
-        var entity     = 'User';
+        var entity     = 'Post';
 
         var criteria = dataGrid.buildCriteria(req, res, {
             limit        : 10,
-            properties   : ['fullname', 'email', 'password', 'created_at'],
+            properties   : ['slug', 'title', 'content', 'created_at'],
             fuzzySearch  : true,
             softDeletion : true
         });
@@ -78,8 +78,8 @@ UsersController.prototype.actions.index =
         var render = function(pagination, records) {
 
             // Render the view
-            res.render('users/' + criteria.view, {
-                users: records,
+            res.render('posts/' + criteria.view, {
+                posts: records,
                 pagination: pagination
             });
         };
@@ -101,12 +101,12 @@ UsersController.prototype.actions.index =
 };
 
 /**
- * Deliver the user details page.
+ * Deliver the post details page.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.show =
+PostsController.prototype.actions.show =
 {
     path    : '/:id',
     methods : ['GET'],
@@ -114,11 +114,11 @@ UsersController.prototype.actions.show =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.User.find(req.params.id).success(function(record) {
+            models.Post.find(req.params.id).success(function(record) {
 
                 // Render the view
-                res.render('users/show', {
-                    user: record
+                res.render('posts/show', {
+                    post: record
                 });
 
             }).error(function(err) {
@@ -129,33 +129,33 @@ UsersController.prototype.actions.show =
 };
 
 /**
- * Deliver the new user page.
+ * Deliver the new post page.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.new =
+PostsController.prototype.actions.new =
 {
     methods : ['GET'],
     action  : function(req, res) {
 
         // Render the view
-        res.render('users/new', {
+        res.render('posts/new', {
             response: {
                 action : 'create',
-                path   : '/users'
+                path   : '/posts'
             }
         });
     }
 };
 
 /**
- * Deliver the edit user page.
+ * Deliver the edit post page.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.edit =
+PostsController.prototype.actions.edit =
 {
     path    : '/:id/edit',
     methods : ['GET'],
@@ -163,15 +163,15 @@ UsersController.prototype.actions.edit =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.User.find(req.params.id).success(function(record) {
+            models.Post.find(req.params.id).success(function(record) {
 
                 // Render the view
-                res.render('users/edit', {
+                res.render('posts/edit', {
                     response: {
                         action : 'update',
-                        path   : '/users/' + req.params.id
+                        path   : '/posts/' + req.params.id
                     },
-                    user: record
+                    post: record
                 });
 
             }).error(function(err) {
@@ -182,12 +182,12 @@ UsersController.prototype.actions.edit =
 };
 
 /**
- * Backend action to persist a new user.
+ * Backend action to persist a new post.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.create =
+PostsController.prototype.actions.create =
 {
     path    : '/',
     methods : ['POST'],
@@ -195,10 +195,11 @@ UsersController.prototype.actions.create =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            var record = models.User.build({
-                fullname: req.body.user_fullname,
-                email: req.body.user_email,
-                password: req.body.user_password,
+            var record = models.Post.build({
+                author_id: 1,
+                slug: req.body.post_slug,
+                title: req.body.post_title,
+                content: req.body.post_content,
             });
 
             var validErr = record.validate();
@@ -206,12 +207,12 @@ UsersController.prototype.actions.create =
             if (validErr) {
 
                 form.logAndFlash(req, validErr);
-                return res.redirect('/users/new');
+                return res.redirect('/posts/new');
 
             } else {
 
                 record.save().success(function(record) {
-                    res.redirect('/users/' + record.id);
+                    res.redirect('/posts/' + record.id);
                 }).error(function(err) {
                     error.showErrorPage(req, res, err);
                 });
@@ -221,12 +222,12 @@ UsersController.prototype.actions.create =
 };
 
 /**
- * Backend action to persist the changed user details.
+ * Backend action to persist the changed post details.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.update =
+PostsController.prototype.actions.update =
 {
     path    : '/:id',
     methods : ['POST'],
@@ -234,27 +235,27 @@ UsersController.prototype.actions.update =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.User.find(req.params.id).success(function(record) {
+            models.Post.find(req.params.id).success(function(record) {
 
                 if (!record) {
-                    return res.redirect('/users');
+                    return res.redirect('/posts');
                 }
 
-                record.fullname = req.body.user_fullname;
-                record.email = req.body.user_email;
-                record.password = req.body.user_password;
+                record.slug = req.body.post_slug;
+                record.title = req.body.post_title;
+                record.content = req.body.post_content;
 
                 var validErr = record.validate();
 
                 if (validErr) {
 
                     form.logAndFlash(req, validErr);
-                    return res.redirect('/users/' + record.id + '/edit');
+                    return res.redirect('/posts/' + record.id + '/edit');
 
                 } else {
 
                     record.save().success(function(record) {
-                        res.redirect('/users/' + record.id);
+                        res.redirect('/posts/' + record.id);
                     }).error(function(err) {
                         error.showErrorPage(req, res, err);
                     });
@@ -268,12 +269,12 @@ UsersController.prototype.actions.update =
 };
 
 /**
- * Backend action to delete a user.
+ * Backend action to delete a post.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.destroy =
+PostsController.prototype.actions.destroy =
 {
     path    : '/:id',
     methods : ['DELETE'],
@@ -281,7 +282,7 @@ UsersController.prototype.actions.destroy =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.User.find(req.params.id).success(function(record) {
+            models.Post.find(req.params.id).success(function(record) {
 
                 if (!record) {
                     return res.end();
@@ -303,12 +304,12 @@ UsersController.prototype.actions.destroy =
 };
 
 /**
- * Backend action to restore a user.
+ * Backend action to restore a post.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.restore =
+PostsController.prototype.actions.restore =
 {
     path    : '/:id/restore',
     methods : ['POST'],
@@ -316,7 +317,7 @@ UsersController.prototype.actions.restore =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.User.find(req.params.id).success(function(record) {
+            models.Post.find(req.params.id).success(function(record) {
 
                 if (!record) {
                     return res.end();
@@ -337,5 +338,5 @@ UsersController.prototype.actions.restore =
     }
 };
 
-module.exports = UsersController;
+module.exports = PostsController;
 

@@ -26,14 +26,14 @@ module.exports = function(sequelize, DataTypes)
             slug: {
                 type     : DataTypes.STRING,
                 validate : {
-                    notEmpty: false
+                    notEmpty: true
                 }
             },
 
             title: {
                 type     : DataTypes.STRING,
                 validate : {
-                    notEmpty: false
+                    notEmpty: true
                 }
             },
 

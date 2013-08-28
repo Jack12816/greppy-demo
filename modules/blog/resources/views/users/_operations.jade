@@ -19,22 +19,22 @@
     - if ('show' != req.greppy.route.action)
 
       &nbsp;
-      a.btn.btn-default(href="/users/#{user.id}", title="Show user details")
+      a.btn.btn-default(href="/users/#{ user.id }", title="Show user details")
         i.icon-search
 
     &nbsp;
-    a.btn.btn-warning(href="/users/#{user.id}/edit", title="Edit this user")
+    a.btn.btn-warning(href="/users/#{ user.id }/edit", title="Edit this user")
       i.icon-pencil
 
     &nbsp;
 
     - if (!user.deleted_at)
 
-      a.btn.btn-danger.delete(title="Delete", data-id="#{user.id}")
+      a.btn.btn-danger.delete(title="Delete", data-id="#{ user.id }")
         i.icon-trash
 
     - else
 
-      a.btn.btn-success.restore(title="Restore", data-id="#{user.id}")
+      a.btn.btn-success.restore(title="Restore", data-id="#{ user.id }")
         i.icon-refresh
 

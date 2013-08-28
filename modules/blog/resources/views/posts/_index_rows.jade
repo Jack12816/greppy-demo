@@ -1,0 +1,16 @@
+- each post in posts
+
+  tr(class="#{ post.deleted_at ? 'danger' : '' }")
+
+    td.min.text-center
+      i(title="Post is #{ post.deleted_at ? '' : 'not' } deleted",
+        data-toggle="tooltip", class="#{ post.deleted_at ? 'icon-remove' : 'icon-ok' }")
+
+    td #{ post.slug }
+    td #{ post.title }
+    td #{ post.content }
+
+    td.min #{helper.date.format(post.created_at, 'L')}
+    td.min.no-wrap
+      include _operations
+
