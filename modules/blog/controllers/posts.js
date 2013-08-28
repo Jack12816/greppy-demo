@@ -2,7 +2,7 @@
  * Post Controller
  *
  * @module blog/controller/posts
- * @author Hermann Mayer <hermann.mayer92@gmail.com>
+ * @author Hermann Mayer <jack@hermann-mayer.net>
  */
 
 // Define default helper set

@@ -2,7 +2,7 @@
  * User Controller
  *
  * @module blog/controller/users
- * @author Hermann Mayer <hermann.mayer92@gmail.com>
+ * @author Hermann Mayer <jack@hermann-mayer.net>
  */
 
 // Define default helper set
