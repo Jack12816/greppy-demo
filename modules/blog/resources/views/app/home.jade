@@ -13,11 +13,4 @@ block content
     p.
       It is the requirement for any scaffolding implementation.
 
-    h2 Blog overview
-
-    ul.postList
-      each post in posts
-        li.jumbotron.post
-          h3
-            a(href="/index/" + post.slug)= post.title
-          div= post.content
+    include post-list

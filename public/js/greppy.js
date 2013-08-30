@@ -30,7 +30,7 @@ greppy.Application.prototype.dialog = function(body, options, buttons)
                     + '</div></div></div></div>';
 
     options = options || {};
-    options.header = options.header || 'Confirmation requested';
+    options.header = options.header || 'Confirmation required';
 
     template = template.replace(
         '{{header}}', '<h4 class="modal-title">' + options.header + '</h4>'
@@ -430,6 +430,7 @@ greppy.Sort.prototype.getParameters = function()
 greppy.Paginator = function(datagrid, datagridElement)
 {
     var self             = this;
+    var doc              = $(document);
     this.datagrid        = datagrid;
     this.datagridElement = datagridElement;
     this.page            = 1;
@@ -437,19 +438,24 @@ greppy.Paginator = function(datagrid, datagridElement)
     // Bind events
 
     // Page clicked
-    $(document).on('click', '.pagination a[data-page]', function() {
+    doc.on('click', '.pagination a[data-page]', function() {
         self.page = $(this).attr('data-page');
         self.datagrid.load();
         self.load();
     });
 
     // Page limit changed
-    $(document).on('change', '#pagination-limit', function() {
+    doc.on('change', '#pagination-limit', function() {
         self.datagrid.load();
     });
 
     // Keyboard usage events
-    $(document).keydown(function(e) {
+    doc.on('keydown', function(e) {
+
+        // dont process event, if editing a text
+        if ($('input, textarea').is(':focus')) {
+            return;
+        }
 
         // Left arrow pressed
         if (37 == e.keyCode) {

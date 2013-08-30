@@ -10,6 +10,8 @@
       ul.nav.navbar-nav
         li(class="#{helper.route.current(url, '/', 'active')}")
           a(href='/') Home
+        li(class="#{helper.route.current(url, /^\/posts/i, 'active')}")
+          a(href='/posts') Posts
         li(class="#{helper.route.current(url, /^\/users/i, 'active')}")
           a(href='/users') Users
-
+        

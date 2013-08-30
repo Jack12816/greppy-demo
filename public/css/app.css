@@ -1,3 +1,5 @@
-.postList{padding-left:0;list-style-type:none}
+.postList{padding-left:0;margin-top:16px;list-style-type:none}
 
-.post{padding:20px}
+.post h4, .post p{margin:0}
+
+.post h4 a:hover{text-decoration:none}
