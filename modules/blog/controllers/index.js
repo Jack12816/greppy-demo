@@ -36,7 +36,7 @@ IndexController.prototype.actions.index =
                 
                 // Render the view
                 res.render('app/home', {
-                    posts : records,
+                    posts : records
                 });
                 
             }).error(function(err) {
