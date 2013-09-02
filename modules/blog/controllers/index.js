@@ -31,20 +31,19 @@ IndexController.prototype.actions.index =
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
             models.Post.findAll({
-                include: [{model: models.User, as: 'Author'}]
+                include: [{model: models.User, as: 'Author'}],
+                limit: 20
             }).success(function(records) {
-                
+
                 // Render the view
                 res.render('app/home', {
                     posts : records
                 });
-                
+
             }).error(function(err) {
                 console.log(err);
             });
         });
-        
-        
     }
 };
 
