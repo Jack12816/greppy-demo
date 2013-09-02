@@ -18,29 +18,36 @@ module.exports = function(sequelize, DataTypes)
 
             role_id: {
                 type: DataTypes.INTEGER,
+                allowNull: false,
+                defaultValue: 1,
                 validate: {
-                    isInt: true
+                    isInt: true,
+                    notEmpty: false
                 }
             },
 
             fullname: {
                 type: DataTypes.STRING,
+                allowNull: false,
                 validate: {
-                    notEmpty: true
+                    notEmpty: false
                 }
             },
 
             email: {
                 type: DataTypes.STRING,
+                allowNull: false,
                 validate: {
-                    isEmail: true
+                    isEmail: true,
+                    notEmpty: false
                 }
             },
 
             password: {
                 type: DataTypes.STRING,
+                allowNull: false,
                 validate: {
-                    notEmpty: true
+                    notEmpty: false
                 }
             },
 
@@ -59,9 +66,8 @@ module.exports = function(sequelize, DataTypes)
     );
 
     model.info = {
-        singular: 'User',
-        plural: 'Users',
-        path: '/users'
+        singular : 'User',
+        plural   : 'Users'
     };
 
     return model;

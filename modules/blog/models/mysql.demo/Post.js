@@ -11,35 +11,41 @@ module.exports = function(sequelize, DataTypes)
         // Define all properties for the model
         {
             id: {
-                type          : DataTypes.INTEGER,
-                primaryKey    : true,
-                autoIncrement : true
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+                autoIncrement: true
             },
 
             author_id: {
-                type     : DataTypes.INTEGER,
-                validate : {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                defaultValue: 1,
+                validate: {
+                    isInt: true,
                     notEmpty: false
                 }
             },
 
             slug: {
-                type     : DataTypes.STRING,
-                validate : {
-                    notEmpty: true
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    notEmpty: false
                 }
             },
 
             title: {
-                type     : DataTypes.STRING,
-                validate : {
-                    notEmpty: true
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    notEmpty: false
                 }
             },
 
             content: {
-                type     : DataTypes.TEXT,
-                validate : {
+                type: DataTypes.TEXT,
+                allowNull: false,
+                validate: {
                     notEmpty: false
                 }
             },

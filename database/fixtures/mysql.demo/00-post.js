@@ -3,20 +3,18 @@
  */
 module.exports = function(orm, models, share, utils, callback)
 {
-    var records = [
-        {
-            'author_id': 1337,
-            'slug': 'test',
-            'title': 'test',
-            'content': 'test',
-        },
-        {
-            'author_id': '1338',
-            'slug': 'test2',
-            'title': 'I\'m test no. 2 ...',
-            'content': '... and I\'m one step ahead!'
-        }
-    ];
+    var records = [];
+
+    for (var i = 0; i < 100; i++) {
+
+        records.push({
+            author_id: 1,
+            slug: utils.content.word(),
+            title: utils.content.wordgroup(),
+            content: utils.content.text(),
+            deleted_at: utils.content.optional(utils.content.date())
+        });
+    }
 
     async.map(records, function(record, callback) {
 

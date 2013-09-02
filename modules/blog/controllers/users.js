@@ -196,7 +196,6 @@ UsersController.prototype.actions.create =
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
             var record = models.User.build({
-                role_id: 1,
                 fullname: req.body.user_fullname,
                 email: req.body.user_email,
                 password: req.body.user_password,
