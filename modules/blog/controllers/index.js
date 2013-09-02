@@ -28,16 +28,15 @@ IndexController.prototype.actions.index =
     methods : ['GET'],
     action  : function(req, res) {
 
-        // Render the view
-        
-        
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.Post.findAll().success(function(records) {
-
+            models.Post.findAll({
+                include: [{model: models.User, as: 'Author'}]
+            }).success(function(records) {
+                
                 // Render the view
                 res.render('app/home', {
-                    posts : records
+                    posts : records,
                 });
                 
             }).error(function(err) {
