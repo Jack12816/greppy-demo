@@ -30,11 +30,61 @@
 
     - if (!post.deleted_at)
 
-      a.btn.btn-danger.delete(title="Delete", data-id="#{ post.id }")
+      a.btn.btn-danger.delete-operation(title="Delete", data-id="#{ post.id }")
         i.icon-trash
 
     - else
 
-      a.btn.btn-success.restore(title="Restore", data-id="#{ post.id }")
+      a.btn.btn-success.restore-operation(title="Restore", data-id="#{ post.id }")
         i.icon-refresh
+
+script.
+
+  /**
+   * Delete popup bindings
+   */
+  $(document).on('click', '.delete-operation', function() {
+
+    var id = $(this).attr('data-id');
+    greppy.app.dialog(
+      'Do you really want to delete this post?',
+      {
+        ok: function(callback) {
+
+          $.ajax({
+              type: "DELETE",
+              url: "/posts/" + id
+          }).done(function(data) {
+              window.location.reload();
+          });
+
+          callback && callback();
+        }
+      }
+    );
+  });
+
+  /**
+   * Restore popup bindings
+   */
+  $(document).on('click', '.restore-operation', function() {
+
+    var id = $(this).attr('data-id');
+    greppy.app.dialog(
+      'Do you really want to restore this post?',
+      {
+        ok: function(callback) {
+
+          $.ajax({
+              type: "POST",
+              url: "/posts/" + id + '/restore'
+          }).done(function(data) {
+              window.location.reload();
+          });
+
+          callback && callback();
+        }
+      }
+    );
+  });
 

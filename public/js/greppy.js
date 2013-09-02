@@ -172,7 +172,7 @@ greppy.DataGrid.prototype.loadAndRebuild = function(params)
             self.table.find('tbody').append(data);
             self.table.trigger('g.datagrid.rebuilt');
     });
-    
+
     this.table.trigger('g.datagrid.loading');
 }
 
@@ -205,13 +205,13 @@ greppy.DataGrid.prototype.load = function()
 
 /**
  * Initializes the overlay for page changes of DataGrids.
- * 
+ *
  * @returns {undefined}
  */
 greppy.DataGrid.prototype.initOverlay = function() {
     var self      = this;
     var overlayId = 'gOverlay';
-    
+
     this.table.on({
         'g.datagrid.loading': function() {
             self.table.find('#' + overlayId).remove();
@@ -238,7 +238,7 @@ greppy.DataGrid.prototype.initOverlay = function() {
 
 /**
  * Initializes the spinner animation for a given target.
- * 
+ *
  * @param {obj} non-jQuery object where the spinner is placed
  * @returns {undefined}
  */
@@ -249,7 +249,7 @@ greppy.DataGrid.prototype.initSpinner = function(target) {
         width  : 5,
         radius : 20
     };
-    
+
     this.spinner = new Spinner(opts).spin(target);
 };
 
@@ -275,8 +275,15 @@ greppy.Search = function(datagrid, datagridElement)
     // Bind events
 
     // Search or trash button clicked
-    $('#search-trash').on('g.change', function() {self.datagrid.load();});
-    $('#search-btn').on('click', function() {self.datagrid.load();});
+    $('#search-trash').on('g.change', function() {
+        self.datagrid.paginate.page = 1;
+        self.datagrid.load();
+    });
+
+    $('#search-btn').on('click', function() {
+        self.datagrid.paginate.page = 1;
+        self.datagrid.load();}
+    );
 
     // Search selector clicked
     $('.search-trigger').on('click', function() {

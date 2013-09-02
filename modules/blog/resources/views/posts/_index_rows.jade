@@ -6,9 +6,9 @@
       i(title="Post is #{ post.deleted_at ? '' : 'not' } deleted",
         data-toggle="tooltip", class="#{ post.deleted_at ? 'icon-remove' : 'icon-ok' }")
 
-    td #{ post.slug }
-    td #{ post.title }
-    td #{ post.content }
+    td #{ new String(post.slug).words(30) }
+    td #{ new String(post.title).words(30) }
+    td #{ new String(post.content).words(30) }
 
     td.min #{helper.date.format(post.created_at, 'L')}
     td.min.no-wrap

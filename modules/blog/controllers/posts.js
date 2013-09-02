@@ -196,10 +196,9 @@ PostsController.prototype.actions.create =
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
             var record = models.Post.build({
-                author_id: 1,
-                slug: req.body.post_slug,
-                title: req.body.post_title,
-                content: req.body.post_content,
+                slug: (req.body.post_slug).trim(),
+                title: (req.body.post_title).trim(),
+                content: (req.body.post_content).trim(),
             });
 
             var validErr = record.validate();
@@ -241,9 +240,9 @@ PostsController.prototype.actions.update =
                     return res.redirect('/posts');
                 }
 
-                record.slug = req.body.post_slug;
-                record.title = req.body.post_title;
-                record.content = req.body.post_content;
+                record.slug = (req.body.post_slug).trim();
+                record.title = (req.body.post_title).trim();
+                record.content = (req.body.post_content).trim();
 
                 var validErr = record.validate();
 

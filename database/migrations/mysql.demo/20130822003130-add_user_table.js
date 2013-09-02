@@ -1,5 +1,5 @@
 /**
- * Posts Migration
+ * Users Migration
  */
 module.exports = {
 
@@ -9,7 +9,7 @@ module.exports = {
         migration.createTable(
 
             // Define name of the table
-            'Posts',
+            'Users',
 
             // Define all columns for the table
             {
@@ -19,24 +19,24 @@ module.exports = {
                     primaryKey: true
                 },
 
-                author_id: {
+                role_id: {
                     type: DataTypes.INTEGER,
                     defaultValue: 1,
                     allowNull: false
                 },
 
-                slug: {
+                fullname: {
                     type: DataTypes.STRING,
                     allowNull: false
                 },
 
-                title: {
+                email: {
                     type: DataTypes.STRING,
                     allowNull: false
                 },
 
-                content: {
-                    type: DataTypes.TEXT,
+                password: {
+                    type: DataTypes.STRING,
                     allowNull: false
                 },
 
@@ -70,6 +70,6 @@ module.exports = {
     // Backward-migration method
     down: function(migration, DataTypes, done)
     {
-        migration.dropTable('Posts').complete(done);
+        migration.dropTable('Users').complete(done);
     }
 }

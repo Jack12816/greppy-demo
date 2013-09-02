@@ -20,10 +20,6 @@ block content
           td #{ user.email }
 
         tr
-          th Password
-          td #{ user.password }
-
-        tr
           th Created at
           td #{helper.date.format(user.created_at, 'LLLL')}
 

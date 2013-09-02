@@ -27,9 +27,8 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
     .col-lg-10
       textarea.form-control(
         name="post_content"
-        placeholder="Just type the content ...",
-        required="required")
-        | #{('undefined' !== typeof post && null !== post) ? post.content : ''}
+        placeholder="Just type the content ..",
+        value="#{('undefined' !== typeof post && null !== post) ? post.content : ''}")
       span.help-block.
         Some useful hints for the content input
 
