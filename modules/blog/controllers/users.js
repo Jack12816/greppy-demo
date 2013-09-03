@@ -15,6 +15,8 @@ var dataGrid = greppy.helper.get('controller.data-grid');
  */
 var UsersController = function()
 {
+    // Call the super constructor
+    UsersController.super_.call(this);
 };
 
 /**
@@ -23,12 +25,30 @@ var UsersController = function()
 util.inherits(UsersController, greppy.get('http.mvc.controller'));
 
 /**
+ * Configure the controller.
+ *
+ * @param {Object} app - The application object
+ * @param {Object} server - Server object
+ * @param {Function} callback - Function to call on finish
+ * @return void
+ */
+UsersController.prototype.configure = function(app, server, callback)
+{
+    callback && callback();
+}
+
+/**
+ * Build the controller instance
+ */
+module.exports = UsersController = new UsersController();
+
+/**
  * Deliver the users overview page.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.index =
+UsersController.actions.index =
 {
     methods : ['GET'],
     action  : function(req, res) {
@@ -106,7 +126,7 @@ UsersController.prototype.actions.index =
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.show =
+UsersController.actions.show =
 {
     path    : '/:id',
     methods : ['GET'],
@@ -134,7 +154,7 @@ UsersController.prototype.actions.show =
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.new =
+UsersController.actions.new =
 {
     methods : ['GET'],
     action  : function(req, res) {
@@ -155,7 +175,7 @@ UsersController.prototype.actions.new =
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.edit =
+UsersController.actions.edit =
 {
     path    : '/:id/edit',
     methods : ['GET'],
@@ -187,7 +207,7 @@ UsersController.prototype.actions.edit =
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.create =
+UsersController.actions.create =
 {
     path    : '/',
     methods : ['POST'],
@@ -226,7 +246,7 @@ UsersController.prototype.actions.create =
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.update =
+UsersController.actions.update =
 {
     path    : '/:id',
     methods : ['POST'],
@@ -273,7 +293,7 @@ UsersController.prototype.actions.update =
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.destroy =
+UsersController.actions.destroy =
 {
     path    : '/:id',
     methods : ['DELETE'],
@@ -308,7 +328,7 @@ UsersController.prototype.actions.destroy =
  * @type {ControllerAction}
  * @public
  */
-UsersController.prototype.actions.restore =
+UsersController.actions.restore =
 {
     path    : '/:id/restore',
     methods : ['POST'],

@@ -1,7 +1,7 @@
 /**
- * Post Controller
+ * Comment Controller
  *
- * @module blog/controller/posts
+ * @module blog/controller/comments
  * @author Hermann Mayer <jack@hermann-mayer.net>
  */
 
@@ -13,16 +13,16 @@ var dataGrid = greppy.helper.get('controller.data-grid');
 /**
  * @constructor
  */
-var PostsController = function()
+var CommentsController = function()
 {
     // Call the super constructor
-    PostsController.super_.call(this);
+    CommentsController.super_.call(this);
 };
 
 /**
  * Extend Greppy framework base controller
  */
-util.inherits(PostsController, greppy.get('http.mvc.controller'));
+util.inherits(CommentsController, greppy.get('http.mvc.controller'));
 
 /**
  * Configure the controller.
@@ -32,7 +32,7 @@ util.inherits(PostsController, greppy.get('http.mvc.controller'));
  * @param {Function} callback - Function to call on finish
  * @return void
  */
-PostsController.prototype.configure = function(app, server, callback)
+CommentsController.prototype.configure = function(app, server, callback)
 {
     callback && callback();
 }
@@ -40,25 +40,25 @@ PostsController.prototype.configure = function(app, server, callback)
 /**
  * Build the controller instance
  */
-module.exports = PostsController = new PostsController();
+module.exports = CommentsController = new CommentsController();
 
 /**
- * Deliver the posts overview page.
+ * Deliver the comments overview page.
  *
  * @type {ControllerAction}
  * @public
  */
-PostsController.actions.index =
+CommentsController.actions.index =
 {
     methods : ['GET'],
     action  : function(req, res) {
 
         var connection = 'mysql.demo';
-        var entity     = 'Post';
+        var entity     = 'Comment';
 
         var criteria = dataGrid.buildCriteria(req, res, {
             limit        : 10,
-            properties   : ['slug', 'title', 'content', 'created_at'],
+            properties   : ['title', 'content', 'email', 'twitter', 'website', 'created_at'],
             fuzzySearch  : true,
             softDeletion : true
         });
@@ -98,8 +98,8 @@ PostsController.actions.index =
         var render = function(pagination, records) {
 
             // Render the view
-            res.render('posts/' + criteria.view, {
-                posts: records,
+            res.render('comments/' + criteria.view, {
+                comments: records,
                 pagination: pagination
             });
         };
@@ -121,12 +121,12 @@ PostsController.actions.index =
 };
 
 /**
- * Deliver the post details page.
+ * Deliver the comment details page.
  *
  * @type {ControllerAction}
  * @public
  */
-PostsController.actions.show =
+CommentsController.actions.show =
 {
     path    : '/:id',
     methods : ['GET'],
@@ -134,11 +134,11 @@ PostsController.actions.show =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.Post.find(req.params.id).success(function(record) {
+            models.Comment.find(req.params.id).success(function(record) {
 
                 // Render the view
-                res.render('posts/show', {
-                    post: record
+                res.render('comments/show', {
+                    comment: record
                 });
 
             }).error(function(err) {
@@ -149,33 +149,33 @@ PostsController.actions.show =
 };
 
 /**
- * Deliver the new post page.
+ * Deliver the new comment page.
  *
  * @type {ControllerAction}
  * @public
  */
-PostsController.actions.new =
+CommentsController.actions.new =
 {
     methods : ['GET'],
     action  : function(req, res) {
 
         // Render the view
-        res.render('posts/new', {
+        res.render('comments/new', {
             response: {
                 action : 'create',
-                path   : '/posts'
+                path   : '/comments'
             }
         });
     }
 };
 
 /**
- * Deliver the edit post page.
+ * Deliver the edit comment page.
  *
  * @type {ControllerAction}
  * @public
  */
-PostsController.actions.edit =
+CommentsController.actions.edit =
 {
     path    : '/:id/edit',
     methods : ['GET'],
@@ -183,15 +183,15 @@ PostsController.actions.edit =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.Post.find(req.params.id).success(function(record) {
+            models.Comment.find(req.params.id).success(function(record) {
 
                 // Render the view
-                res.render('posts/edit', {
+                res.render('comments/edit', {
                     response: {
                         action : 'update',
-                        path   : '/posts/' + req.params.id
+                        path   : '/comments/' + req.params.id
                     },
-                    post: record
+                    comment: record
                 });
 
             }).error(function(err) {
@@ -202,12 +202,12 @@ PostsController.actions.edit =
 };
 
 /**
- * Backend action to persist a new post.
+ * Backend action to persist a new comment.
  *
  * @type {ControllerAction}
  * @public
  */
-PostsController.actions.create =
+CommentsController.actions.create =
 {
     path    : '/',
     methods : ['POST'],
@@ -215,10 +215,12 @@ PostsController.actions.create =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            var record = models.Post.build({
-                slug: (req.body.post_slug).trim(),
-                title: (req.body.post_title).trim(),
-                content: (req.body.post_content).trim(),
+            var record = models.Comment.build({
+                title: (req.body.comment_title).trim(),
+                content: (req.body.comment_content).trim(),
+                email: (req.body.comment_email).trim(),
+                twitter: (req.body.comment_twitter).trim(),
+                website: (req.body.comment_website).trim(),
             });
 
             var validErr = record.validate();
@@ -226,12 +228,12 @@ PostsController.actions.create =
             if (validErr) {
 
                 form.logAndFlash(req, validErr);
-                return res.redirect('/posts/new');
+                return res.redirect('/comments/new');
 
             } else {
 
                 record.save().success(function(record) {
-                    res.redirect('/posts/' + record.id);
+                    res.redirect('/comments/' + record.id);
                 }).error(function(err) {
                     error.showErrorPage(req, res, err);
                 });
@@ -241,12 +243,12 @@ PostsController.actions.create =
 };
 
 /**
- * Backend action to persist the changed post details.
+ * Backend action to persist the changed comment details.
  *
  * @type {ControllerAction}
  * @public
  */
-PostsController.actions.update =
+CommentsController.actions.update =
 {
     path    : '/:id',
     methods : ['POST'],
@@ -254,27 +256,29 @@ PostsController.actions.update =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.Post.find(req.params.id).success(function(record) {
+            models.Comment.find(req.params.id).success(function(record) {
 
                 if (!record) {
-                    return res.redirect('/posts');
+                    return res.redirect('/comments');
                 }
 
-                record.slug = (req.body.post_slug).trim();
-                record.title = (req.body.post_title).trim();
-                record.content = (req.body.post_content).trim();
+                record.title = (req.body.comment_title).trim();
+                record.content = (req.body.comment_content).trim();
+                record.email = (req.body.comment_email).trim();
+                record.twitter = (req.body.comment_twitter).trim();
+                record.website = (req.body.comment_website).trim();
 
                 var validErr = record.validate();
 
                 if (validErr) {
 
                     form.logAndFlash(req, validErr);
-                    return res.redirect('/posts/' + record.id + '/edit');
+                    return res.redirect('/comments/' + record.id + '/edit');
 
                 } else {
 
                     record.save().success(function(record) {
-                        res.redirect('/posts/' + record.id);
+                        res.redirect('/comments/' + record.id);
                     }).error(function(err) {
                         error.showErrorPage(req, res, err);
                     });
@@ -288,12 +292,12 @@ PostsController.actions.update =
 };
 
 /**
- * Backend action to delete a post.
+ * Backend action to delete a comment.
  *
  * @type {ControllerAction}
  * @public
  */
-PostsController.actions.destroy =
+CommentsController.actions.destroy =
 {
     path    : '/:id',
     methods : ['DELETE'],
@@ -301,7 +305,7 @@ PostsController.actions.destroy =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.Post.find(req.params.id).success(function(record) {
+            models.Comment.find(req.params.id).success(function(record) {
 
                 if (!record) {
                     return res.end();
@@ -323,12 +327,12 @@ PostsController.actions.destroy =
 };
 
 /**
- * Backend action to restore a post.
+ * Backend action to restore a comment.
  *
  * @type {ControllerAction}
  * @public
  */
-PostsController.actions.restore =
+CommentsController.actions.restore =
 {
     path    : '/:id/restore',
     methods : ['POST'],
@@ -336,7 +340,7 @@ PostsController.actions.restore =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.Post.find(req.params.id).success(function(record) {
+            models.Comment.find(req.params.id).success(function(record) {
 
                 if (!record) {
                     return res.end();

@@ -1,0 +1,38 @@
+extends ../layout
+
+block content
+
+  h2.page-headline Comments
+    include _search
+
+  - if ('undefined' !== typeof comments && comments.length > 0)
+
+    table.table.table-bordered.table-striped.datagrid.small-bottom-margin
+      thead
+        tr
+          th Status
+          th(data-property="title") Title
+          th(data-property="content") Content
+          th(data-property="email") Email
+          th(data-property="twitter") Twitter
+          th(data-property="website") Website
+          th.no-wrap(data-property="created_at") Created at
+          th Operations
+      tbody
+        include _index_rows
+
+    include _pagination
+
+  - else
+
+    p No comments present.
+
+  script.
+
+    /**
+     * Build DataGrid instances for the whole index page
+     */
+    var datagrid = new greppy.DataGrid($('table.datagrid'), {
+      softDeletion: true
+    });
+
