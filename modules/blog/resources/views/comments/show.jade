@@ -1,0 +1,46 @@
+extends ../layout
+
+block content
+
+  - if (null !== comment)
+
+    h2.page-headline Comment details
+      .pull-right
+        include _operations
+
+    table.table.table-bordered.table-striped
+      tbody
+
+        tr
+          th Title
+          td #{ comment.title }
+
+        tr
+          th Content
+          td #{ comment.content }
+
+        tr
+          th Email
+          td #{ comment.email }
+
+        tr
+          th Twitter
+          td #{ comment.twitter }
+
+        tr
+          th Website
+          td #{ comment.website }
+
+        tr
+          th Created at
+          td #{helper.date.format(comment.created_at, 'LLLL')}
+
+        tr(class="#{ comment.deleted_at ? 'danger' : 'success' }")
+          th Deleted
+          td #{ comment.deleted_at ? 'Yes' : 'No' }
+
+  - else
+
+    - var entity = 'Comment'
+    include ../error/notfound
+
