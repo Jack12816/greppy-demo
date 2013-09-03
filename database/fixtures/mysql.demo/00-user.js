@@ -37,6 +37,7 @@ module.exports = function(orm, models, share, utils, callback)
             fullname: utils.content.fullname(),
             email: utils.content.email(),
             password: utils.content.sha512(),
+            created_at: utils.content.date(),
             deleted_at: utils.content.optional(utils.content.date())
         });
     }

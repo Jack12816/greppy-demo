@@ -6,8 +6,8 @@
       i(title="User is #{ user.deleted_at ? '' : 'not' } deleted",
         data-toggle="tooltip", class="#{ user.deleted_at ? 'icon-remove' : 'icon-ok' }")
 
-    td #{ user.fullname }
-    td #{ user.email }
+    td #{ new String(user.fullname).words(30) }
+    td #{ new String(user.email).words(30) }
 
     td.min #{helper.date.format(user.created_at, 'L')}
     td.min.no-wrap

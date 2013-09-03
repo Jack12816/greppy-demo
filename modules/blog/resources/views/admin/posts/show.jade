@@ -1,4 +1,4 @@
-extends ../layout
+extends ../../layout
 
 block content
 
@@ -29,10 +29,10 @@ block content
 
         tr(class="#{ post.deleted_at ? 'danger' : 'success' }")
           th Deleted
-          td #{ post.deleted_at ? 'Yes' : 'No' }
+          td #{ post.deleted_at ? ('at ' + helper.date.format(post.deleted_at, 'LLLL')) : 'No' }
 
   - else
 
     - var entity = 'Post'
-    include ../error/notfound
+    include ../../error/notfound
 

@@ -12,6 +12,9 @@ var IndexController = function()
 {
     // Call the super constructor
     IndexController.super_.call(this);
+
+    // Define the path to look for views
+    this.viewPath = 'app/';
 };
 
 /**
@@ -20,28 +23,9 @@ var IndexController = function()
 util.inherits(IndexController, greppy.get('http.mvc.controller'));
 
 /**
- * Configure the controller.
- *
- * @param {Object} app - The application object
- * @param {Object} server - Server object
- * @param {Function} callback - Function to call on finish
- * @return void
- */
-IndexController.prototype.configure = function(app, server, callback)
-{
-    // this.options.auth.handler = (require('express')).basicAuth(function(user, pass, callback) {
-    //     callback(null, (user === 'admin' && pass === 'unister77'));
-    // });
-
-    // this.options.auth.routes = [];
-
-    callback && callback();
-}
-
-/**
  * Build the controller instance
  */
-module.exports = IndexController = new IndexController();
+IndexController = new IndexController();
 
 /**
  * Deliver the home page.
@@ -62,14 +46,16 @@ IndexController.actions.index =
             }).success(function(records) {
 
                 // Render the view
-                res.render('app/home', {
+                res.render(self.view('home'), {
                     posts : records
                 });
 
             }).error(function(err) {
-                console.log(err);
+                self.error.showErrorPage(req, res, err);
             });
         });
     }
 };
+
+module.exports = IndexController;
 

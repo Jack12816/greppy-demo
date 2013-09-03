@@ -1,10 +1,10 @@
-extends ../layout
+extends ../../layout
 
 block content
 
   - if (null !== user)
 
-    h2.page-headline Edit user details
+    h2.page-headline.bottom-border Edit user details
       .pull-right
         include _operations
 
@@ -14,5 +14,5 @@ block content
   - else
 
     - var entity = 'User'
-    include ../error/notfound
+    include ../../error/notfound
 

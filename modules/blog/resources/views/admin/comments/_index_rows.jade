@@ -9,8 +9,6 @@
     td #{ new String(comment.title).words(30) }
     td #{ new String(comment.content).words(30) }
     td #{ new String(comment.email).words(30) }
-    td #{ new String(comment.twitter).words(30) }
-    td #{ new String(comment.website).words(30) }
 
     td.min #{helper.date.format(comment.created_at, 'L')}
     td.min.no-wrap

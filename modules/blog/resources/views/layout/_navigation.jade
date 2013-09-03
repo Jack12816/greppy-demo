@@ -8,10 +8,31 @@
       a.navbar-brand(href='/') Greppy
     .navbar-collapse.collapse
       ul.nav.navbar-nav
+
         li(class="#{helper.route.current(url, '/', 'active')}")
           a(href='/') Home
-        li(class="#{helper.route.current(url, /^\/posts/i, 'active')}")
-          a(href='/posts') Posts
-        li(class="#{helper.route.current(url, /^\/users/i, 'active')}")
-          a(href='/users') Users
-        
+
+        li(class="#{helper.route.current(url, '/auth/login', 'active')}")
+          a(href='/auth/login') Login
+
+        li.dropdown
+          a.dropdown-toggle(data-toggle='dropdown', href='#')
+            | Admin
+            b.caret
+          ul.dropdown-menu
+
+            li(class="#{helper.route.current(url, /^\/admin\/users/i, 'active')}")
+              a(href='/admin/users')
+                i.icon-user
+                |  Users
+
+            li(class="#{helper.route.current(url, /^\/admin\/posts/i, 'active')}")
+              a(href='/admin/posts')
+                i.icon-file
+                |  Posts
+
+            li(class="#{helper.route.current(url, /^\/admin\/comments/i, 'active')}")
+              a(href='/admin/comments')
+                i.icon-comments
+                |  Comments
+

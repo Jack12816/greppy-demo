@@ -5,11 +5,15 @@
  * @author Hermann Mayer <hermann.mayer92@gmail.com>
  */
 
+var fs = require('fs');
+
 /**
  * @constructor
  */
 var IndexController = function()
 {
+    // Call the super constructor
+    IndexController.super_.call(this);
 };
 
 /**
@@ -18,98 +22,34 @@ var IndexController = function()
 util.inherits(IndexController, greppy.get('http.mvc.controller'));
 
 /**
+ * Build the controller instance
+ */
+IndexController = new IndexController();
+
+/**
  * Deliver the home page.
  *
  * @type {ControllerAction}
  * @public
  */
-IndexController.prototype.actions.index =
+IndexController.actions.index =
 {
+    path    : '/:page?',
     methods : ['GET'],
     action  : function(req, res) {
 
-        // Render the view
-        res.render('app/home');
-    }
-};
+        if (!req.params.page) {
+            req.params.page = 'home';
+        }
 
-/**
- * Deliver the about page.
- *
- * @type {ControllerAction}
- * @public
- */
-IndexController.prototype.actions.about =
-{
-    methods : ['GET'],
-    action  : function(req, res) {
+        var view = 'app/' + req.params.page;
+
+        if (!fs.existsSync(req.app.get('views') + view + '.jade')) {
+            return res.render('error/notfound');
+        }
 
         // Render the view
-        res.render('app/about');
-    }
-};
-
-/**
- * Deliver the imprint page.
- *
- * @type {ControllerAction}
- * @public
- */
-IndexController.prototype.actions.imprint =
-{
-    methods : ['GET'],
-    action  : function(req, res) {
-
-        // Render the view
-        res.render('app/imprint');
-    }
-};
-
-/**
- * Deliver the gang page.
- *
- * @type {ControllerAction}
- * @public
- */
-IndexController.prototype.actions.gang =
-{
-    methods : ['GET'],
-    action  : function(req, res) {
-
-        // Render the view
-        res.render('app/gang');
-    }
-};
-
-/**
- * Deliver the contributors page.
- *
- * @type {ControllerAction}
- * @public
- */
-IndexController.prototype.actions.contributors =
-{
-    methods : ['GET'],
-    action  : function(req, res) {
-
-        // Render the view
-        res.render('app/contributors');
-    }
-};
-
-/**
- * Deliver the terms page.
- *
- * @type {ControllerAction}
- * @public
- */
-IndexController.prototype.actions.terms =
-{
-    methods : ['GET'],
-    action  : function(req, res) {
-
-        // Render the view
-        res.render('app/terms');
+        res.render(view);
     }
 };
 
