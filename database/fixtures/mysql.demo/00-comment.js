@@ -13,6 +13,7 @@ module.exports = function(orm, models, share, utils, callback)
             email: utils.content.email(),
             twitter: utils.content.optional(utils.content.word()),
             website: utils.content.optional(utils.content.domain()),
+            created_at: utils.content.date(),
             deleted_at: utils.content.optional(utils.content.date())
         });
     }

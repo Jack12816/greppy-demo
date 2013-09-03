@@ -5,11 +5,6 @@
  * @author Hermann Mayer <jack@hermann-mayer.net>
  */
 
-// Define default helper set
-var error    = greppy.helper.get('controller.error');
-var form     = greppy.helper.get('controller.form');
-var dataGrid = greppy.helper.get('controller.data-grid');
-
 /**
  * @constructor
  */
@@ -17,6 +12,9 @@ var PostsController = function()
 {
     // Call the super constructor
     PostsController.super_.call(this);
+
+    // Define the path to look for views
+    this.viewPath = 'admin/posts/';
 };
 
 /**
@@ -25,22 +23,9 @@ var PostsController = function()
 util.inherits(PostsController, greppy.get('http.mvc.controller'));
 
 /**
- * Configure the controller.
- *
- * @param {Object} app - The application object
- * @param {Object} server - Server object
- * @param {Function} callback - Function to call on finish
- * @return void
- */
-PostsController.prototype.configure = function(app, server, callback)
-{
-    callback && callback();
-}
-
-/**
  * Build the controller instance
  */
-module.exports = PostsController = new PostsController();
+PostsController = new PostsController();
 
 /**
  * Deliver the posts overview page.
@@ -56,7 +41,7 @@ PostsController.actions.index =
         var connection = 'mysql.demo';
         var entity     = 'Post';
 
-        var criteria = dataGrid.buildCriteria(req, res, {
+        var criteria = self.dataGrid.buildSqlCriteria(req, res, {
             limit        : 10,
             properties   : ['slug', 'title', 'content', 'created_at'],
             fuzzySearch  : true,
@@ -69,14 +54,13 @@ PostsController.actions.index =
 
         var count = function(callback) {
 
-            dataGrid.buildPagination(criteria, {
+            self.dataGrid.buildSqlPagination(criteria, {
                 connection : connection,
                 entity     : entity
             }, function(err, pagination) {
 
                 if (err) {
-                    error.showErrorPage(req, res, err);
-                    return res.end();
+                    return self.error.showErrorPage(req, res, err);
                 }
 
                 callback && callback(pagination);
@@ -90,7 +74,7 @@ PostsController.actions.index =
                 models[entity].findAll(criteria).success(function(records) {
                     callback && callback(undefined, records);
                 }).error(function(err) {
-                    error.showErrorPage(req, res, err);
+                    self.error.showErrorPage(req, res, err);
                 });
             });
         };
@@ -98,7 +82,7 @@ PostsController.actions.index =
         var render = function(pagination, records) {
 
             // Render the view
-            res.render('posts/' + criteria.view, {
+            res.render(self.view(criteria.view), {
                 posts: records,
                 pagination: pagination
             });
@@ -137,12 +121,12 @@ PostsController.actions.show =
             models.Post.find(req.params.id).success(function(record) {
 
                 // Render the view
-                res.render('posts/show', {
+                res.render(self.view('show'), {
                     post: record
                 });
 
             }).error(function(err) {
-                error.showErrorPage(req, res, err);
+                self.error.showErrorPage(req, res, err);
             });
         });
     }
@@ -160,10 +144,10 @@ PostsController.actions.new =
     action  : function(req, res) {
 
         // Render the view
-        res.render('posts/new', {
+        res.render(self.view('new'), {
             response: {
                 action : 'create',
-                path   : '/posts'
+                path   : self.link('create')
             }
         });
     }
@@ -186,16 +170,16 @@ PostsController.actions.edit =
             models.Post.find(req.params.id).success(function(record) {
 
                 // Render the view
-                res.render('posts/edit', {
+                res.render(self.view('edit'), {
                     response: {
                         action : 'update',
-                        path   : '/posts/' + req.params.id
+                        path   : self.link('update', {id: req.params.id})
                     },
                     post: record
                 });
 
             }).error(function(err) {
-                error.showErrorPage(req, res, err);
+                self.error.showErrorPage(req, res, err);
             });
         });
     }
@@ -225,15 +209,15 @@ PostsController.actions.create =
 
             if (validErr) {
 
-                form.logAndFlash(req, validErr);
-                return res.redirect('/posts/new');
+                self.form.logAndFlash(req, validErr);
+                return res.redirect(self.link('new'));
 
             } else {
 
                 record.save().success(function(record) {
-                    res.redirect('/posts/' + record.id);
+                    res.redirect(self.link('show', {id: record.id}));
                 }).error(function(err) {
-                    error.showErrorPage(req, res, err);
+                    self.error.showErrorPage(req, res, err);
                 });
             }
         });
@@ -257,7 +241,7 @@ PostsController.actions.update =
             models.Post.find(req.params.id).success(function(record) {
 
                 if (!record) {
-                    return res.redirect('/posts');
+                    return res.redirect(self.link('index'));
                 }
 
                 record.slug = (req.body.post_slug).trim();
@@ -268,20 +252,20 @@ PostsController.actions.update =
 
                 if (validErr) {
 
-                    form.logAndFlash(req, validErr);
-                    return res.redirect('/posts/' + record.id + '/edit');
+                    self.form.logAndFlash(req, validErr);
+                    return res.redirect(self.link('edit', {id: record.id}));
 
                 } else {
 
                     record.save().success(function(record) {
-                        res.redirect('/posts/' + record.id);
+                      res.redirect(self.link('show', {id: record.id}));
                     }).error(function(err) {
-                        error.showErrorPage(req, res, err);
+                        self.error.showErrorPage(req, res, err);
                     });
                 }
 
             }).error(function(err) {
-                error.showErrorPage(req, res, err);
+                self.error.showErrorPage(req, res, err);
             });
         });
     }
@@ -312,11 +296,11 @@ PostsController.actions.destroy =
                 record.save().success(function(record) {
                     res.end();
                 }).error(function(err) {
-                    error.showErrorPage(req, res, err);
+                    self.error.showErrorPage(req, res, err);
                 });
 
             }).error(function(err) {
-                error.showErrorPage(req, res, err);
+                self.error.showErrorPage(req, res, err);
             });
         });
     }
@@ -347,13 +331,15 @@ PostsController.actions.restore =
                 record.save().success(function(record) {
                     res.end();
                 }).error(function(err) {
-                    error.showErrorPage(req, res, err);
+                    self.error.showErrorPage(req, res, err);
                 });
 
             }).error(function(err) {
-                error.showErrorPage(req, res, err);
+                self.error.showErrorPage(req, res, err);
             });
         });
     }
 };
+
+module.exports = PostsController;
 

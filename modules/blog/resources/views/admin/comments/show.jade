@@ -1,4 +1,4 @@
-extends ../layout
+extends ../../layout
 
 block content
 
@@ -24,23 +24,15 @@ block content
           td #{ comment.email }
 
         tr
-          th Twitter
-          td #{ comment.twitter }
-
-        tr
-          th Website
-          td #{ comment.website }
-
-        tr
           th Created at
           td #{helper.date.format(comment.created_at, 'LLLL')}
 
         tr(class="#{ comment.deleted_at ? 'danger' : 'success' }")
           th Deleted
-          td #{ comment.deleted_at ? 'Yes' : 'No' }
+          td #{ comment.deleted_at ? ('at ' + helper.date.format(comment.deleted_at, 'LLLL')) : 'No' }
 
   - else
 
     - var entity = 'Comment'
-    include ../error/notfound
+    include ../../error/notfound
 

@@ -8,6 +8,7 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
         name="post_slug"
         placeholder="Just type the slug ..",
         value="#{('undefined' !== typeof post && null !== post) ? post.slug : ''}")
+
       span.help-block.
         Some useful hints for the slug input
 
@@ -19,6 +20,7 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
         name="post_title"
         placeholder="Just type the title ..",
         value="#{('undefined' !== typeof post && null !== post) ? post.title : ''}")
+
       span.help-block.
         Some useful hints for the title input
 
@@ -28,7 +30,9 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
       textarea.form-control(
         name="post_content"
         placeholder="Just type the content ..",
-        value="#{('undefined' !== typeof post && null !== post) ? post.content : ''}")
+        rows="10"
+      ) #{('undefined' !== typeof post && null !== post) ? post.content : ''}
+
       span.help-block.
         Some useful hints for the content input
 

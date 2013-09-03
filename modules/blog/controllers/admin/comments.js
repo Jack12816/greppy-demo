@@ -1,64 +1,49 @@
 /**
- * User Controller
+ * Comment Controller
  *
- * @module blog/controller/users
+ * @module blog/controller/comments
  * @author Hermann Mayer <jack@hermann-mayer.net>
  */
-
-// Define default helper set
-var error    = greppy.helper.get('controller.error');
-var form     = greppy.helper.get('controller.form');
-var dataGrid = greppy.helper.get('controller.data-grid');
 
 /**
  * @constructor
  */
-var UsersController = function()
+var CommentsController = function()
 {
     // Call the super constructor
-    UsersController.super_.call(this);
+    CommentsController.super_.call(this);
+
+    // Define the path to look for views
+    this.viewPath = 'admin/comments/';
 };
 
 /**
  * Extend Greppy framework base controller
  */
-util.inherits(UsersController, greppy.get('http.mvc.controller'));
-
-/**
- * Configure the controller.
- *
- * @param {Object} app - The application object
- * @param {Object} server - Server object
- * @param {Function} callback - Function to call on finish
- * @return void
- */
-UsersController.prototype.configure = function(app, server, callback)
-{
-    callback && callback();
-}
+util.inherits(CommentsController, greppy.get('http.mvc.controller'));
 
 /**
  * Build the controller instance
  */
-module.exports = UsersController = new UsersController();
+CommentsController = new CommentsController();
 
 /**
- * Deliver the users overview page.
+ * Deliver the comments overview page.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.actions.index =
+CommentsController.actions.index =
 {
     methods : ['GET'],
     action  : function(req, res) {
 
         var connection = 'mysql.demo';
-        var entity     = 'User';
+        var entity     = 'Comment';
 
-        var criteria = dataGrid.buildCriteria(req, res, {
+        var criteria = self.dataGrid.buildSqlCriteria(req, res, {
             limit        : 10,
-            properties   : ['fullname', 'email', 'password', 'created_at'],
+            properties   : ['title', 'content', 'email', 'created_at'],
             fuzzySearch  : true,
             softDeletion : true
         });
@@ -69,14 +54,13 @@ UsersController.actions.index =
 
         var count = function(callback) {
 
-            dataGrid.buildPagination(criteria, {
+            self.dataGrid.buildSqlPagination(criteria, {
                 connection : connection,
                 entity     : entity
             }, function(err, pagination) {
 
                 if (err) {
-                    error.showErrorPage(req, res, err);
-                    return res.end();
+                    return self.error.showErrorPage(req, res, err);
                 }
 
                 callback && callback(pagination);
@@ -90,7 +74,7 @@ UsersController.actions.index =
                 models[entity].findAll(criteria).success(function(records) {
                     callback && callback(undefined, records);
                 }).error(function(err) {
-                    error.showErrorPage(req, res, err);
+                    self.error.showErrorPage(req, res, err);
                 });
             });
         };
@@ -98,8 +82,8 @@ UsersController.actions.index =
         var render = function(pagination, records) {
 
             // Render the view
-            res.render('users/' + criteria.view, {
-                users: records,
+            res.render(self.view(criteria.view), {
+                comments: records,
                 pagination: pagination
             });
         };
@@ -121,12 +105,12 @@ UsersController.actions.index =
 };
 
 /**
- * Deliver the user details page.
+ * Deliver the comment details page.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.actions.show =
+CommentsController.actions.show =
 {
     path    : '/:id',
     methods : ['GET'],
@@ -134,48 +118,48 @@ UsersController.actions.show =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.User.find(req.params.id).success(function(record) {
+            models.Comment.find(req.params.id).success(function(record) {
 
                 // Render the view
-                res.render('users/show', {
-                    user: record
+                res.render(self.view('show'), {
+                    comment: record
                 });
 
             }).error(function(err) {
-                error.showErrorPage(req, res, err);
+                self.error.showErrorPage(req, res, err);
             });
         });
     }
 };
 
 /**
- * Deliver the new user page.
+ * Deliver the new comment page.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.actions.new =
+CommentsController.actions.new =
 {
     methods : ['GET'],
     action  : function(req, res) {
 
         // Render the view
-        res.render('users/new', {
+        res.render(self.view('new'), {
             response: {
                 action : 'create',
-                path   : '/users'
+                path   : self.link('create')
             }
         });
     }
 };
 
 /**
- * Deliver the edit user page.
+ * Deliver the edit comment page.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.actions.edit =
+CommentsController.actions.edit =
 {
     path    : '/:id/edit',
     methods : ['GET'],
@@ -183,31 +167,31 @@ UsersController.actions.edit =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.User.find(req.params.id).success(function(record) {
+            models.Comment.find(req.params.id).success(function(record) {
 
                 // Render the view
-                res.render('users/edit', {
+                res.render(self.view('edit'), {
                     response: {
                         action : 'update',
-                        path   : '/users/' + req.params.id
+                        path   : self.link('update', {id: req.params.id})
                     },
-                    user: record
+                    comment: record
                 });
 
             }).error(function(err) {
-                error.showErrorPage(req, res, err);
+                self.error.showErrorPage(req, res, err);
             });
         });
     }
 };
 
 /**
- * Backend action to persist a new user.
+ * Backend action to persist a new comment.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.actions.create =
+CommentsController.actions.create =
 {
     path    : '/',
     methods : ['POST'],
@@ -215,25 +199,27 @@ UsersController.actions.create =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            var record = models.User.build({
-                fullname: req.body.user_fullname,
-                email: req.body.user_email,
-                password: req.body.user_password,
+            var record = models.Comment.build({
+                title: (req.body.comment_title).trim(),
+                content: (req.body.comment_content).trim(),
+                email: (req.body.comment_email).trim(),
+                twitter: (req.body.comment_twitter).trim(),
+                website: (req.body.comment_website).trim(),
             });
 
             var validErr = record.validate();
 
             if (validErr) {
 
-                form.logAndFlash(req, validErr);
-                return res.redirect('/users/new');
+                self.form.logAndFlash(req, validErr);
+                return res.redirect(self.link('new'));
 
             } else {
 
                 record.save().success(function(record) {
-                    res.redirect('/users/' + record.id);
+                    res.redirect(self.link('show', {id: record.id}));
                 }).error(function(err) {
-                    error.showErrorPage(req, res, err);
+                    self.error.showErrorPage(req, res, err);
                 });
             }
         });
@@ -241,12 +227,12 @@ UsersController.actions.create =
 };
 
 /**
- * Backend action to persist the changed user details.
+ * Backend action to persist the changed comment details.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.actions.update =
+CommentsController.actions.update =
 {
     path    : '/:id',
     methods : ['POST'],
@@ -254,46 +240,48 @@ UsersController.actions.update =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.User.find(req.params.id).success(function(record) {
+            models.Comment.find(req.params.id).success(function(record) {
 
                 if (!record) {
-                    return res.redirect('/users');
+                    return res.redirect(self.link('index'));
                 }
 
-                record.fullname = req.body.user_fullname;
-                record.email = req.body.user_email;
-                record.password = req.body.user_password;
+                record.title = (req.body.comment_title).trim();
+                record.content = (req.body.comment_content).trim();
+                record.email = (req.body.comment_email).trim();
+                record.twitter = (req.body.comment_twitter).trim();
+                record.website = (req.body.comment_website).trim();
 
                 var validErr = record.validate();
 
                 if (validErr) {
 
-                    form.logAndFlash(req, validErr);
-                    return res.redirect('/users/' + record.id + '/edit');
+                    self.form.logAndFlash(req, validErr);
+                    return res.redirect(self.link('edit', {id: record.id}));
 
                 } else {
 
                     record.save().success(function(record) {
-                        res.redirect('/users/' + record.id);
+                      res.redirect(self.link('show', {id: record.id}));
                     }).error(function(err) {
-                        error.showErrorPage(req, res, err);
+                        self.error.showErrorPage(req, res, err);
                     });
                 }
 
             }).error(function(err) {
-                error.showErrorPage(req, res, err);
+                self.error.showErrorPage(req, res, err);
             });
         });
     }
 };
 
 /**
- * Backend action to delete a user.
+ * Backend action to delete a comment.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.actions.destroy =
+CommentsController.actions.destroy =
 {
     path    : '/:id',
     methods : ['DELETE'],
@@ -301,7 +289,7 @@ UsersController.actions.destroy =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.User.find(req.params.id).success(function(record) {
+            models.Comment.find(req.params.id).success(function(record) {
 
                 if (!record) {
                     return res.end();
@@ -312,23 +300,23 @@ UsersController.actions.destroy =
                 record.save().success(function(record) {
                     res.end();
                 }).error(function(err) {
-                    error.showErrorPage(req, res, err);
+                    self.error.showErrorPage(req, res, err);
                 });
 
             }).error(function(err) {
-                error.showErrorPage(req, res, err);
+                self.error.showErrorPage(req, res, err);
             });
         });
     }
 };
 
 /**
- * Backend action to restore a user.
+ * Backend action to restore a comment.
  *
  * @type {ControllerAction}
  * @public
  */
-UsersController.actions.restore =
+CommentsController.actions.restore =
 {
     path    : '/:id/restore',
     methods : ['POST'],
@@ -336,7 +324,7 @@ UsersController.actions.restore =
 
         greppy.db.get('mysql.demo').getORM(function(orm, models) {
 
-            models.User.find(req.params.id).success(function(record) {
+            models.Comment.find(req.params.id).success(function(record) {
 
                 if (!record) {
                     return res.end();
@@ -347,15 +335,15 @@ UsersController.actions.restore =
                 record.save().success(function(record) {
                     res.end();
                 }).error(function(err) {
-                    error.showErrorPage(req, res, err);
+                    self.error.showErrorPage(req, res, err);
                 });
 
             }).error(function(err) {
-                error.showErrorPage(req, res, err);
+                self.error.showErrorPage(req, res, err);
             });
         });
     }
 };
 
-module.exports = UsersController;
+module.exports = CommentsController;
 

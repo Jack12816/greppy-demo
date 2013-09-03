@@ -8,6 +8,7 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
         name="comment_title"
         placeholder="Just type the title ..",
         value="#{('undefined' !== typeof comment && null !== comment) ? comment.title : ''}")
+
       span.help-block.
         Some useful hints for the title input
 
@@ -17,7 +18,9 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
       textarea.form-control(
         name="comment_content"
         placeholder="Just type the content ..",
-        value="#{('undefined' !== typeof comment && null !== comment) ? comment.content : ''}")
+        rows="10"
+      ) #{('undefined' !== typeof comment && null !== comment) ? comment.content : ''}
+
       span.help-block.
         Some useful hints for the content input
 
@@ -29,6 +32,7 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
         name="comment_email"
         placeholder="Just type the email ..",
         value="#{('undefined' !== typeof comment && null !== comment) ? comment.email : ''}")
+
       span.help-block.
         Some useful hints for the email input
 
@@ -41,6 +45,7 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
         placeholder="Just type the twitter ..",
         required="required",
         value="#{('undefined' !== typeof comment && null !== comment) ? comment.twitter : ''}")
+
       span.help-block.
         Some useful hints for the twitter input
 
@@ -53,6 +58,7 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
         placeholder="Just type the website ..",
         required="required",
         value="#{('undefined' !== typeof comment && null !== comment) ? comment.website : ''}")
+
       span.help-block.
         Some useful hints for the website input
 

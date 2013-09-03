@@ -12,6 +12,7 @@ module.exports = function(orm, models, share, utils, callback)
             slug: utils.content.word(),
             title: utils.content.wordgroup(),
             content: utils.content.text(),
+            created_at: utils.content.date(),
             deleted_at: utils.content.optional(utils.content.date())
         });
     }

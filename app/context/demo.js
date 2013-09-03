@@ -44,7 +44,7 @@ util.inherits(DemoContext, greppy.get('app.worker.context'));
 DemoContext.prototype.configure = function(app, server, callback)
 {
     // Templating Engine
-    app.set('views', process.cwd() + '/modules/demo/resources/views');
+    app.set('views', process.cwd() + '/modules/demo/resources/views/');
     app.set('view engine', 'jade');
     app.locals.pretty = true;
 

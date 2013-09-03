@@ -1,4 +1,4 @@
-extends ../layout
+extends ../../layout
 
 block content
 
@@ -20,15 +20,19 @@ block content
           td #{ user.email }
 
         tr
+          th Password
+          td #{ user.password }
+
+        tr
           th Created at
           td #{helper.date.format(user.created_at, 'LLLL')}
 
         tr(class="#{ user.deleted_at ? 'danger' : 'success' }")
           th Deleted
-          td #{ user.deleted_at ? 'Yes' : 'No' }
+          td #{ user.deleted_at ? ('at ' + helper.date.format(user.deleted_at, 'LLLL')) : 'No' }
 
   - else
 
     - var entity = 'User'
-    include ../error/notfound
+    include ../../error/notfound
 
