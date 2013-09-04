@@ -50,11 +50,11 @@ ServiceContext.prototype.configure = function(app, server, callback)
         ]
     });
 
-    var basicAuth = new (greppy.get('auth.handler.http.basic'))({
+    var httpAuth = new (greppy.get('auth.handler.http'))({
         adapter: arraySource
     });
 
-    app.set('auth.basicHTTP', basicAuth);
+    app.set('auth.http', httpAuth);
 
     // Start listening for connections
     server.listen(3002);
