@@ -29,7 +29,7 @@ util.inherits(IndexController, greppy.get('http.mvc.controller'));
  */
 IndexController.prototype.configure = function(app, server, callback)
 {
-    this.options.auth.handler = app.get('auth.basicHTTP');
+    this.options.auth.handler = app.get('auth.http');
     this.options.auth.routes  = [];
 
     callback && callback();
