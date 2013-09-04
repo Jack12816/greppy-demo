@@ -43,6 +43,19 @@ util.inherits(ServiceContext, greppy.get('app.worker.context'));
  */
 ServiceContext.prototype.configure = function(app, server, callback)
 {
+    // Define some Auth stuff
+    var arraySource = new (greppy.get('auth.adapter.array'))({
+        users: [
+            {username: 'admin', password: 'password'}
+        ]
+    });
+
+    var basicAuth = new (greppy.get('auth.handler.http.basic'))({
+        adapter: arraySource
+    });
+
+    app.set('auth.basicHTTP', basicAuth);
+
     // Start listening for connections
     server.listen(3002);
 
