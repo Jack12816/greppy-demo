@@ -8,13 +8,13 @@ module.exports = function(orm, models, share, utils, callback)
     for (var i = 0; i < 100; i++) {
 
         records.push({
-            title: utils.content.wordgroup(),
-            content: utils.content.text(),
-            email: utils.content.email(),
-            twitter: utils.content.optional(utils.content.word()),
-            website: utils.content.optional(utils.content.domain()),
-            created_at: utils.content.date(),
-            deleted_at: utils.content.optional(utils.content.date())
+            title      : utils.content.wordgroup(),
+            content    : utils.content.text(),
+            email      : utils.content.email(),
+            twitter    : utils.content.optional(utils.content.word()),
+            website    : utils.content.optional(utils.content.domain()),
+            created_at : utils.content.date(),
+            deleted_at : utils.content.optional(utils.content.date())
         });
     }
 

@@ -1,0 +1,9 @@
+ul.postList
+  li.post.panel.panel-default
+    .panel-heading.clearfix
+      h4.pull-left
+        a(href="/posts/" + post.slug)= post.title
+      p.pull-right
+        | #{helper.date.format(post.created_at, 'MMMM Do, h:mm a')} by&nbsp;
+        a(href="/users/" + post.author_id) #{post.author.fullname}
+    .panel-body= (post.content).words(50)

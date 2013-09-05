@@ -8,12 +8,12 @@ module.exports = function(orm, models, share, utils, callback)
     for (var i = 0; i < 100; i++) {
 
         records.push({
-            author_id: 1,
-            slug: utils.content.word(),
-            title: utils.content.wordgroup(),
-            content: utils.content.text(),
-            created_at: utils.content.date(),
-            deleted_at: utils.content.optional(utils.content.date())
+            author_id  : 1,
+            slug       : utils.content.word().toLowerCase(),
+            title      : utils.content.wordgroup(),
+            content    : utils.content.text(),
+            created_at : utils.content.date(),
+            deleted_at : utils.content.optional(utils.content.date())
         });
     }
 
