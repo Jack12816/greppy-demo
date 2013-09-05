@@ -46,12 +46,18 @@ ServiceContext.prototype.configure = function(app, server, callback)
     // Define some Auth stuff
     var arraySource = new (greppy.get('auth.adapter.array'))({
         users: [
-            {username: 'admin', password: 'password'}
+            {username: 'admin', password: 'admin'}
         ]
     });
 
+    var htpasswdSource = new (greppy.get('auth.adapter.htpasswd'))({
+        file: __dirname + '/../config/htpasswd'
+    });
+
     var httpAuth = new (greppy.get('auth.handler.http'))({
-        adapter: arraySource
+        adapter: [htpasswdSource, arraySource]
+        // adapter: htpasswdSource
+        // adapter: arraySource
     });
 
     app.set('auth.http', httpAuth);
