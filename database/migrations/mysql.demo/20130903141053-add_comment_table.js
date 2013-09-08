@@ -18,6 +18,11 @@ module.exports = {
                     autoIncrement: true,
                     primaryKey: true
                 },
+                
+                post_id: {
+                    type: DataTypes.INTEGER,
+                    allowNull: false
+                },
 
                 title: {
                     type: DataTypes.STRING,

@@ -53,26 +53,16 @@ PostsController.actions.index =
             return;
         }
 
-        var count = function(callback) {
-
-            self.dataGrid.buildSqlPagination(criteria, {
-                connection : connection,
-                entity     : entity
-            }, function(err, pagination) {
-
-                if (err) {
-                    return self.error.showErrorPage(req, res, err);
-                }
-
-                callback && callback(pagination);
-            });
-        };
-
         var fetch = function(callback) {
 
             greppy.db.get(connection).getORM(function(orm, models) {
 
-                models[entity].findAll(criteria).success(function(records) {
+                criteria.include = [
+                    {model: models.User, as: 'Author'},
+                    {model: models.Comment, as: 'Comments'}
+                ];
+
+                models[entity].findAll({include: criteria.include}).success(function(records) {
                     callback && callback(undefined, records);
                 }).error(function(err) {
                     self.error.showErrorPage(req, res, err);
@@ -88,19 +78,9 @@ PostsController.actions.index =
                 pagination : pagination
             });
         };
-
-        if ('_index_rows' === criteria.view) {
-            return fetch(render);
-        }
-
-        if ('_pagination' === criteria.view) {
-            return count(render);
-        }
-
+        
         fetch(function(err, records) {
-            count(function(pagination) {
-                render(pagination, records);
-            });
+            render(null, records);
         });
     }
 };
@@ -121,7 +101,10 @@ PostsController.actions.show =
 
             models.Post.find({
                 where   : {slug: req.params.slug},
-                include : [{model: models.User, as: 'Author'}]
+                include : [
+                    {model: models.User, as: 'Author'},
+                    {model: models.Comment, as: 'Comments'}
+                ]
             }).success(function(record) {
 
                 // Render the view
