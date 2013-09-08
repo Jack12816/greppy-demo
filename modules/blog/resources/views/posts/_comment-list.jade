@@ -1,0 +1,14 @@
+- var hasComments = false
+each comment in post.comments
+  - if (!comment.deleted_at) hasComments = true
+
+- if (hasComments)
+  .commentArea
+
+    h3 Comments for this post
+
+    ul.commentList
+      each comment in post.comments
+        - if (!comment.deleted_at)
+          li
+            include _comment

@@ -16,6 +16,11 @@ module.exports = function(sequelize, DataTypes)
                 autoIncrement: true
             },
 
+            post_id: {
+                type: DataTypes.INTEGER,
+                allowNull: false
+            },
+
             title: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -77,5 +82,5 @@ module.exports = function(sequelize, DataTypes)
     };
 
     return model;
-}
+};
 

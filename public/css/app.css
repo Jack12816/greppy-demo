@@ -1,5 +1,7 @@
-.postList{padding-left:0;margin-top:16px;list-style-type:none}
+.postList, .commentList{padding-left:0;margin-top:16px;list-style-type:none}
 
-.post h4, .post p{margin:0}
+.post h4, .post p, .comment h4, .comment p{margin:0}
 
 .post h4 a:hover{text-decoration:none}
+
+.commentArea{width:90%;float:right}

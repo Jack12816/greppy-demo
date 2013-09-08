@@ -5,6 +5,10 @@ block content
   - if (null !== post && !post.deleted_at)
 
     h2.page-headline Post details
+      .pull-right
+        include _operations
+
+    - var single = true;
 
     include _post
 

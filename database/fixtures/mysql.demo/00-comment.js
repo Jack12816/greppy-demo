@@ -9,6 +9,7 @@ module.exports = function(orm, models, share, utils, callback)
 
         records.push({
             title      : utils.content.wordgroup(),
+            post_id    : utils.content.integer(1, 50),
             content    : utils.content.text(),
             email      : utils.content.email(),
             twitter    : utils.content.optional(utils.content.word()),
@@ -35,5 +36,5 @@ module.exports = function(orm, models, share, utils, callback)
         share.Comments = records;
         callback && callback();
     });
-}
+};
 
