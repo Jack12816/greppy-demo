@@ -72,7 +72,7 @@ PostsController.actions.index =
             greppy.db.get(connection).getORM(function(orm, models) {
 
                 models[entity].findAll(criteria).success(function(records) {
-                    callback && callback(undefined, records);
+                    callback && callback(null, records);
                 }).error(function(err) {
                     self.error.showErrorPage(req, res, err);
                 });

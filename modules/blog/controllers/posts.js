@@ -78,7 +78,7 @@ PostsController.actions.index =
                 pagination : pagination
             });
         };
-        
+
         fetch(function(err, records) {
             render(null, records);
         });
