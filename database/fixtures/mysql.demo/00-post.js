@@ -20,7 +20,7 @@ module.exports = function(orm, models, share, utils, callback)
     async.map(records, function(record, callback) {
 
         models.Post.build(record).save().success(function(record) {
-            callback && callback(undefined, record);
+            callback && callback(null, record);
         }).error(function(err) {
             callback && callback(err);
         });
