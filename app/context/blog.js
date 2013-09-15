@@ -17,15 +17,15 @@ var BlogContext = function()
     BlogContext.super_.call(this, __filename);
 
     // Worker context description.
-    this.description = 'Blog frontend context for the domain greppy.org'
+    this.description = 'Blog frontend context for the domain greppy.org';
 
     // Worker context backends configuration.
     this.backends = {
         mysql: [] // All MySQL connections
-    }
+    };
 
     // Worker context modules configuration.
-    this.modules = ['blog']
+    this.modules = ['blog'];
 
     // Worker context controllers configuration.
     this.controllers = {

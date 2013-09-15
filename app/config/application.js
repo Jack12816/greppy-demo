@@ -32,6 +32,26 @@ config.database = {
             host     : '127.0.0.1',
             port     : 3306
        }
+    },
+
+    mongodb: {
+
+        demo: {
+            plain    : true,
+            orm      : true,
+            username : null,
+            password : null,
+            db       : 'greppy_demo',
+            servers  : [
+                {
+                    host : '127.0.0.1',
+                    port : 27017
+                }
+            ],
+            options: {
+                native_parser: true
+            }
+        }
     }
 };
 
