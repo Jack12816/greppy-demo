@@ -30,7 +30,7 @@
     "dependencies": {
         "greppy": "~0.2.0",
         "async": "~0.2.5",
-        "express": "~3.3.5",
+        "express": "~3.4.0",
         "express-validator": "~0.3.2",
         "express-winston": "~0.2.0",
         "jade": "~0.34.1",

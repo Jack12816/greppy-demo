@@ -20,10 +20,10 @@ var ServiceContext = function()
     this.description = 'Service context which houses the project API';
 
     // Worker context backends configuration.
-    this.backends = null
+    this.backends = {};
 
     // Worker context modules configuration.
-    this.modules = ['service']
+    this.modules = ['service'];
 
     // Worker context controllers configuration.
     this.controllers = {
