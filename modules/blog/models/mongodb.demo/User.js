@@ -5,7 +5,8 @@
 var User = new Schema({
 
     role_id: {
-        type: Number
+        type: Number,
+        default: 1
     },
 
     fullname: {
@@ -22,7 +23,8 @@ var User = new Schema({
     },
 
     deleted_at: {
-        type: Date
+        type: Date,
+        default: null
     }
 });
 
