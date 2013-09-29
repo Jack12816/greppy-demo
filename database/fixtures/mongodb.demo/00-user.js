@@ -1,5 +1,5 @@
 /**
- * Fixtures for Users collection
+ * Fixtures for users collection
  */
 module.exports = function(orm, models, share, utils, callback)
 {
@@ -33,12 +33,12 @@ module.exports = function(orm, models, share, utils, callback)
     for (var i = 0; i < 100; i++) {
 
         records.push({
-            role_id    : 1,
-            fullname   : utils.content.fullname(),
-            email      : utils.content.email(),
-            password   : utils.content.sha512(),
-            created_at : utils.content.date(),
-            deleted_at : utils.content.optional(utils.content.date())
+            role_id: 1,
+            fullname: utils.content.fullname(),
+            email: utils.content.email(),
+            password: utils.content.md5(),
+            created_at: utils.content.date(),
+            deleted_at: utils.content.optional(utils.content.date())
         });
     }
 
@@ -50,7 +50,7 @@ module.exports = function(orm, models, share, utils, callback)
                 return callback && callback(err);
             }
 
-            callback && callback(null, record);
+            callback && callback(null, savedUser);
         });
 
     }, function(err, records) {
@@ -59,7 +59,7 @@ module.exports = function(orm, models, share, utils, callback)
             return callback && callback(err);
         }
 
-        share.Users = records;
+        share.User = records;
         callback && callback();
     });
 }
