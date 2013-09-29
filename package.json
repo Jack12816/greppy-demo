@@ -1,7 +1,7 @@
 {
     "name": "greppy-demo",
     "description": "Demo project based on the Greppy framework",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "private": false,
     "contributors": [
         {
@@ -28,7 +28,7 @@
         }
     ],
     "dependencies": {
-        "greppy": "~0.2.0",
+        "greppy": "~0.3.0",
         "async": "~0.2.5",
         "express": "~3.4.0",
         "express-validator": "~0.3.2",
