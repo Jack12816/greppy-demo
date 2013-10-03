@@ -21,25 +21,25 @@ config.infrastructure = {
  */
 config.database = {
 
-    mysql: {
+    // mysql: {
 
-        demo: {
-            plain    : true,
-            orm      : true,
-            username : 'root',
-            password : '',
-            db       : 'greppy_demo',
-            host     : '127.0.0.1',
-            port     : 3306
-       }
-    },
+    //     demo: {
+    //         plain    : true,
+    //         orm      : true,
+    //         username : 'root',
+    //         password : '',
+    //         db       : 'greppy_demo',
+    //         host     : '127.0.0.1',
+    //         port     : 3306
+    //    }
+    // },
 
     mongodb: {
 
-        demo: {
+        blog: {
             plain   : true,
             orm     : true,
-            uri     : 'mongodb://127.0.0.1:27017/greppy_demo',
+            uri     : 'mongodb://127.0.0.1:27017/greppy_blog',
             options : {
                 db: {
                     native_parser: true

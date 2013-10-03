@@ -1,0 +1,51 @@
+extends ../layout
+
+block content
+
+  - if (null !== user)
+
+    br
+    .media
+      .pull-left
+        img.img-rounded(src="#{user.gravatar}" + 200)
+      .media-body
+
+        h1.media-heading #{ user.fullname }
+
+        table.table.table-bordered.table-striped
+          tbody
+
+            tr
+              th.min Email
+              td #{ user.email }
+
+            if (user.status)
+              tr
+                th.min Status
+                td #{ user.status }
+
+            tr
+              th.min Created at
+              td #{helper.date.format(user.created_at, 'LLLL')}
+
+    unless (0 == relations.posts.length)
+      h3.headline.clickable(data-toggle="collapse", data-target="#posts")
+        i.icon-file
+        |  Posts written by this user
+      #posts.collapse
+        each post in relations.posts
+          include ../posts/_post
+
+    unless (0 == relations.comments.length)
+      h3.headline.clickable(data-toggle="collapse", data-target="#comments")
+        i.icon-comment
+        |  Comments written by this user
+      #comments.collapse
+        each comment in relations.comments
+          include ../posts/_comment
+
+  - else
+
+    - var entity = 'User'
+    include ../error/notfound
+

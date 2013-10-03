@@ -1,0 +1,15 @@
+a(name="comments")
+h3.headline Comments
+
+- var amount = 0
+each comment in post.comments
+  unless comment.deleted_at
+    - amount++
+
+if 0 == amount
+  p No comments were written yet.
+else
+  each comment in post.comments
+    unless comment.deleted_at
+      include _comment
+

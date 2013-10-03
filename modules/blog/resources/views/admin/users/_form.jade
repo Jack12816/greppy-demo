@@ -5,9 +5,11 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
     .col-lg-10
       input.form-control(
         type="text",
-        name="user_fullname"
+        name="user_fullname",
         placeholder="Just type the fullname ..",
+        required="required",
         value="#{('undefined' !== typeof user && null !== user) ? user.fullname : ''}")
+
       span.help-block.
         Some useful hints for the fullname input
 
@@ -16,9 +18,11 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
     .col-lg-10
       input.form-control(
         type="text",
-        name="user_email"
+        name="user_email",
         placeholder="Just type the email ..",
+        required="required",
         value="#{('undefined' !== typeof user && null !== user) ? user.email : ''}")
+
       span.help-block.
         Some useful hints for the email input
 
@@ -27,9 +31,11 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
     .col-lg-10
       input.form-control(
         type="text",
-        name="user_password"
+        name="user_password",
         placeholder="Just type the password ..",
+        required="required",
         value="#{('undefined' !== typeof user && null !== user) ? user.password : ''}")
+
       span.help-block.
         Some useful hints for the password input
 

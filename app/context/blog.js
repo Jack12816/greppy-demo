@@ -21,7 +21,6 @@ var BlogContext = function()
 
     // Worker context backends configuration.
     this.backends = {
-        mysql: [], // All MySQL connections
         mongodb: [] // All MongoDB connections
     };
 

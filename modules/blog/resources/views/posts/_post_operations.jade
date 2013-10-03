@@ -1,0 +1,17 @@
+script.
+
+  $(document).ready(function() {
+
+    $('.details-banner').on('click', function() {
+      var cur = $(this);
+      cur.slideUp();
+      cur.parent().find('.details').slideDown();
+    });
+
+    $('.details').on('click', function() {
+      var cur = $(this);
+      cur.slideUp();
+      cur.parent().find('.details-banner').slideDown();
+    });
+  });
+

@@ -22,11 +22,11 @@
 
     - if ('show' != req.greppy.route.action)
 
-      a.btn.btn-default(href="#{controller.link('show', { id: user.id })}", title="Show user details")
+      a.btn.btn-default(href="#{controller.link('show', { oid: user.id })}", title="Show user details")
         i.icon-search
 
     &nbsp;
-    a.btn.btn-warning(href="#{controller.link('edit', { id: user.id })}", title="Edit this user")
+    a.btn.btn-warning(href="#{controller.link('edit', { oid: user.id })}", title="Edit this user")
       i.icon-pencil
 
     &nbsp;
@@ -60,7 +60,7 @@
 
             $.ajax({
                 type: "DELETE",
-                url: greppy.controller.link('destroy', {id: id})
+                url: greppy.controller.link('destroy', {oid: id})
             }).done(function(data) {
                 window.location.reload();
             });
@@ -84,7 +84,7 @@
 
             $.ajax({
                 type: "POST",
-                url: greppy.controller.link('restore', {id: id})
+                url: greppy.controller.link('restore', {oid: id})
             }).done(function(data) {
                 window.location.reload();
             });

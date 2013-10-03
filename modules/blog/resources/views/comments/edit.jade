@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+
+  - if (null !== comment)
+
+    h2.page-headline.bottom-border Edit comment details
+      .pull-right
+        include _operations
+
+    br
+    include _form
+
+  - else
+
+    - var entity = 'Comment'
+    include ../error/notfound
+

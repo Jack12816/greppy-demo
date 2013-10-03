@@ -12,23 +12,27 @@ block content
       tbody
 
         tr
-          th Slug
+          th.min Author
+          td #{ post.author }
+
+        tr
+          th.min Slug
           td #{ post.slug }
 
         tr
-          th Title
+          th.min Title
           td #{ post.title }
 
         tr
-          th Content
+          th.min Content
           td #{ post.content }
 
         tr
-          th Created at
+          th.min Created at
           td #{helper.date.format(post.created_at, 'LLLL')}
 
         tr(class="#{ post.deleted_at ? 'danger' : 'success' }")
-          th Deleted
+          th.min Deleted
           td #{ post.deleted_at ? ('at ' + helper.date.format(post.deleted_at, 'LLLL')) : 'No' }
 
   - else

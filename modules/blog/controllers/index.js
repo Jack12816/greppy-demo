@@ -14,7 +14,7 @@ var IndexController = function()
     IndexController.super_.call(this);
 
     // Define the path to look for views
-    this.viewPath = 'app/';
+    this.viewPath = 'posts/';
 };
 
 /**
@@ -38,20 +38,22 @@ IndexController.actions.index =
     methods : ['GET'],
     action  : function(req, res) {
 
-        greppy.db.get('mysql.demo').getORM(function(orm, models) {
+        greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
-            models.Post.findAll({
-                include: [{model: models.User, as: 'Author'}],
-                limit: 20
-            }).success(function(records) {
+            models.Post.find({deleted_at: null})
+                       .sort({created_at: 1})
+                       .limit(10)
+                       .populate('author')
+                       .exec(function(err, documents) {
+
+                if (err) {
+                    return self.error.showErrorPage(req, res, err);
+                }
 
                 // Render the view
-                res.render(self.view('home'), {
-                    posts : records
+                res.render(self.view('index'), {
+                    posts: documents
                 });
-
-            }).error(function(err) {
-                self.error.showErrorPage(req, res, err);
             });
         });
     }

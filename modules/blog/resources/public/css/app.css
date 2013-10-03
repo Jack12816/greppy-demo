@@ -1,5 +1,5 @@
 body {
-  padding-top: 70px;
+  padding-top: 60px;
 }
 
 .error-message {
@@ -39,5 +39,18 @@ body {
 
 .container .credit {
   margin: 20px 0;
+}
+
+.sidebar {
+    padding: 0px 0px 10px 25px;
+    border-left: 3px solid rgb(221, 221, 221);
+}
+
+.headline {
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.clickable {
+    cursor: pointer;
 }
 

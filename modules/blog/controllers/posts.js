@@ -28,7 +28,7 @@ util.inherits(PostsController, greppy.get('http.mvc.controller'));
 PostsController = new PostsController();
 
 /**
- * Deliver the posts overview page.
+ * Redirect the user to the index page.
  *
  * @type {ControllerAction}
  * @public
@@ -38,52 +38,9 @@ PostsController.actions.index =
     methods : ['GET'],
     action  : function(req, res) {
 
-        var connection = 'mysql.demo';
-        var entity     = 'Post';
-
-        var criteria = self.dataGrid.buildSqlCriteria(req, res, {
-            limit        : 10,
-            properties   : ['slug', 'title', 'content', 'created_at'],
-            fuzzySearch  : true,
-            softDeletion : true,
-            entity       : entity
-        });
-
-        if (!criteria) {
-            return;
-        }
-
-        var fetch = function(callback) {
-
-            greppy.db.get(connection).getORM(function(orm, models) {
-
-                criteria.include = [
-                    {model: models.User, as: 'Author'},
-                    {model: models.Comment, as: 'Comments'}
-                ];
-
-                models[entity].findAll({include: criteria.include}).success(function(records) {
-                    callback && callback(undefined, records);
-                }).error(function(err) {
-                    self.error.showErrorPage(req, res, err);
-                });
-            });
-        };
-
-        var render = function(pagination, records) {
-
-            // Render the view
-            res.render(self.view(criteria.view), {
-                posts      : records,
-                pagination : pagination
-            });
-        };
-
-        fetch(function(err, records) {
-            render(null, records);
-        });
+        res.redirect('/');
     }
-};
+}
 
 /**
  * Deliver the post details page.
@@ -97,23 +54,32 @@ PostsController.actions.show =
     methods : ['GET'],
     action  : function(req, res) {
 
-        greppy.db.get('mysql.demo').getORM(function(orm, models) {
+        greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
-            models.Post.find({
-                where   : {slug: req.params.slug},
-                include : [
-                    {model: models.User, as: 'Author'},
-                    {model: models.Comment, as: 'Comments'}
-                ]
-            }).success(function(record) {
+            models.Post.findOne({slug: req.params.slug})
+                       .populate('author')
+                       .populate('comments')
+                       .exec(function(err, document) {
+
+                if (err) {
+                    return self.error.showErrorPage(req, res, err);
+                }
 
                 // Render the view
                 res.render(self.view('show'), {
-                    post: record
+                    post: document
                 });
 
-            }).error(function(err) {
-                self.error.showErrorPage(req, res, err);
+                if (document) {
+
+                    // Update the views counter
+                    document.update({$inc: {views:1}}, function(err) {
+
+                        if (err) {
+                            self.error.log(req, err);
+                        }
+                    });
+                }
             });
         });
     }

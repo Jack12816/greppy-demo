@@ -12,23 +12,19 @@ block content
       tbody
 
         tr
-          th Fullname
+          th.min Fullname
           td #{ user.fullname }
 
         tr
-          th Email
+          th.min Email
           td #{ user.email }
 
         tr
-          th Password
-          td #{ user.password }
-
-        tr
-          th Created at
+          th.min Created at
           td #{helper.date.format(user.created_at, 'LLLL')}
 
         tr(class="#{ user.deleted_at ? 'danger' : 'success' }")
-          th Deleted
+          th.min Deleted
           td #{ user.deleted_at ? ('at ' + helper.date.format(user.deleted_at, 'LLLL')) : 'No' }
 
   - else

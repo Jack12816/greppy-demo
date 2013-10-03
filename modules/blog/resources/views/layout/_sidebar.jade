@@ -1,0 +1,30 @@
+- var url = req.greppy.route.url.urlencode();
+
+.sidebar
+  .share
+    h3.headline Share
+    p
+      a.btn.btn-primary(title="Share this page on Google+", href="https://plus.google.com/share?url=#{url}")
+        i.icon-facebook-sign.icon-2x
+      &nbsp;
+      a.btn.btn-danger(title="Share this page on Facebook", href="http://www.facebook.com/sharer.php?u=#{url}")
+        i.icon-google-plus-sign.icon-2x
+      &nbsp;
+      a.btn.btn-info(title="Share this page on Twitter", href="https://twitter.com/intent/tweet?original_referer=#{url}&source=#{url}&text=&url=#{url}&via=Jack12816")
+        i.icon-twitter-sign.icon-2x
+
+  .follow
+    h3.headline Follow
+    p
+      a.btn.btn-warning(target="_blank", title="Follow us via RSS feed", href="#{req.url}?format=rss")
+        i.icon-rss.icon-2x
+      &nbsp;
+      a.btn.btn-danger(target="_blank", title="Follow us on Google+", href="https://plus.google.com/112941896889448566210/about/p/pub")
+        i.icon-google-plus-sign.icon-2x
+      &nbsp;
+      a.btn.btn-info(target="_blank", title="Follow us on Twitter", href="https://twitter.com/Jack12816")
+        i.icon-twitter-sign.icon-2x
+      &nbsp;
+      a.btn.btn-default(target="_blank", title="Follow us on GitHub", href="https://github.com/Jack12816/greppy")
+        i.icon-github.icon-2x
+

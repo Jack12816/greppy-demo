@@ -2,15 +2,21 @@ extends ../layout
 
 block content
 
-  - if (null !== post && !post.deleted_at)
+  - if (null !== post)
 
-    h2.page-headline Post details
-      .pull-right
-        include _operations
+    .row
+      .col-lg-8
 
-    - var single = true;
+        h3.headline= post.title
+        .content= post.content
 
-    include _post
+      .col-lg-4
+        include ../layout/_sidebar
+        include _post_meta
+
+    .row
+      .col-lg-12
+        include _comment_list
 
   - else
 

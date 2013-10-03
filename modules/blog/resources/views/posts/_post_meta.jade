@@ -1,0 +1,29 @@
+.sidebar
+  .meta
+    h3.headline Author
+   .media
+    .pull-left
+      img.img-rounded(src="#{post.author.gravatar}" + 50)
+    .media-body
+      a(href="/users/" + post.author.id) #{post.author.fullname}
+      br
+      p.text-muted #{post.author.status}
+
+  .stats
+    h3.headline Statistics
+
+    .media
+      .pull-left
+        a(href="#comments")
+          i.icon-comments.icon-2x
+      .media-body
+        h5.media-heading Comments on this post
+        p.text-muted #{post.comments.length} Comments
+
+    .media
+      .pull-left
+        i.icon-eye-open.icon-2x
+      .media-body
+        h5.media-heading Views on this post
+        p.text-muted #{post.views} Views
+

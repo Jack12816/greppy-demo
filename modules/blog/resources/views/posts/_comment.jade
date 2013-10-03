@@ -1,6 +1,30 @@
 .comment.panel.panel-default
   .panel-heading.clearfix
-    h4.pull-left= comment.title
-    p.pull-right
-      | #{helper.date.format(comment.created_at, 'MMMM Do, h:mm a')} by&nbsp;some guy
+
+    .row
+      .col-lg-6
+        .media
+          .pull-left
+            img.img-rounded(src="#{comment.gravatar}" + 50)
+          .media-body
+            | #{comment.fullname}
+            if comment.twitter
+              | &nbsp;(
+              a(target="_blank", href="http://twitter.com/#{comment.twitter}")
+                i.icon-twitter
+                |  #{comment.twitter}
+              | )
+            br
+            | #{comment.title}
+
+      .col-lg-6.text-right
+        p
+          i.icon-plus-sign-alt
+          |  Written at #{helper.date.format(comment.created_at, 'LLLL')}
+          if comment.updated_at
+            br
+            i.icon-edit
+            |  Updated at #{helper.date.format(comment.updated_at, 'LLLL')}
+
   .panel-body= comment.content
+

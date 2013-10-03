@@ -1,12 +1,25 @@
 form.form-horizontal(role="form", method="POST", action="#{response.path}")
 
   .form-group
+    label.col-lg-2.control-label Author
+    .col-lg-10
+      .form-control(
+        name="post_author",
+        placeholder="Just type the author ..",
+        required="required",
+        value="#{('undefined' !== typeof post && null !== post) ? post.author : ''}")
+
+      span.help-block.
+        Some useful hints for the author input
+
+  .form-group
     label.col-lg-2.control-label Slug
     .col-lg-10
       input.form-control(
         type="text",
-        name="post_slug"
+        name="post_slug",
         placeholder="Just type the slug ..",
+        required="required",
         value="#{('undefined' !== typeof post && null !== post) ? post.slug : ''}")
 
       span.help-block.
@@ -17,8 +30,9 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
     .col-lg-10
       input.form-control(
         type="text",
-        name="post_title"
+        name="post_title",
         placeholder="Just type the title ..",
+        required="required",
         value="#{('undefined' !== typeof post && null !== post) ? post.title : ''}")
 
       span.help-block.
@@ -27,11 +41,12 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
   .form-group
     label.col-lg-2.control-label Content
     .col-lg-10
-      textarea.form-control(
-        name="post_content"
+      input.form-control(
+        type="text",
+        name="post_content",
         placeholder="Just type the content ..",
-        rows="10"
-      ) #{('undefined' !== typeof post && null !== post) ? post.content : ''}
+        required="required",
+        value="#{('undefined' !== typeof post && null !== post) ? post.content : ''}")
 
       span.help-block.
         Some useful hints for the content input

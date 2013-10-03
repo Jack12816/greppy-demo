@@ -38,12 +38,12 @@ UsersController.actions.index =
     methods : ['GET'],
     action  : function(req, res) {
 
-        var connection = 'mysql.demo';
+        var connection = 'mongodb.blog';
         var entity     = 'User';
 
-        var criteria = self.dataGrid.buildSqlCriteria(req, res, {
+        var criteria = self.dataGrid.buildNoSqlCriteria(req, res, {
             limit        : 10,
-            properties   : ['fullname', 'email', 'created_at'],
+            properties   : ['fullname', 'email', 'password', 'created_at'],
             fuzzySearch  : true,
             softDeletion : true
         });
@@ -54,7 +54,7 @@ UsersController.actions.index =
 
         var count = function(callback) {
 
-            self.dataGrid.buildSqlPagination(criteria, {
+            self.dataGrid.buildNoSqlPagination(criteria, {
                 connection : connection,
                 entity     : entity
             }, function(err, pagination) {
@@ -71,19 +71,26 @@ UsersController.actions.index =
 
             greppy.db.get(connection).getORM(function(orm, models) {
 
-                models[entity].findAll(criteria).success(function(records) {
-                    callback && callback(null, records);
-                }).error(function(err) {
-                    self.error.showErrorPage(req, res, err);
+                models[entity].find(criteria.where)
+                              .sort(criteria.order)
+                              .skip(criteria.offset)
+                              .limit(criteria.limit)
+                              .exec(function(err, documents) {
+
+                    if (err) {
+                        return self.error.showErrorPage(req, res, err);
+                    }
+
+                    callback && callback(null, documents);
                 });
             });
         };
 
-        var render = function(pagination, records) {
+        var render = function(pagination, documents) {
 
             // Render the view
             res.render(self.view(criteria.view), {
-                users: records,
+                users: documents,
                 pagination: pagination
             });
         };
@@ -96,9 +103,9 @@ UsersController.actions.index =
             return count(render);
         }
 
-        fetch(function(err, records) {
+        fetch(function(err, documents) {
             count(function(pagination) {
-                render(pagination, records);
+                render(pagination, documents);
             });
         });
     }
@@ -112,21 +119,22 @@ UsersController.actions.index =
  */
 UsersController.actions.show =
 {
-    path    : '/:id',
+    path    : '/:oid',
     methods : ['GET'],
     action  : function(req, res) {
 
-        greppy.db.get('mysql.demo').getORM(function(orm, models) {
+        greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
-            models.User.find(req.params.id).success(function(record) {
+            models.User.findById(req.params.oid, function(err, document) {
+
+                if (err) {
+                    return self.error.showErrorPage(req, res, err);
+                }
 
                 // Render the view
                 res.render(self.view('show'), {
-                    user: record
+                    user: document
                 });
-
-            }).error(function(err) {
-                self.error.showErrorPage(req, res, err);
             });
         });
     }
@@ -161,25 +169,26 @@ UsersController.actions.new =
  */
 UsersController.actions.edit =
 {
-    path    : '/:id/edit',
+    path    : '/:oid/edit',
     methods : ['GET'],
     action  : function(req, res) {
 
-        greppy.db.get('mysql.demo').getORM(function(orm, models) {
+        greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
-            models.User.find(req.params.id).success(function(record) {
+            models.User.findById(req.params.oid, function(err, document) {
+
+                if (err) {
+                    return self.error.showErrorPage(req, res, err);
+                }
 
                 // Render the view
                 res.render(self.view('edit'), {
                     response: {
                         action : 'update',
-                        path   : self.link('update', {id: req.params.id})
+                        path   : self.link('update', {oid: document.id})
                     },
-                    user: record
+                    user: document
                 });
-
-            }).error(function(err) {
-                self.error.showErrorPage(req, res, err);
             });
         });
     }
@@ -197,29 +206,23 @@ UsersController.actions.create =
     methods : ['POST'],
     action  : function(req, res) {
 
-        greppy.db.get('mysql.demo').getORM(function(orm, models) {
+        greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
-            var record = models.User.build({
+            var document = new models.User({
                 fullname: (req.body.user_fullname).trim(),
                 email: (req.body.user_email).trim(),
                 password: (req.body.user_password).trim(),
             });
 
-            var validErr = record.validate();
+            document.save(function(err, document) {
 
-            if (validErr) {
+                if (err) {
+                    self.form.logAndFlash(req, err);
+                    return res.redirect(self.link('new'));
+                }
 
-                self.form.logAndFlash(req, validErr);
-                return res.redirect(self.link('new'));
-
-            } else {
-
-                record.save().success(function(record) {
-                    res.redirect(self.link('show', {id: record.id}));
-                }).error(function(err) {
-                    self.error.showErrorPage(req, res, err);
-                });
-            }
+                res.redirect(self.link('show', {oid: document.id}));
+            });
         });
     }
 };
@@ -232,40 +235,36 @@ UsersController.actions.create =
  */
 UsersController.actions.update =
 {
-    path    : '/:id',
+    path    : '/:oid',
     methods : ['POST'],
     action  : function(req, res) {
 
-        greppy.db.get('mysql.demo').getORM(function(orm, models) {
+        greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
-            models.User.find(req.params.id).success(function(record) {
+            models.User.findById(req.params.oid, function(err, document) {
 
-                if (!record) {
+                if (err) {
+                    return self.error.showErrorPage(req, res, err);
+                }
+
+                if (!document) {
                     return res.redirect(self.link('index'));
                 }
 
-                record.fullname = (req.body.user_fullname).trim();
-                record.email = (req.body.user_email).trim();
-                record.password = (req.body.user_password).trim();
+                document.fullname = (req.body.user_fullname).trim();
+                document.email = (req.body.user_email).trim();
+                document.password = (req.body.user_password).trim();
+                document.updated_at = new Date();
 
-                var validErr = record.validate();
+                document.save(function(err, document) {
 
-                if (validErr) {
+                    if (err) {
+                        self.form.logAndFlash(req, err);
+                        return res.redirect(self.link('edit', {oid: document.id}));
+                    }
 
-                    self.form.logAndFlash(req, validErr);
-                    return res.redirect(self.link('edit', {id: record.id}));
-
-                } else {
-
-                    record.save().success(function(record) {
-                      res.redirect(self.link('show', {id: record.id}));
-                    }).error(function(err) {
-                        self.error.showErrorPage(req, res, err);
-                    });
-                }
-
-            }).error(function(err) {
-                self.error.showErrorPage(req, res, err);
+                    res.redirect(self.link('show', {oid: document.id}));
+                });
             });
         });
     }
@@ -279,28 +278,32 @@ UsersController.actions.update =
  */
 UsersController.actions.destroy =
 {
-    path    : '/:id',
+    path    : '/:oid',
     methods : ['DELETE'],
     action  : function(req, res) {
 
-        greppy.db.get('mysql.demo').getORM(function(orm, models) {
+        greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
-            models.User.find(req.params.id).success(function(record) {
+            models.User.findById(req.params.oid, function(err, document) {
 
-                if (!record) {
+                if (err) {
+                    return res.json(500, {err: err});
+                }
+
+                if (!document) {
                     return res.end();
                 }
 
-                record.deleted_at = new Date();
+                document.deleted_at = new Date();
 
-                record.save().success(function(record) {
+                document.save(function(err, document) {
+
+                    if (err) {
+                        return res.json(500, {err: err});
+                    }
+
                     res.end();
-                }).error(function(err) {
-                    self.error.showErrorPage(req, res, err);
                 });
-
-            }).error(function(err) {
-                self.error.showErrorPage(req, res, err);
             });
         });
     }
@@ -314,28 +317,32 @@ UsersController.actions.destroy =
  */
 UsersController.actions.restore =
 {
-    path    : '/:id/restore',
+    path    : '/:oid/restore',
     methods : ['POST'],
     action  : function(req, res) {
 
-        greppy.db.get('mysql.demo').getORM(function(orm, models) {
+        greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
-            models.User.find(req.params.id).success(function(record) {
+            models.User.findById(req.params.oid, function(err, document) {
 
-                if (!record) {
+                if (err) {
+                    return res.json(500, {err: err});
+                }
+
+                if (!document) {
                     return res.end();
                 }
 
-                record.deleted_at = undefined;
+                document.deleted_at = null;
 
-                record.save().success(function(record) {
+                document.save(function(err, document) {
+
+                    if (err) {
+                        return res.json(500, {err: err});
+                    }
+
                     res.end();
-                }).error(function(err) {
-                    self.error.showErrorPage(req, res, err);
                 });
-
-            }).error(function(err) {
-                self.error.showErrorPage(req, res, err);
             });
         });
     }
