@@ -41,22 +41,54 @@ CommentsController.actions.create =
 
         greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
-            var document = new models.Comment({
-                title: (req.body.comment_title).trim(),
-                content: (req.body.comment_content).trim(),
-                email: (req.body.comment_email).trim(),
-                twitter: (req.body.comment_twitter).trim(),
-                website: (req.body.comment_website).trim(),
-            });
+            models.Post.findById((req.body.comment_post_id).trim(), function(err, post) {
 
-            document.save(function(err, document) {
+                var responseUrl = res.link('posts', 'show', {slug: post.slug});
 
                 if (err) {
                     self.form.logAndFlash(req, err);
-                    return res.redirect(self.link('new'));
+                    return res.redirect(responseUrl);
                 }
 
-                res.redirect(self.link('show', {oid: document.id}));
+                if (!post) {
+                    self.form.logAndFlash(req, new Error('Post was not found'));
+                    return res.redirect(responseUrl);
+                }
+
+                var comment = new models.Comment({
+                    post: post.id,
+                    fullname: (req.body.comment_fullname).trim(),
+                    title: (req.body.comment_title).trim(),
+                    content: (req.body.comment_content).trim(),
+                    email: (req.body.comment_email).trim(),
+                    twitter: (req.body.comment_twitter).trim(),
+                    website: (req.body.comment_website).trim(),
+                });
+
+                comment.save(function(err, comment) {
+
+                    if (err) {
+                        self.form.logAndFlash(req, err);
+                        return res.redirect(responseUrl);
+                    }
+
+                    // Append new comment to post
+                    post.comments.push(comment.id);
+
+                    post.save(function(err, post) {
+
+                        if (err) {
+                            self.form.logAndFlash(req, err);
+                            return res.redirect(responseUrl);
+                        }
+
+                        req.flash('success',
+                            'Saved your <a class="alert-link" href="#comment-'
+                            + comment.slug + '">comment</a>.'
+                        );
+                        return res.redirect(responseUrl);
+                    });
+                });
             });
         });
     }
@@ -86,6 +118,7 @@ CommentsController.actions.update =
                     return res.redirect(self.link('index'));
                 }
 
+                document.fullname = (req.body.comment_fullname).trim();
                 document.title = (req.body.comment_title).trim();
                 document.content = (req.body.comment_content).trim();
                 document.email = (req.body.comment_email).trim();
@@ -100,6 +133,7 @@ CommentsController.actions.update =
                         return res.redirect(self.link('edit', {oid: document.id}));
                     }
 
+                    req.flash('success', 'Updated your comment.');
                     res.redirect(self.link('show', {oid: document.id}));
                 });
             });

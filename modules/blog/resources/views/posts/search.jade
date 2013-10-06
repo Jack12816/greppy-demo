@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+
+  include _operations
+
+  .row
+    .col-lg-8
+
+      h3.headline Greppy Blog Search
+
+      .well
+        unless ('' === searchQuery)
+          | Searched for <b>#{searchQuery}</b>
+        else
+          | No text were entered to search for.
+
+      .postList
+        each post in posts
+          li
+            include _post
+
+    .col-lg-4
+      include ../layout/_sidebar
+      include ./archive/_sidebar
+

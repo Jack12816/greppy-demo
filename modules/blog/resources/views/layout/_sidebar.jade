@@ -1,20 +1,25 @@
-- var url = req.greppy.route.url.urlencode();
+- var urlEncoded = app.url.urlencode();
 
 .sidebar
   .share
     h3.headline Share
+    p.
+      Did you like this page? Share it with your friends and family via social networks.
     p
-      a.btn.btn-primary(title="Share this page on Google+", href="https://plus.google.com/share?url=#{url}")
+      a.btn.btn-primary(target="_blank", title="Share this page on Facebook", href="http://www.facebook.com/sharer.php?u=#{urlEncoded}")
         i.icon-facebook-sign.icon-2x
       &nbsp;
-      a.btn.btn-danger(title="Share this page on Facebook", href="http://www.facebook.com/sharer.php?u=#{url}")
+      a.btn.btn-danger(target="_blank", title="Share this page on Google+", href="https://plus.google.com/share?url=#{urlEncoded}")
         i.icon-google-plus-sign.icon-2x
       &nbsp;
-      a.btn.btn-info(title="Share this page on Twitter", href="https://twitter.com/intent/tweet?original_referer=#{url}&source=#{url}&text=&url=#{url}&via=Jack12816")
+      a.btn.btn-info(target="_blank", title="Share this page on Twitter", href="https://twitter.com/intent/tweet?original_referer=#{urlEncoded}&source=#{urlEncoded}&text=&url=#{urlEncoded}&via=Jack12816")
         i.icon-twitter-sign.icon-2x
 
   .follow
     h3.headline Follow
+    p.
+      You can follow the activities of this article by RSS feeds.
+      Or follow the activities of Greppy on Google+, Twitter or GitHub.
     p
       a.btn.btn-warning(target="_blank", title="Follow us via RSS feed", href="#{req.url}?format=rss")
         i.icon-rss.icon-2x

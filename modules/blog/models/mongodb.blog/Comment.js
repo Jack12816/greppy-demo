@@ -5,9 +5,16 @@ var crypto = require('crypto');
 
 var Comment = new Schema({
 
-    fullname: {
-        type: String,
+    post: {
+        type: Schema.Types.ObjectId,
+        ref: 'Post',
         required: true
+    },
+
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: false
     },
 
     title: {
@@ -20,9 +27,14 @@ var Comment = new Schema({
         required: true
     },
 
+    fullname: {
+        type: String,
+        required: false
+    },
+
     email: {
         type: String,
-        required: true
+        required: false
     },
 
     twitter: {
@@ -36,16 +48,19 @@ var Comment = new Schema({
     },
 
     created_at: {
+        index: true,
         type: Date,
         default: Date.now
     },
 
     updated_at: {
+        index: true,
         type: Date,
         default: null
     },
 
     deleted_at: {
+        index: true,
         type: Date,
         default: null
     }
@@ -56,6 +71,11 @@ Comment.virtual('gravatar').get(function() {
     return 'http://www.gravatar.com/avatar/'
         + crypto.createHash('md5').update(this.email).digest("hex")
         + '?s=';
+});
+
+Comment.virtual('slug').get(function() {
+
+    return (this.id + '-' + this.title.replace(/[^a-z0-9]/gi, '-')).toLowerCase();
 });
 
 Comment.info = {

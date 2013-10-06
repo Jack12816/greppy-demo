@@ -1,0 +1,59 @@
+//- Allow external injection
+if ('undefined' === typeof author)
+  if (comment.author)
+    - var author = comment.author
+  else
+    - var author = comment
+
+.comment.panel.panel-default
+  .panel-heading.clearfix
+
+    .row
+      .col-lg-6
+        .media
+          .pull-left
+            img.img-rounded(src="#{author.gravatar}" + 50)
+          .media-body
+            .comment-title.clickable
+              b #{comment.title}
+              if ('undefined' !== typeof comment.post.slug)
+                - var url = app.link('posts', 'show', {slug: comment.post.slug}, app.host)
+              else
+                - var url = app.url
+              &nbsp;
+              a.btn.btn-default.btn-xs.collapse(href="#{url}#comment-#{comment.slug}")
+                i.icon-external-link
+                if ('undefined' !== typeof comment.post.title)
+                  |  #{comment.post.title}
+                else
+                  |  Permalink
+
+            | by&nbsp;
+            if (comment.author)
+              if (author.fullname)
+                a(href="#{app.link('users', 'show', {username: author.username})}") #{author.fullname}
+              else
+                a(href="#{app.link('users', 'show', {username: author.username})}") #{author.username}
+            else
+              | #{author.fullname}
+            if author.twitter
+              | &nbsp;(
+              a(target="_blank", href="http://twitter.com/#{author.twitter}")
+                i.icon-twitter
+                |  #{author.twitter}
+              | )
+
+      .col-lg-6.text-right
+        p
+          i.icon-plus-sign-alt
+          |  Written at #{helper.date.format(comment.created_at, 'LLLL')}
+          if comment.updated_at
+            br
+            i.icon-edit
+            |  Updated at #{helper.date.format(comment.updated_at, 'LLLL')}
+
+  .panel-body= comment.content
+
+//- Clear external injection
+- author = undefined
+

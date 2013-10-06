@@ -2,12 +2,12 @@ extends ../layout
 
 block content
 
-  include _post_operations
+  include _operations
 
   .row
     .col-lg-8
 
-      h3 Greppy Blog
+      h3.headline Greppy Blog
       .postList
         each post in posts
           li
@@ -15,4 +15,5 @@ block content
 
     .col-lg-4
       include ../layout/_sidebar
+      include ./archive/_sidebar
 

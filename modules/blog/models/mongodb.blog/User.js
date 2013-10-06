@@ -11,9 +11,10 @@ var User = new Schema({
         required: true
     },
 
-    fullname: {
+    username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
 
     email: {
@@ -26,22 +27,40 @@ var User = new Schema({
         required: true
     },
 
+    fullname: {
+        type: String,
+        required: false
+    },
+
+    twitter: {
+        type: String,
+        required: false
+    },
+
+    website: {
+        type: String,
+        required: false
+    },
+
     status: {
         type: String,
         required: false
     },
 
     created_at: {
+        index: true,
         type: Date,
         default: Date.now
     },
 
     updated_at: {
+        index: true,
         type: Date,
         default: null
     },
 
     deleted_at: {
+        index: true,
         type: Date,
         default: null
     }

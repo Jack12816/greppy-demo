@@ -5,7 +5,7 @@
     .pull-left
       img.img-rounded(src="#{post.author.gravatar}" + 50)
     .media-body
-      a(href="/users/" + post.author.id) #{post.author.fullname}
+      a(href="#{app.link('users', 'show', {username: post.author.username})}") #{post.author.fullname}
       br
       p.text-muted #{post.author.status}
 

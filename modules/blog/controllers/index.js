@@ -5,6 +5,8 @@
  * @author Hermann Mayer <hermann.mayer92@gmail.com>
  */
 
+var async = require('async');
+
 /**
  * @constructor
  */
@@ -40,11 +42,28 @@ IndexController.actions.index =
 
         greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
-            models.Post.find({deleted_at: null})
-                       .sort({created_at: 1})
-                       .limit(10)
-                       .populate('author')
-                       .exec(function(err, documents) {
+            async.waterfall([
+
+                function(callback) {
+
+                    models.Post.find({deleted_at: null})
+                               .sort({created_at: -1})
+                               .limit(10)
+                               .populate('author')
+                               .exec(function(err, posts) {
+
+                        callback && callback(err, posts);
+                    });
+                },
+
+                function(posts, callback) {
+
+                    greppy.helper.get('blog.fetcher.post').fetchArchive(function(err, archive) {
+                        callback && callback(err, posts, archive);
+                    });
+                }
+
+            ], function (err, posts, archive) {
 
                 if (err) {
                     return self.error.showErrorPage(req, res, err);
@@ -52,7 +71,8 @@ IndexController.actions.index =
 
                 // Render the view
                 res.render(self.view('index'), {
-                    posts: documents
+                    posts   : posts,
+                    archive : archive
                 });
             });
         });

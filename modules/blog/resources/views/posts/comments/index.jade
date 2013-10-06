@@ -1,0 +1,34 @@
+include _operations
+
+a(name="comments")
+h3.headline.clearfix Comments
+  .pull-right
+    a.btn.btn-primary.btn-sm#new-comment-btn(title="Add a new comment")
+      i.icon-plus
+
+- var amount = 0
+each comment in post.comments
+  unless comment.deleted_at
+    - amount++
+
+if 0 == amount
+  p No comments were written yet.
+else
+  each comment in post.comments
+    unless comment.deleted_at
+      a(name="comment-#{comment.slug}")
+      include _comment
+
+a(name="new-comment")
+.row#new-comment-form.collapse
+  .col-lg-12
+    .well
+      h3.headline
+        i.icon-plus-sign
+        |  Create a new comment
+        .pull-right
+          a.btn.btn-danger.btn-sm#new-comment-close-btn(title="Close")
+            i.icon-remove
+      br
+      include _form
+

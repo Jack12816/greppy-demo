@@ -50,13 +50,13 @@ UsersController.actions.index =
  */
 UsersController.actions.show =
 {
-    path    : '/:oid',
+    path    : '/:username',
     methods : ['GET'],
     action  : function(req, res) {
 
         greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
-            models.User.findById(req.params.oid, function(err, document) {
+            models.User.findOne({username: req.params.username}, function(err, document) {
 
                 if (err) {
                     return self.error.showErrorPage(req, res, err);

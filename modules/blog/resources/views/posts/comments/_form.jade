@@ -1,0 +1,70 @@
+form.form-horizontal(role="form", method="POST", action="#{app.link('posts.comments', 'create')}")
+
+  .form-group
+    label.col-lg-2.control-label Fullname *
+    .col-lg-10
+      input.form-control(
+        type="text",
+        name="comment_fullname",
+        placeholder="Just type your fullname ..",
+        required="required",
+        value="#{('undefined' !== typeof comment && null !== comment) ? comment.email : ''}")
+
+  .form-group
+    label.col-lg-2.control-label Email *
+    .col-lg-10
+      input.form-control(
+        type="text",
+        name="comment_email",
+        placeholder="Just type your email. It wont be published.",
+        required="required",
+        value="#{('undefined' !== typeof comment && null !== comment) ? comment.email : ''}")
+
+  .form-group
+    label.col-lg-2.control-label Title *
+    .col-lg-10
+      input.form-control(
+        type="text",
+        name="comment_title",
+        placeholder="Just type the title ..",
+        required="required",
+        value="#{('undefined' !== typeof comment && null !== comment) ? comment.title : ''}")
+
+  .form-group
+    label.col-lg-2.control-label Content *
+    .col-lg-10
+      textarea.form-control(
+        type="text",
+        name="comment_content",
+        placeholder="Just type the content ..",
+        required="required",
+        rows="5"
+      ) #{('undefined' !== typeof comment && null !== comment) ? comment.content : ''}
+
+  .form-group
+    label.col-lg-2.control-label Twitter
+    .col-lg-10
+      input.form-control(
+        type="text",
+        name="comment_twitter",
+        placeholder="Just type the twitter ..",
+        value="#{('undefined' !== typeof comment && null !== comment) ? comment.twitter : ''}")
+
+  .form-group
+    label.col-lg-2.control-label Website
+    .col-lg-10
+      input.form-control(
+        type="text",
+        name="comment_website",
+        placeholder="Just type the website ..",
+        value="#{('undefined' !== typeof comment && null !== comment) ? comment.website : ''}")
+
+  input(type="hidden", name="comment_post_id", value="#{post.id}")
+
+  .form-group
+    .col-lg-offset-2.col-lg-10
+      button.btn.btn-primary
+        i.icon-ok
+        &nbsp;
+        |  Create
+

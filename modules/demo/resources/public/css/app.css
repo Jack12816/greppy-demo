@@ -149,3 +149,14 @@ body {
     color: #FFFFFF;
 }
 
+#myCarousel {
+    background-color: #32708F;
+}
+
+@media (max-width: 768px) {
+
+    #fork-on-github {
+        display: none;
+    }
+}
+

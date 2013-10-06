@@ -4,45 +4,87 @@ block content
 
   - if (null !== user)
 
+
+
     br
-    .media
-      .pull-left
-        img.img-rounded(src="#{user.gravatar}" + 200)
-      .media-body
+    .row
+      .col-lg-3
 
-        h1.media-heading #{ user.fullname }
+        .row
+          img.img-rounded(src="#{user.gravatar}" + 200)
 
-        table.table.table-bordered.table-striped
-          tbody
+        .row
+          if (user.fullname)
+            h2.media-heading #{ user.fullname }
 
-            tr
-              th.min Email
-              td #{ user.email }
+            h3.media-heading #{ user.username }
+          else
+            h3.media-heading #{ user.username }
+
+          p.meta
 
             if (user.status)
-              tr
-                th.min Status
-                td #{ user.status }
+              p.text-muted
+                i.icon-star
+                |  #{user.status}
 
-            tr
-              th.min Created at
-              td #{helper.date.format(user.created_at, 'LLLL')}
+            if (user.twitter)
+              p.text-muted
+                i.icon-twitter
+                &nbsp;
+                a(target="_blank", href="http://twitter.com/#{user.twitter}") #{user.twitter}
 
-    unless (0 == relations.posts.length)
-      h3.headline.clickable(data-toggle="collapse", data-target="#posts")
-        i.icon-file
-        |  Posts written by this user
-      #posts.collapse
-        each post in relations.posts
+            if (user.website)
+              p.text-muted
+                i.icon-globe
+                &nbsp;
+                a(target="_blank", href="http://#{ user.website }") #{ user.website }
+
+            p.text-muted
+              i.icon-time
+              |  Joined on #{helper.date.format(user.created_at, 'LL')}
+
+      .col-lg-9
+
+        unless (0 == relations.posts.length)
+          include ../posts/_operations
+          h3.headline
+            i.icon-file
+            |  Latest post
+          - var post = relations.posts.shift()
+          //- Aliasing for injection
+          - var author = user
           include ../posts/_post
 
-    unless (0 == relations.comments.length)
-      h3.headline.clickable(data-toggle="collapse", data-target="#comments")
-        i.icon-comment
-        |  Comments written by this user
-      #comments.collapse
-        each comment in relations.comments
-          include ../posts/_comment
+        unless (0 == relations.comments.length)
+          include ../posts/comments/_operations
+          h3.headline
+            i.icon-file
+            |  Latest comment
+          - var comment = relations.comments.shift()
+          //- Aliasing for injection
+          - var author = user
+          include ../posts/comments/_comment
+
+        unless (0 == relations.posts.length)
+          h3.headline.clickable(data-toggle="collapse", data-target="#posts")
+            i.icon-file
+            |  Posts written by this user
+          #posts.collapse
+            each post in relations.posts
+              //- Aliasing for injection
+              - var author = user
+              include ../posts/_post
+
+        unless (0 == relations.comments.length)
+          h3.headline.clickable(data-toggle="collapse", data-target="#comments")
+            i.icon-comment
+            |  Comments written by this user
+          #comments.collapse
+            each comment in relations.comments
+              //- Aliasing for injection
+              - var author = user
+              include ../posts/comments/_comment
 
   - else
 

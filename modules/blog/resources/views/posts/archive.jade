@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+
+  include _operations
+
+  .row
+    .col-lg-8
+
+      h3.headline Blog Archive
+
+      .well.
+        Show posts from #{helper.date.format(date, 'MMMM, YYYY')}.
+
+      .postList
+        each post in posts
+          li
+            include _post
+
+    .col-lg-4
+      include ../layout/_sidebar
+      include ./archive/_sidebar
+

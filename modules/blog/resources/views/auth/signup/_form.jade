@@ -1,0 +1,55 @@
+form.form-horizontal(role="form", method="POST", action="#{app.link('auth', 'processSignup')}")
+
+  .form-group
+    label.col-lg-2.control-label Fullname
+    .col-lg-10
+      input.form-control(
+        type="text",
+        name="user_fullname",
+        placeholder="Just type the fullname ..",
+        required="required",
+        value="#{('undefined' !== typeof user && null !== user) ? user.fullname : ''}")
+
+      span.help-block.
+        Some useful hints for the fullname input
+
+  .form-group
+    label.col-lg-2.control-label Email
+    .col-lg-10
+      input.form-control(
+        type="text",
+        name="user_email",
+        placeholder="Just type the email ..",
+        required="required",
+        value="#{('undefined' !== typeof user && null !== user) ? user.email : ''}")
+
+      span.help-block.
+        Some useful hints for the email input
+
+  .form-group
+    label.col-lg-2.control-label Password
+    .col-lg-10
+      input.form-control(
+        type="password",
+        name="user_password",
+        placeholder="Just type a password ..",
+        required="required",
+        value="")
+
+  .form-group
+    label.col-lg-2.control-label Confirm Password
+    .col-lg-10
+      input.form-control(
+        type="password",
+        name="user_password",
+        placeholder="Just confirm the entered password ..",
+        required="required",
+        value="")
+
+  .form-group
+    .col-lg-offset-2.col-lg-10
+      button.btn.btn-primary
+        i.icon-ok
+        &nbsp;
+        | Sign up
+

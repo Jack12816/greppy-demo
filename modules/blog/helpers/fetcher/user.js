@@ -30,7 +30,8 @@ UserHelper.prototype.fetch = function(user, callback)
         },
         {
             name: 'Comment',
-            condition: {email: user.email}
+            condition: {author: user.id},
+            populate: [{path: 'post', select: 'title slug'}]
         }
     ];
 
@@ -38,7 +39,16 @@ UserHelper.prototype.fetch = function(user, callback)
 
         async.map(entities, function(entity, callback) {
 
-            models[entity.name].find(entity.condition, function(err, documents) {
+            var query = models[entity.name].find(entity.condition);
+
+            if (entity.populate) {
+
+                entity.populate.forEach(function(path) {
+                    query = query.populate(path);
+                });
+            }
+
+            query.exec(function(err, documents) {
 
                 if (err) {
                     return callback && callback(err);

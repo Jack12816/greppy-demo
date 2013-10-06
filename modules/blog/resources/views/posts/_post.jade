@@ -1,3 +1,7 @@
+//- Allow external injection
+if ('undefined' === typeof author)
+  - var author = post.author
+
 .post.panel.panel-default
   .panel-heading.clearfix
     h4.pull-left
@@ -23,11 +27,11 @@
       .col-lg-4
         .media
           .pull-left
-            img.img-rounded(src="#{post.author.gravatar}" + 50)
+            img.img-rounded(src="#{author.gravatar}" + 50)
           .media-body
-            a(href="/users/" + post.author.id) #{post.author.fullname}
+            a(href="#{app.link('users', 'show', {username: author.username})}") #{author.fullname}
             br
-            p.text-muted #{post.author.status}
+            p.text-muted #{author.status}
 
       .col-lg-4
         .media
@@ -45,4 +49,7 @@
           .media-body
             h5.media-heading Statistics
             p.text-muted #{post.views} Views
+
+//- Clear external injection
+- author = undefined
 

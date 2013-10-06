@@ -1,17 +1,17 @@
 form.form-horizontal(role="form", method="POST", action="#{response.path}")
 
   .form-group
-    label.col-lg-2.control-label Fullname
+    label.col-lg-2.control-label Username
     .col-lg-10
       input.form-control(
         type="text",
-        name="user_fullname",
-        placeholder="Just type the fullname ..",
+        name="user_username",
+        placeholder="Just type the username ..",
         required="required",
-        value="#{('undefined' !== typeof user && null !== user) ? user.fullname : ''}")
+        value="#{('undefined' !== typeof user && null !== user) ? user.username : ''}")
 
       span.help-block.
-        Some useful hints for the fullname input
+        Some useful hints for the username input
 
   .form-group
     label.col-lg-2.control-label Email
@@ -30,7 +30,7 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
     label.col-lg-2.control-label Password
     .col-lg-10
       input.form-control(
-        type="text",
+        type="password",
         name="user_password",
         placeholder="Just type the password ..",
         required="required",
@@ -38,6 +38,54 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
 
       span.help-block.
         Some useful hints for the password input
+
+  .form-group
+    label.col-lg-2.control-label Fullname
+    .col-lg-10
+      input.form-control(
+        type="text",
+        name="user_fullname",
+        placeholder="Just type the fullname ..",
+        value="#{('undefined' !== typeof user && null !== user) ? user.fullname : ''}")
+
+      span.help-block.
+        Some useful hints for the fullname input
+
+  .form-group
+    label.col-lg-2.control-label Twitter
+    .col-lg-10
+      input.form-control(
+        type="text",
+        name="user_twitter",
+        placeholder="Just type the twitter ..",
+        value="#{('undefined' !== typeof user && null !== user) ? user.twitter : ''}")
+
+      span.help-block.
+        Some useful hints for the twitter input
+
+  .form-group
+    label.col-lg-2.control-label Website
+    .col-lg-10
+      input.form-control(
+        type="text",
+        name="user_website",
+        placeholder="Just type the website ..",
+        value="#{('undefined' !== typeof user && null !== user) ? user.website : ''}")
+
+      span.help-block.
+        Some useful hints for the website input
+
+  .form-group
+    label.col-lg-2.control-label Status
+    .col-lg-10
+      input.form-control(
+        type="text",
+        name="user_status",
+        placeholder="Just type the status ..",
+        value="#{('undefined' !== typeof user && null !== user) ? user.status : ''}")
+
+      span.help-block.
+        Some useful hints for the status input
 
   .form-group
     .col-lg-offset-2.col-lg-10

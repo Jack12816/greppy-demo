@@ -43,7 +43,7 @@ PostsController.actions.index =
 
         var criteria = self.dataGrid.buildNoSqlCriteria(req, res, {
             limit        : 10,
-            properties   : ['author', 'slug', 'title', 'content', 'created_at'],
+            properties   : ['title', 'content', 'created_at'],
             fuzzySearch  : true,
             softDeletion : true
         });
@@ -212,7 +212,7 @@ PostsController.actions.create =
                 author: req.body.post_author,
                 slug: (req.body.post_slug).trim(),
                 title: (req.body.post_title).trim(),
-                content: (req.body.post_content).trim(),
+                content: (req.body.post_content).trim()
             });
 
             document.save(function(err, document) {

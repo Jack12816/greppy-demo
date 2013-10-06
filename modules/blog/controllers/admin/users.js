@@ -43,7 +43,7 @@ UsersController.actions.index =
 
         var criteria = self.dataGrid.buildNoSqlCriteria(req, res, {
             limit        : 10,
-            properties   : ['fullname', 'email', 'password', 'created_at'],
+            properties   : ['username', 'email', 'fullname', 'created_at'],
             fuzzySearch  : true,
             softDeletion : true
         });
@@ -209,9 +209,13 @@ UsersController.actions.create =
         greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
             var document = new models.User({
-                fullname: (req.body.user_fullname).trim(),
+                username: (req.body.user_username).trim(),
                 email: (req.body.user_email).trim(),
                 password: (req.body.user_password).trim(),
+                fullname: (req.body.user_fullname).trim(),
+                twitter: (req.body.user_twitter).trim(),
+                website: (req.body.user_website).trim(),
+                status: (req.body.user_status).trim(),
             });
 
             document.save(function(err, document) {
@@ -251,9 +255,13 @@ UsersController.actions.update =
                     return res.redirect(self.link('index'));
                 }
 
-                document.fullname = (req.body.user_fullname).trim();
+                document.username = (req.body.user_username).trim();
                 document.email = (req.body.user_email).trim();
                 document.password = (req.body.user_password).trim();
+                document.fullname = (req.body.user_fullname).trim();
+                document.twitter = (req.body.user_twitter).trim();
+                document.website = (req.body.user_website).trim();
+                document.status = (req.body.user_status).trim();
                 document.updated_at = new Date();
 
                 document.save(function(err, document) {

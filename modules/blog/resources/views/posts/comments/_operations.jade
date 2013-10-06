@@ -1,0 +1,20 @@
+script.
+
+  $(document).ready(function() {
+
+    $('#new-comment-btn').on('click', function() {
+      var cur = $('#new-comment-form');
+      cur.slideDown();
+      $("html, body").animate({ scrollTop: $('a[name=new-comment]').offset().top });
+    });
+
+    $('#new-comment-close-btn').on('click', function() {
+      var cur = $('#new-comment-form');
+      cur.slideUp();
+    });
+
+    $('.comment-title').on('mouseenter mouseleave', function() {
+      $(this).find('a').toggle();
+    });
+  });
+

@@ -1,0 +1,22 @@
+form.form-signin(role="form", method="POST", action="#{app.link('auth', 'processLogin')}")
+
+  h2.form-signin-heading Login
+
+  input.form-control(
+    autofocus,
+    type="text",
+    name="user_username",
+    placeholder="Just type your username ..",
+    required="required")
+
+  input.form-control(
+    type="password",
+    name="user_password",
+    placeholder="Just type your password ..",
+    required="required")
+
+  button.btn.btn-lg.btn-primary.btn-block(type="submit")
+    i.icon-signin
+    &nbsp;
+    | Login
+

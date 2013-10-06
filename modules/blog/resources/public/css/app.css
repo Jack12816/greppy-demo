@@ -1,56 +1,136 @@
-body {
-  padding-top: 60px;
-}
+/**
+ * @package Greppy blog main stylesheet
+ *
+ * @tableofcontents
+ * 1. General Styles
+ * 2. Content
+ * 3. Footer
+ * 4. Login
+ * 5. Forms
+ * 6. ACE Editor
+ * 7. Misc
+ * 8. Blog
+ * 9. Bootstrap extension
+ **/
 
-.error-message {
-    text-align: center;
-    margin-top: 150px;
-}
+/**
+ * @section 1. General Styles
+ *
+ * General styles which are valid for all or most of the pages.
+ **/
+html, body{height:100%}
+.navbar { min-height: 48px; border-bottom: 3px solid #48A1CE; }
+html, body { background-color: #F7F7F7; background-image: url("/img/noise.png"); background-repeat: repeat; }
+a[name]:not([href]) { padding-top:50px; margin-top:-50px; }
 
-/* Sticky footer styles
--------------------------------------------------- */
-
-html,
-body {
-  height: 100%;
-  /* The html and body elements cannot have any padding or margin. */
-}
 
 /* Wrapper for page content to push down footer */
-#wrap {
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  /* Negative indent footer by its height */
-  margin: 0 auto -60px;
-  /* Pad bottom by footer height */
-  padding: 0 0 60px;
+#wrap{min-height:100%;height:auto !important;height:100%;margin:0 auto -140px;padding:0 0 170px}
+#wrap > .container{padding:0 15px 0}
+
+#avatar{margin-top:-1px;border:1px solid #fff;border-radius:4px}
+#avatar-a{height:50px;padding:10px;display:block}
+
+/**
+ * @section 2. Content
+ *
+ * Styles for the main content block.
+ **/
+#content{margin-bottom:4px}
+
+
+/**
+ * @section 3. Footer
+ **/
+#footer{height:140px;padding:16px 0;border-top:5px solid #222222; background-color:#32708F;color:#fff;background-image:url(/modules/blog/img/bubbles.png)}
+#footer a { color: #fff; }
+#footer a:hover, a:focus { color: #222222; text-decoration: none; }
+.branding-head{margin-top:16px}
+.branding-info{width:830px;padding:0 20px}
+#footer-logo{height:100px}
+
+
+/**
+ * @section 4. Login
+ **/
+.form-signin { max-width: 330px; padding: 15px; margin: 0 auto; background-color: #EEEEEE; border: 1px solid rgb(227, 227, 227); border-radius: 4px; box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) inset; margin-top: 70px; text-align: center; }
+.form-signin .form-signin-heading, .form-signin .checkbox { margin-bottom: 10px; }
+.form-signin-heading { margin-top: 0px; }
+.form-signin .form-control { position: relative; font-size: 16px; height: auto; padding: 10px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+.form-signin .form-control:focus { z-index: 2; }
+.form-signin input[type="text"] { margin-bottom: -1px; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.form-signin input[type="password"] { margin-bottom: 10px; border-top-left-radius: 0; border-top-right-radius: 0; }
+
+
+/**
+ * @section 5. Forms
+ *
+ * Styles for the form elements and everything associated with them.
+ */
+
+/* Styles for invalid elements - taken from bootstrap v2 */
+input:focus:invalid, textarea:focus:invalid, select:focus:invalid{color:#b94a48;border-color:#ee5f5b}
+input:focus:invalid:focus, textarea:focus:invalid:focus, select:focus:invalid:focus{border-color:#e9322d;-webkit-box-shadow:0 0 6px #f8b9b7;-moz-box-shadow:0 0 6px #f8b9b7;box-shadow:0 0 6px #f8b9b7}.form-actions{padding:19px 20px 20px;margin-top:20px;margin-bottom:20px;background-color:#f5f5f5;border-top:1px solid #e5e5e5;*zoom:1}.form-actions:before,.form-actions:after{display:table;line-height:0;content:""}
+
+
+/**
+ * @section 6. ACE Editor
+ *
+ * Styles for the ACE editor.
+ **/
+
+
+/**
+ * @section 7. Misc
+ *
+ * Everything which doesn't fit anywhere else.
+ **/
+.flash-container{padding-top:51px}
+.flash-container .alert{margin-bottom:0;border-radius:0;border-left-width:0;border-right-width:0}
+.error-message {text-align: center; margin-top: 150px;}
+
+
+/**
+ * @section 8. Blog
+ *
+ * Everything which styles up blog components.
+ **/
+.sidebar { padding: 0px 0px 10px 25px; border-left: 3px solid rgb(221, 221, 221); }
+.headline { border-bottom: 1px solid rgb(221, 221, 221); padding-bottom: 5px; }
+.clickable { cursor: pointer; }
+
+.archive .list-group-item-text a { margin: 5px 5px 0 0; }
+.archive .list-group-item-heading { margin-bottom: 0px; }
+.archive .list-group-item-text { margin-top: 5px; }
+
+.navbar-form { padding-right: 0px; margin-left: 10px; }
+.navbar-collapse { padding-right: 0px; }
+
+@media (max-width: 768px) {
+    .navbar-collapse { padding-right: 15px; }
+    .navbar-form { padding-right: 15px; margin: 8px -15px; }
 }
 
-/* Set the fixed height of the footer here */
-#footer {
-  height: 60px;
-  background-color: #f5f5f5;
+@media (max-width: 1399px) {
+    #fork-on-github { display: none; }
 }
 
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
 
-.container .credit {
-  margin: 20px 0;
-}
-
-.sidebar {
-    padding: 0px 0px 10px 25px;
-    border-left: 3px solid rgb(221, 221, 221);
-}
-
-.headline {
-    border-bottom: 1px solid rgb(221, 221, 221);
-}
-
-.clickable {
-    cursor: pointer;
-}
+/**
+ * @section 8. Bootstrap extension
+ *
+ * Everything which extends the default bootstrap dist.
+ **/
+.badge-white { background-color: #FFFFFF; color: #686868; }
+.badge-white[href]:hover, .badge-white[href]:focus { background-color: #E1E1E1; }
+.badge-primary { background-color: #428bca; }
+.badge-primary[href]:hover, .badge-primary[href]:focus { background-color: #3071a9; }
+.badge-success { background-color: #5cb85c; }
+.badge-success[href]:hover, .badge-success[href]:focus { background-color: #449d44; }
+.badge-info { background-color: #5bc0de; }
+.badge-info[href]:hover, .badge-info[href]:focus { background-color: #31b0d5; }
+.badge-warning { background-color: #f0ad4e; }
+.badge-warning[href]:hover, .badge-warning[href]:focus { background-color: #ec971f; }
+.badge-danger { background-color: #d9534f; }
+.badge-danger[href]:hover, .badge-danger[href]:focus { background-color: #c9302c; }
 

@@ -1,6 +1,6 @@
-a(href="https://github.com/Jack12816/greppy", target="_blank")
+a#fork-on-github(href="https://github.com/Jack12816/greppy", target="_blank")
   img(
-    style="position: absolute; top: 0; right: 0; border: 0; z-index: 999;",
+    style="position: absolute; top: 0; right: 0; border: 0; z-index: 9999;",
     src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
     alt="Fork me on GitHub")
 
@@ -9,32 +9,32 @@ a(href="https://github.com/Jack12816/greppy", target="_blank")
     .navbar.navbar-inverse.navbar-static-top
       .container
         .navbar-header
-          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+          button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href='/') Greppy
+          a.navbar-brand(href="/") Greppy
         .collapse.navbar-collapse
           ul.nav.navbar-nav
-            li(class="#{helper.route.current(url, '/', 'active')}")
-              a(href='/') Home
-            li(class="#{helper.route.current(url, '/about', 'active')}")
-              a(href='/about') About
-            li(class="#{helper.route.current(url, '/gang', 'active')}")
-              a(href='/gang') Gang
-            li(class="#{helper.route.current(url, '/contributors', 'active')}")
-              a(href='/contributors') Contributors
+            li(class="#{helper.route.current(req.url, '/about', 'active')}")
+              a(href="/about") About
+            li(class="#{helper.route.current(req.url, '/gang', 'active')}")
+              a(href="/gang") Gang
             li
-              a(href='/docs/guide.html', target='_blank') Documentation
+              a(href="http://blog.greppy.org") Blog
+            li(class="#{helper.route.current(req.url, '/contributors', 'active')}")
+              a(href="/contributors") Contributors
+            li
+              a(href="/docs/guide.html", target="_blank") Documentation
 
 #myCarousel.carousel.slide
   ol.carousel-indicators
-    li.active(data-target='#myCarousel', data-slide-to='0')
-    li(data-target='#myCarousel', data-slide-to='1')
-    li(data-target='#myCarousel', data-slide-to='2')
+    li.active(data-target="#myCarousel", data-slide-to="0")
+    li(data-target="#myCarousel", data-slide-to="1")
+    li(data-target="#myCarousel", data-slide-to="2")
   .carousel-inner
     .item.active
-      img(src='/modules/demo/img/slides/slide01.png', alt='')
+      img(src="/modules/demo/img/slides/slide01.png", alt="")
       .container
         .carousel-caption
           h1 Writing high availability applications made easy.
@@ -42,9 +42,9 @@ a(href="https://github.com/Jack12816/greppy", target="_blank")
             | Use the power of <b>Node.js</b>, the stack of <b>Express</b>,
             | and the cluster structure of <b>Greppy</b>.
           p
-            a.btn.btn-lg.btn-primary(target="_blank", href='/docs/examples.html') Watch the examples
+            a.btn.btn-lg.btn-primary(target="_blank", href="/docs/examples.html") Watch the examples
     .item
-      img(src='/modules/demo/img/slides/slide02.png', alt='')
+      img(src="/modules/demo/img/slides/slide02.png", alt="")
       .container
         .carousel-caption
           h1 Simple but powerful by design.
@@ -53,9 +53,9 @@ a(href="https://github.com/Jack12816/greppy", target="_blank")
             | <br>
             | All our concepts, feature-requests and experiences resulted in Greppy.
           p
-            a.btn.btn-lg.btn-primary(target="_blank", href='https://github.com/Jack12816/greppy-demo') Take a look at the demo
+            a.btn.btn-lg.btn-primary(target="_blank", href="https://github.com/Jack12816/greppy-demo") Take a look at the demo
     .item
-      img(src='/modules/demo/img/slides/slide03.png', alt='')
+      img(src="/modules/demo/img/slides/slide03.png", alt="")
       .container
         .carousel-caption
           h1 Just concentrate on your application needs,<br>not on the framework.
@@ -63,10 +63,10 @@ a(href="https://github.com/Jack12816/greppy", target="_blank")
             | While building Greppy we focused on the ability to write
             | applications easily. <br> Doesn't matter which kind or size.
           p
-            a.btn.btn-lg.btn-primary(target="_blank", href='/docs/guide.html') Learn Greppy
+            a.btn.btn-lg.btn-primary(target="_blank", href="/docs/guide.html") Learn Greppy
 
-  a.left.carousel-control(href='#myCarousel', data-slide='prev')
-    // span.icon-chevron-left
-  a.right.carousel-control(href='#myCarousel', data-slide='next')
-    // span.icon-chevron-right
+  a.left.carousel-control(href="#myCarousel", data-slide="prev")
+    span.glyphicon.glyphicon-chevron-left
+  a.right.carousel-control(href="#myCarousel", data-slide="next")
+    span.glyphicon.glyphicon-chevron-right
 

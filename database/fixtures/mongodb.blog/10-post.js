@@ -8,13 +8,10 @@ module.exports = function(orm, models, share, utils, callback)
     for (var i = 0; i < 100; i++) {
 
         records.push({
-            author: share.Users[utils.content.integer(0, 3)].id,
+            author: share.Users[utils.content.integer(0, 4)].id,
             slug: utils.content.word(),
             title: utils.content.word(5),
             content: utils.content.text(),
-            comments: utils.content.array(0, 10, function() {
-                return share.Comments[utils.content.integer(0, share.Comments.length-1)].id
-            }),
             views: utils.content.integer(1, 1337),
             created_at: utils.content.date(),
             deleted_at: utils.content.optional(utils.content.date())

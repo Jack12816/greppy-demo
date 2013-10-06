@@ -37,16 +37,19 @@ var Post = new Schema({
     },
 
     created_at: {
+        index: true,
         type: Date,
         default: Date.now
     },
 
     updated_at: {
+        index: true,
         type: Date,
         default: null
     },
 
     deleted_at: {
+        index: true,
         type: Date,
         default: null
     }

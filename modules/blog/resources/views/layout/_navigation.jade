@@ -1,38 +1,77 @@
+a#fork-on-github(href="https://github.com/Jack12816/greppy", target="_blank")
+  img(
+    style="position: fixed; top: 0; left: 0; border: 0; z-index: 9999;",
+    src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"
+    alt="Fork me on GitHub")
+
 .navbar.navbar-inverse.navbar-fixed-top
   .container
     .navbar-header
-      button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+      button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(href='/') Greppy
+      a.navbar-brand(href="http://greppy.org") Greppy
     .navbar-collapse.collapse
       ul.nav.navbar-nav
 
-        li(class="#{helper.route.current(url, '/', 'active')}")
-          a(href='/') Home
+        li
+          a(href="http://greppy.org/about") About
 
-        li(class="#{helper.route.current(url, '/auth/login', 'active')}")
-          a(href='/auth/login') Login
+        li
+          a(href="http://greppy.org/gang") Gang
 
-        li.dropdown
-          a.dropdown-toggle(data-toggle='dropdown', href='#')
-            | Admin
-            b.caret
+        li.active
+          a(href="/") Blog
+
+        li
+          a(href="http://greppy.org/contributors") Contributors
+
+        li
+          a(href="http://greppy.org/docs/guide.html", target="_blank") Documentation
+
+      form.navbar-form.navbar-right(role="search", method="GET", action="/posts/search")
+        .form-group
+          .input-group
+            input.form-control(
+              type="text",
+              name="q",
+              placeholder="Search for posts ...",
+              value="#{'undefined' === typeof searchQuery ? '' : searchQuery}")
+            span.input-group-btn
+              button.btn.btn-primary(type="submit")
+                i.icon-search
+
+      ul.nav.navbar-nav.navbar-right
+
+        // if (true === req.isAuthenticated)
+        li.dropdown(class="#{helper.route.current(req.url, /^\/admin\//i, 'active')}")
+          a#avatar-a.dropdown-toggle(data-toggle="dropdown", href="#")
+            i.icon-wrench.icon-2x
           ul.dropdown-menu
 
-            li(class="#{helper.route.current(url, /^\/admin\/users/i, 'active')}")
-              a(href='/admin/users')
+            li(class="#{helper.route.current(req.url, /^\/admin\/users/i, 'active')}")
+              a(href="/admin/users")
                 i.icon-user
                 |  Users
 
-            li(class="#{helper.route.current(url, /^\/admin\/posts/i, 'active')}")
-              a(href='/admin/posts')
+            li(class="#{helper.route.current(req.url, /^\/admin\/posts/i, 'active')}")
+              a(href="/admin/posts")
                 i.icon-file
                 |  Posts
 
-            li(class="#{helper.route.current(url, /^\/admin\/comments/i, 'active')}")
-              a(href='/admin/comments')
-                i.icon-comments
-                |  Comments
+        li.dropdown
+          a#avatar-a.dropdown-toggle(data-toggle="dropdown", href="#")
+            i.icon-user.icon-2x
+          ul.dropdown-menu
+
+            li(class="#{helper.route.current(req.url, '/login', 'active')}")
+              a(href="/login")
+                i.icon-signin
+                |  Sign in
+
+            li(class="#{helper.route.current(req.url, '/signup', 'active')}")
+              a(href="/signup")
+                i.icon-key
+                |  Sign up
 

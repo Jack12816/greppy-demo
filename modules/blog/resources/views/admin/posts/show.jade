@@ -28,6 +28,10 @@ block content
           td #{ post.content }
 
         tr
+          th.min Views
+          td #{ post.views }
+
+        tr
           th.min Created at
           td #{helper.date.format(post.created_at, 'LLLL')}
 

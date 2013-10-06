@@ -1,18 +1,6 @@
 form.form-horizontal(role="form", method="POST", action="#{response.path}")
 
   .form-group
-    label.col-lg-2.control-label Author
-    .col-lg-10
-      .form-control(
-        name="post_author",
-        placeholder="Just type the author ..",
-        required="required",
-        value="#{('undefined' !== typeof post && null !== post) ? post.author : ''}")
-
-      span.help-block.
-        Some useful hints for the author input
-
-  .form-group
     label.col-lg-2.control-label Slug
     .col-lg-10
       input.form-control(
