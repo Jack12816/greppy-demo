@@ -17,7 +17,7 @@ var ServiceContext = function()
     ServiceContext.super_.call(this, __filename);
 
     // Worker context description.
-    this.description = 'Service context which houses the project API';
+    this.description = 'Service context which houses the project demo API';
 
     // Worker context backends configuration.
     this.backends = {};
@@ -63,7 +63,7 @@ ServiceContext.prototype.configure = function(app, server, callback)
     app.set('auth.http', httpAuth);
 
     // Start listening for connections
-    server.listen(3002);
+    server.listen(3004);
 
     callback && callback();
 };

@@ -1,0 +1,39 @@
+/**
+ * @package Greppy blog main stylesheet
+ *
+ * @tableofcontents
+ * 1. General Styles
+ * 2. Content
+ * 3. Footer
+ * 4. Login
+ * 5. Forms
+ * 6. ACE Editor
+ * 7. Misc
+ * 8. Blog
+ * 9. Bootstrap extension
+ **/
+
+/**
+ * @section 1. General Styles
+ *
+ * General styles which are valid for all or most of the pages.
+ **/
+.navbar { min-height: 48px; border-bottom: 3px solid #48A1CE; }
+a[name]:not([href]) { padding-top:50px; margin-top:-50px; }
+
+@media (max-width: 768px) {
+    .navbar-collapse { padding-right: 15px; }
+    .navbar-form { padding-right: 15px; margin: 8px -15px; }
+}
+
+@media (max-width: 1399px) {
+    #fork-on-github { display: none; }
+}
+
+/**
+ * @section 2. Content
+ *
+ * Styles for the main content block.
+ **/
+#content{margin-bottom:4px}
+

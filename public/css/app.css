@@ -1,8 +1,78 @@
-.postList, .commentList{padding-left:0;margin-top:16px;list-style-type:none}
+/**
+ * @package Greppy blog main stylesheet
+ *
+ * @tableofcontents
+ * 1. General Styles
+ * 2. Misc
+ * 3. Bootstrap extension
+ **/
 
-.post h4, .post p, .comment h4, .comment p{margin:0}
+/**
+ * @section 1. General Styles
+ *
+ * General styles which are valid for all or most of the pages.
+ **/
+html, body{height:100%}
+html, body { background-color: #F7F7F7; background-image: url("/img/noise.png"); background-repeat: repeat; }
 
-.post h4 a:hover{text-decoration:none}
 
-.commentArea{width:90%;float:right}
+/* Wrapper for page content to push down footer */
+#wrap{min-height:100%;height:auto !important;height:100%;margin:0 auto -140px;padding:0 0 170px}
+#wrap > .container{padding:0 15px 0}
+
+#avatar{margin-top:-1px;border:1px solid #fff;border-radius:4px}
+#avatar-a{height:50px;padding:10px;display:block}
+
+/**
+ * @section 2. Content
+ *
+ * Styles for the main content block.
+ **/
+#content{margin-bottom:4px}
+
+
+/**
+ * @section 3. Footer
+ **/
+#footer{height:140px;padding:16px 0;border-top:5px solid #222222; background-color:#32708F;color:#fff;background-image:url(/img/bubbles.png)}
+#footer a { color: #fff; }
+#footer a:hover, a:focus { color: #222222; text-decoration: none; }
+.branding-head{margin-top:16px}
+.branding-info{width:830px;padding:0 20px}
+#footer-logo{height:100px}
+
+
+/**
+ * @section 2. Misc
+ *
+ * Everything which doesn't fit anywhere else.
+ **/
+.error-message {text-align: center; margin-top: 150px;}
+hr { border-color: #E5E5E5 -moz-use-text-color -moz-use-text-color; }
+
+/**
+ * @section 3. Bootstrap extension
+ *
+ * Everything which extends the default bootstrap dist.
+ **/
+.badge-white { background-color: #FFFFFF; color: #686868; }
+.badge-white[href]:hover, .badge-white[href]:focus { background-color: #E1E1E1; }
+.badge-primary { background-color: #428bca; }
+.badge-primary[href]:hover, .badge-primary[href]:focus { background-color: #3071a9; }
+.badge-success { background-color: #5cb85c; }
+.badge-success[href]:hover, .badge-success[href]:focus { background-color: #449d44; }
+.badge-info { background-color: #5bc0de; }
+.badge-info[href]:hover, .badge-info[href]:focus { background-color: #31b0d5; }
+.badge-warning { background-color: #f0ad4e; }
+.badge-warning[href]:hover, .badge-warning[href]:focus { background-color: #ec971f; }
+.badge-danger { background-color: #d9534f; }
+.badge-danger[href]:hover, .badge-danger[href]:focus { background-color: #c9302c; }
+
+.navbar .input-group-addon, .navbar .input-group-btn { width: auto; }
+
+.icon-6x { font-size: 6em; }
+.icon-7x { font-size: 7em; }
+.icon-8x { font-size: 8em; }
+.icon-9x { font-size: 9em; }
+.icon-10x { font-size: 10em; }
 

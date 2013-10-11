@@ -18,7 +18,7 @@ var BlogContext = function()
     BlogContext.super_.call(this, __filename);
 
     // Worker context description.
-    this.description = 'Blog frontend context for the domain greppy.org';
+    this.description = 'Context for the domain blog.greppy.org';
 
     // Worker context backends configuration.
     this.backends = {
@@ -112,7 +112,7 @@ BlogContext.prototype.configure = function(app, server, callback)
     };
 
     // Start listening for connections
-    server.listen(3001);
+    server.listen(3002);
 
     callback && callback();
 };
