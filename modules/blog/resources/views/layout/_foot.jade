@@ -7,14 +7,14 @@
         |  Back to top
 
     .pull-left
-       a(target="_blank", href="http://greppy.org/about")
+       a(target="_blank", href="#{app.linkContext('home', '/about')}")
         img#footer-logo(src="/img/greppy.png", alt="Greppy Logo")
 
     .branding-info.pull-left
       h3.branding-head Greppy Blog
       | &copy; 2013 Greppy Gang
       &nbsp;&bull;&nbsp;
-      a(target="_blank", href="http://greppy.org/imprint") Imprint
+      a(target="_blank", href="#{app.linkContext('home', '/imprint')}") Imprint
       &nbsp;&bull;&nbsp;
-      a(target="_blank", href="http://greppy.org/terms") Terms
+      a(target="_blank", href="#{app.linkContext('home', '/terms')}") Terms
 

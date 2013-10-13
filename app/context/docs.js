@@ -55,7 +55,7 @@ DocsContext.prototype.configure = function(app, server, callback)
     app.use(express.static(process.cwd() + '/public/docs'));
 
     // Start listening for connections
-    server.listen(3003);
+    server.listen(workerConfig.port, workerConfig.host);
 
     callback && callback();
 };

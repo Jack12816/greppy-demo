@@ -3,6 +3,7 @@
  */
 $(function () {
 
+    // Allways scroll smooth on internal anchors
     $('a[href^="#"]').on('click',function (e) {
 
         e.preventDefault();
@@ -25,6 +26,11 @@ $(function () {
         }, 400, 'swing', function () {
             window.location.hash = target;
         });
+    });
+
+    // Autostart carousels
+    $('.carousel').carousel({
+        interval: 5000
     });
 });
 

@@ -53,7 +53,7 @@ DemoContext.prototype.configure = function(app, server, callback)
     app.use(express.static(process.cwd() + '/public'));
 
     // Start listening for connections
-    server.listen(3001);
+    server.listen(workerConfig.port, workerConfig.host);
 
     callback && callback();
 };

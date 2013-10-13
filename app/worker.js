@@ -29,12 +29,14 @@ var server = http.createServer(app);
 
 // Setup the application worker
 var worker = new Worker({
-    title   : 'greppy-demo-worker',
     modules : [],
     logger  : {
         colors : {debug : 'white'}
     }
 });
+
+// Load worker context config
+workerConfig = greppy.config.get('app').get('infrastructure')[greppy.context];
 
 // Configure the worker and the related objects,
 // run the callback after the worker was initalized

@@ -13,8 +13,8 @@ util = require('util');
 greppy     = require('greppy');
 var Master = greppy.get('app.cluster.master');
 
-// Setup the application master
-var master = new Master({
+// Greppy Master options
+var options = {
     title   : 'greppy-demo-master',
     logger  : {
         colors : {debug : 'white'}
@@ -22,5 +22,20 @@ var master = new Master({
     worker: {
         amount : 1
     }
+};
+
+// Setup the application master
+var master = new Master(options);
+
+// Load worker context config
+workerConfig = greppy.config.get('app').get('infrastructure')[greppy.context];
+
+if (workerConfig) {
+    options.title = 'greppy-' + greppy.context + '-master';
+    options.worker.amount = workerConfig.worker || 1;
+}
+
+master.configure(options, function() {
+    // Post configure hook
 });
 

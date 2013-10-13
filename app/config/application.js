@@ -8,11 +8,44 @@ var config = {};
  */
 config.infrastructure = {
 
-    demo: {
-        slaves   : ['localhost'],
-        host     : '0.0.0.0',
-        port     : 3000,
-        worker   : 1
+    home: {
+        url    : 'http://localhost:3000',
+        slaves : ['localhost'],
+        host   : '0.0.0.0',
+        port   : 3000,
+        worker : 1
+    },
+
+    frontend: {
+        url    : 'http://localhost:3001',
+        slaves : ['localhost'],
+        host   : '0.0.0.0',
+        port   : 3001,
+        worker : 1
+    },
+
+    blog: {
+        url    : 'http://localhost:3002',
+        slaves : ['localhost'],
+        host   : '0.0.0.0',
+        port   : 3002,
+        worker : 1
+    },
+
+    docs: {
+        url    : 'http://localhost:3003',
+        slaves : ['localhost'],
+        host   : '0.0.0.0',
+        port   : 3003,
+        worker : 1
+    },
+
+    service: {
+        url    : 'http://localhost:3004',
+        slaves : ['localhost'],
+        host   : '0.0.0.0',
+        port   : 3004,
+        worker : 1
     }
 };
 
@@ -20,19 +53,6 @@ config.infrastructure = {
  * Database connections
  */
 config.database = {
-
-    // mysql: {
-
-    //     demo: {
-    //         plain    : true,
-    //         orm      : true,
-    //         username : 'root',
-    //         password : '',
-    //         db       : 'greppy_demo',
-    //         host     : '127.0.0.1',
-    //         port     : 3306
-    //    }
-    // },
 
     mongodb: {
 
@@ -47,6 +67,19 @@ config.database = {
             }
         }
     }
+
+    // mysql: {
+
+    //     demo: {
+    //         plain    : true,
+    //         orm      : true,
+    //         username : 'root',
+    //         password : '',
+    //         db       : 'greppy_demo',
+    //         host     : '127.0.0.1',
+    //         port     : 3306
+    //    }
+    // }
 };
 
 module.exports = config;

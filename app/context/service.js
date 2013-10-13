@@ -63,7 +63,7 @@ ServiceContext.prototype.configure = function(app, server, callback)
     app.set('auth.http', httpAuth);
 
     // Start listening for connections
-    server.listen(3004);
+    server.listen(workerConfig.port, workerConfig.host);
 
     callback && callback();
 };
