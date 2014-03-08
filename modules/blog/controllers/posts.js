@@ -137,7 +137,7 @@ PostsController.actions.show =
                                .exec(function(err, post) {
 
                         if (!post) {
-                            return callback && callback(new Error('not found'));
+                            return callback && callback(new Error('POST_NOT_FOUND'));
                         }
 
                         callback && callback(err, post);
@@ -154,7 +154,7 @@ PostsController.actions.show =
 
             ], function (err, post) {
 
-                if (err && 'not found' !== err.msg) {
+                if (err && 'POST_NOT_FOUND' !== err.msg) {
                     return self.error.showErrorPage(req, res, err);
                 }
 

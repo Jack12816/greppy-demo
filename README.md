@@ -1,9 +1,15 @@
-# Greppy Demo Application
+[![Greppy Demo logo](http://greppy.org/img/greppy-demo-teaser.png)](http://greppy.org/)
 
-Demo application for the Greppy framework.
+Demo application for the Greppy framework. This application is deployed and powering
+the greppy.org domain. All modules, sites, functionality of the application can be
+viewed in details here.
 
-For more details take a look at [greppy.org](http://greppy.org)
-or the [Greppy API](http://greppy.org/docs).
+For more details take a look at [greppy.org](http://greppy.org) or the
+[Greppy API](http://greppy.org/docs). If you got any problems, a wish to
+contribute or to discuss new features take a look at our #greppy IRC channel on
+freenode.
+
+[![Gittip](http://img.shields.io/gittip/Jack12816.png)](https://www.gittip.com/Jack12816/)
 
 ## Dependencies
 

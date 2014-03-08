@@ -1,7 +1,7 @@
 {
     "name": "greppy-demo",
     "description": "Demo project based on the Greppy framework",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "private": false,
     "contributors": [
         {
@@ -28,20 +28,20 @@
         }
     ],
     "dependencies": {
-        "greppy": "~0.3.0",
-        "async": "~0.2.5",
-        "express": "~3.4.0",
-        "express-validator": "~0.3.2",
+        "greppy": "~0.4.0",
+        "async": "~0.2.9",
+        "express": "~3.4.5",
+        "express-validator": "~1.0.1",
         "jade": "~0.35.0",
         "memory-cache": "~0.0.5",
-        "moment": "~2.2.1",
-        "node-fs": "~0.1.5",
+        "moment": "~2.4.0",
+        "node-fs": "~0.1.7",
         "node-uuid": "~1.4.0",
-        "validator": "~1.2.1",
+        "validator": "~2.0.0",
         "winston": "~0.7.2",
         "password": "~0.1.0",
         "connect-flash": "~0.1.1",
-        "connect-mongo": "~0.3.3",
+        "connect-mongo": "~0.4.0",
         "connect-ensure-login": "~0.1.1",
         "passport": "~0.1.17",
         "passport-local": "~0.1.6"

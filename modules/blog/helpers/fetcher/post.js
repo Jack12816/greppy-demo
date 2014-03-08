@@ -15,7 +15,7 @@ var PostHelper = function()
 {
     this.key = greppy.helper.get('cache').key;
     this.cache = require('memory-cache');
-}
+};
 
 /**
  * Build the post archive.
@@ -110,7 +110,7 @@ PostHelper.prototype.fetchArchive = function(callback)
             });
         });
     });
-}
+};
 
 module.exports = PostHelper;
 

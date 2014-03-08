@@ -12,7 +12,7 @@ var async = require('async');
  */
 var UserHelper = function()
 {
-}
+};
 
 /**
  * Populate a user document with all related entities.
@@ -69,7 +69,7 @@ UserHelper.prototype.fetch = function(user, callback)
             });
         });
     });
-}
+};
 
 module.exports = UserHelper;
 
