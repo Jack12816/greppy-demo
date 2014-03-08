@@ -8,6 +8,54 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Go in this path and change to the app directory
 cd "${DIR}" && cd ../modules/
 
+# Set the Commandline Args
+TEMP=`getopt -o hudv --long help,update,dry-run,view -- "$@"`
+
+function usage()
+{
+    echo "Usage: $0 [OPTION]";
+    echo
+    echo " -h, --help             Print this Help";
+    echo " -u, --update           Really modify the found files";
+    echo " -d, --dry-run          Only find files to modify, but we dont write anything";
+    echo " -v, --view             View files on the files which where found, nothing gets written";
+    exit 1;
+}
+
+if [ $? != 0 ] ; then
+    usage
+fi
+
+eval set -- "$TEMP"
+
+DRY_RUN=1
+SHOW_LINES=0
+
+while true ; do
+    case "$1" in
+        --help|-h|--)
+            shift
+            usage
+            break;;
+        --view|-v)
+            shift
+            DRY_RUN=1
+            SHOW_LINES=1
+            break;;
+        --update|-u)
+            shift
+            DRY_RUN=0
+            break;;
+        --dry-run|-d)
+            shift
+            DRY_RUN=1
+            break;;
+        *)
+            echo "Internal error!"
+            exit 1;;
+    esac
+done
+
 bldgrn='\e[1;32m' # Green
 txtylw='\e[0;33m' # Yellow
 bldylw='\e[1;33m' # Yellow
@@ -17,6 +65,10 @@ txtrst='\e[0m'    # Text Reset
 
 function upgrade()
 {
+    if [ 1 -eq "${DRY_RUN}" ]; then
+        return
+    fi
+
     FILE="${1}"
 
     ### New default syntax
@@ -26,7 +78,7 @@ function upgrade()
     sed -i 's/icon-li/fa-li/g' "${FILE}"
     sed -i 's/icon-spin/fa-spin/g' "${FILE}"
     sed -i 's/icon-rotate-/fa-rotate-/g' "${FILE}"
-    sed -i 's/i\.icon-/i\.fa.fa-/g' "${FILE}"
+    sed -i 's/\.icon-/\.fa.fa-/g' "${FILE}"
     # sed -i 's/icon-/fa-/g' "${FILE}"
 
     ### New icon names
@@ -187,20 +239,25 @@ for module in $(ls); do
     CWD=$(pwd)
     cd "${module}"
 
-    for file in $(find . -type f -name '*.jade'); do
+    for file in $(find . -type f -name '*.jade' -o -name '*.js'); do
 
-        CANONICAL=$(echo $file | sed 's/^\.\/resources\/views\///g')
-        MATCHES=$(grep icon $file | wc -l)
-        echo -n "  -- Check ${CANONICAL}"
-
-        for i in $(seq $((50 - ${#CANONICAL}))); do
-            echo -n " "
-        done
+        MATCHES=$(grep 'icon-' "${file}" | wc -l)
 
         if [ 0 -eq "${MATCHES}" ]; then
-            echo -e "${bldwht}[ ${txtwht}SKIP ${bldwht}]${txtrst}"
+            continue
         else
-            echo -en "${bldwht}[ ${bldgrn}WORK ${bldwht}]${txtrst}"
+            CANONICAL=$(echo $file | sed 's/^\.\/resources\///g')
+            echo -n "  -- Found ${CANONICAL}"
+
+            if [ 1 -eq "${SHOW_LINES}" ]; then
+                grep --color=always -A1 -B1 'icon-' "${file}"
+                continue
+            fi
+
+            for i in $(seq $((50 - ${#CANONICAL}))); do
+                echo -n " "
+            done
+
             MATCHESSTR=" -> ${txtylw}${MATCHES}${txtrst} matches"
             echo -en "${MATCHESSTR}"
 
