@@ -1,6 +1,6 @@
 SHELL=/bin/bash
 
-.PHONY: all clean configure deinstall install
+.PHONY: all clean configure deinstall install build watch
 
 configure:
 uninstall:
@@ -9,9 +9,13 @@ clean:
 	@eval `find ./var/log -type f -name '*.log' | awk '{print "echo \"\033[0;31mremove \033[0m" $$0 "\" && rm " $$0 ";"}'`
 
 install: configure
-	##### Install backend vendor packages #####
 	@npm install
+	@bower install --allow-root
+	@greppy --assets install
 
-	##### Install frontend vendor packages #####
-	@bower install
+build:
+	@./node_modules/.bin/grunt
+
+watch:
+	@./node_modules/.bin/grunt watch
 

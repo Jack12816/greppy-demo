@@ -1,5 +1,9 @@
-script(src="/components/bootstrap/dist/js/bootstrap.min.js")
-script(src="/components/spin.js/dist/spin.min.js")
-script(src="/js/app.js")
-script(src="/modules/blog/js/app.js")
+if ('production' === app.env)
+  link(rel="stylesheet", href="/build/blog.min.css?version=#{package.version}")
+  script(src="/build/blog.min.js?version=#{package.version}")
+else
+  script(src="/components/bootstrap/dist/js/bootstrap.min.js")
+  script(src="/components/spin.js/spin.js")
+  script(src="/js/app.js")
+  script(src="/modules/blog/js/app.js")
 

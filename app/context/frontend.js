@@ -46,10 +46,18 @@ DemoContext.prototype.configure = function(app, server, callback)
     // Templating Engine
     app.set('views', process.cwd() + '/modules/frontend/resources/views/');
     app.set('view engine', 'jade');
-    app.locals.pretty = true;
+    app.locals.pretty  = true;
+    app.locals.package = require(process.cwd() + '/package.json');
 
     // Common Middleware
     app.use(express.compress());
+
+    if ('development' === greppy.env) {
+        app.use(require('connect-livereload')({
+            port: 35729
+        }));
+    }
+
     app.use(express.static(process.cwd() + '/public'));
 
     // Start listening for connections

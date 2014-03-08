@@ -14,45 +14,40 @@ freenode.
 ## Dependencies
 
 * Node.js (pacman -S nodejs)
-* Bower (npm install -g bower)
-* [Ruby] (pacman -S ruby)
-
-### Development
-
-**Note:** These steps are optional.
-
-To enjoy the live reloading features just install the awesome
-Guard ruby gem:
-
-    $ gem install guard guard-livereload guard-shell
-
-After installing the dependencies you need to install the livereload
-browser extension. Just follow the Installation steps on
-[livereload.com](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-).
+* Bower (sudo npm install -g bower)
 
 ## Installation
 
-To setup greppy just run:
+Commonly it is a good idea to install Greppy globally on your system, so you
+can use the ``greppy`` binary. To install greppy run the following command:
 
-    $ npm install -g greppy
+    $ sudo npm install -g greppy
 
-To prepare the demo run these commands, which will setup all dependencies:
+The second step to get the demo application running is to prepare all dependencies.
+For this task we provide a simple command which runs all commands to setup the project.
+Just run:
 
-    $ npm install
-    $ bower install
-    $ greppy --assets install
+    $ make install
 
-## Usage
+## Getting started
 
 To start the demo application you only need to run:
 
-    $ greppy --start demo --debug
+    $ greppy -sd
+
+This will start a GNU screen session where you can navigate through multiple
+tabs with the right/left arrow keys. Every tab is a running module.
 
 ### Development
 
 **Note:** These steps are optional.
 
-Get get livereload to work just start the Guard daemon.
+To build all minified assets run:
 
-    $ guard
+    $ make build
+
+If you would like to automatically rebuild the minified assets,
+run the following command:
+
+    $ make watch
 

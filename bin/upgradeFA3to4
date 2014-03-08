@@ -1,0 +1,219 @@
+#!/bin/bash
+#
+# @author Hermann Mayer <hermann.mayer92@gmail.com>
+
+# Get the full path of the current file, no matter where it being called from
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Go in this path and change to the app directory
+cd "${DIR}" && cd ../modules/
+
+bldgrn='\e[1;32m' # Green
+txtylw='\e[0;33m' # Yellow
+bldylw='\e[1;33m' # Yellow
+txtwht='\e[0;37m' # White
+bldwht='\e[1;37m' # White
+txtrst='\e[0m'    # Text Reset
+
+function upgrade()
+{
+    FILE="${1}"
+
+    ### New default syntax
+    sed -i 's/icon-fixed-width/fa-fw/g' "${FILE}"
+    sed -i 's/icon-large/fa-lg/g' "${FILE}"
+    sed -i 's/icons-ul/fa-ul/g' "${FILE}"
+    sed -i 's/icon-li/fa-li/g' "${FILE}"
+    sed -i 's/icon-spin/fa-spin/g' "${FILE}"
+    sed -i 's/icon-rotate-/fa-rotate-/g' "${FILE}"
+    sed -i 's/i\.icon-/i\.fa.fa-/g' "${FILE}"
+    sed -i 's/icon-/fa-/g' "${FILE}"
+
+    ### New icon names
+    sed -i 's/ban-circle/ban/g' "${FILE}"
+    sed -i 's/bar-chart/bar-chart-o/g' "${FILE}"
+    sed -i 's/beaker/flask/g' "${FILE}"
+    sed -i 's/bell/bell-o/g' "${FILE}"
+    sed -i 's/bell-alt/bell/g' "${FILE}"
+    sed -i 's/bitbucket-sign/bitbucket-square/g' "${FILE}"
+    sed -i 's/bookmark-empty/bookmark-o/g' "${FILE}"
+    sed -i 's/building/building-o/g' "${FILE}"
+    sed -i 's/calendar-empty/calendar-o/g' "${FILE}"
+    sed -i 's/check-empty/square-o/g' "${FILE}"
+    sed -i 's/check-minus/minus-square-o/g' "${FILE}"
+    sed -i 's/check-sign/check-square/g' "${FILE}"
+    sed -i 's/check/check-square-o/g' "${FILE}"
+    sed -i 's/chevron-sign-down/chevron-circle-down/g' "${FILE}"
+    sed -i 's/chevron-sign-left/chevron-circle-left/g' "${FILE}"
+    sed -i 's/chevron-sign-right/chevron-circle-right/g' "${FILE}"
+    sed -i 's/chevron-sign-up/chevron-circle-up/g' "${FILE}"
+    sed -i 's/circle-arrow-down/arrow-circle-down/g' "${FILE}"
+    sed -i 's/circle-arrow-left/arrow-circle-left/g' "${FILE}"
+    sed -i 's/circle-arrow-right/arrow-circle-right/g' "${FILE}"
+    sed -i 's/circle-arrow-up/arrow-circle-up/g' "${FILE}"
+    sed -i 's/circle-blank/circle-o/g' "${FILE}"
+    sed -i 's/cny/rub/g' "${FILE}"
+    sed -i 's/collapse-alt/minus-square-o/g' "${FILE}"
+    sed -i 's/collapse-top/caret-square-o-up/g' "${FILE}"
+    sed -i 's/collapse/caret-square-o-down/g' "${FILE}"
+    sed -i 's/comment-alt/comment-o/g' "${FILE}"
+    sed -i 's/comments-alt/comments-o/g' "${FILE}"
+    sed -i 's/copy/files-o/g' "${FILE}"
+    sed -i 's/cut/scissors/g' "${FILE}"
+    sed -i 's/dashboard/tachometer/g' "${FILE}"
+    sed -i 's/double-angle-down/angle-double-down/g' "${FILE}"
+    sed -i 's/double-angle-left/angle-double-left/g' "${FILE}"
+    sed -i 's/double-angle-right/angle-double-right/g' "${FILE}"
+    sed -i 's/double-angle-up/angle-double-up/g' "${FILE}"
+    sed -i 's/download/arrow-circle-o-down/g' "${FILE}"
+    sed -i 's/download-alt/download/g' "${FILE}"
+    sed -i 's/edit-sign/pencil-square/g' "${FILE}"
+    sed -i 's/edit/pencil-square-o/g' "${FILE}"
+    sed -i 's/ellipsis-horizontal/ellipsis-h/g' "${FILE}"
+    sed -i 's/ellipsis-vertical/ellipsis-v/g' "${FILE}"
+    sed -i 's/envelope-alt/envelope-o/g' "${FILE}"
+    sed -i 's/exclamation-sign/exclamation-circle/g' "${FILE}"
+    sed -i 's/expand-alt/expand-o/g' "${FILE}"
+    sed -i 's/expand/caret-square-o-right/g' "${FILE}"
+    sed -i 's/external-link-sign/external-link-square/g' "${FILE}"
+    sed -i 's/eye-close/eye-slash/g' "${FILE}"
+    sed -i 's/eye-open/eye/g' "${FILE}"
+    sed -i 's/facebook-sign/facebook-square/g' "${FILE}"
+    sed -i 's/facetime-video/video-camera/g' "${FILE}"
+    sed -i 's/file-alt/file-o/g' "${FILE}"
+    sed -i 's/file-text-alt/file-text-o/g' "${FILE}"
+    sed -i 's/flag-alt/flag-o/g' "${FILE}"
+    sed -i 's/folder-close-alt/folder-o/g' "${FILE}"
+    sed -i 's/folder-close/folder/g' "${FILE}"
+    sed -i 's/folder-open-alt/folder-open-o/g' "${FILE}"
+    sed -i 's/food/cutlery/g' "${FILE}"
+    sed -i 's/frown/frown-o/g' "${FILE}"
+    sed -i 's/fullscreen/arrows-alt/g' "${FILE}"
+    sed -i 's/github-sign/github-square/g' "${FILE}"
+    sed -i 's/google-plus-sign/google-plus-square/g' "${FILE}"
+    sed -i 's/group/users/g' "${FILE}"
+    sed -i 's/h-sign/h-square/g' "${FILE}"
+    sed -i 's/hand-down/hand-o-down/g' "${FILE}"
+    sed -i 's/hand-left/hand-o-left/g' "${FILE}"
+    sed -i 's/hand-right/hand-o-right/g' "${FILE}"
+    sed -i 's/hand-up/hand-o-up/g' "${FILE}"
+    sed -i 's/hdd/hdd-o/g' "${FILE}"
+    sed -i 's/heart-empty/heart-o/g' "${FILE}"
+    sed -i 's/hospital/hospital-o/g' "${FILE}"
+    sed -i 's/indent-left/outdent/g' "${FILE}"
+    sed -i 's/indent-right/indent/g' "${FILE}"
+    sed -i 's/info-sign/info-circle/g' "${FILE}"
+    sed -i 's/keyboard/keyboard-o/g' "${FILE}"
+    sed -i 's/legal/gavel/g' "${FILE}"
+    sed -i 's/lemon/lemon-o/g' "${FILE}"
+    sed -i 's/lightbulb/lightbulb-o/g' "${FILE}"
+    sed -i 's/linkedin-sign/linkedin-square/g' "${FILE}"
+    sed -i 's/meh/meh-o/g' "${FILE}"
+    sed -i 's/microphone-off/microphone-slash/g' "${FILE}"
+    sed -i 's/minus-sign-alt/minus-square/g' "${FILE}"
+    sed -i 's/minus-sign/minus-circle/g' "${FILE}"
+    sed -i 's/mobile-phone/mobile/g' "${FILE}"
+    sed -i 's/moon/moon-o/g' "${FILE}"
+    sed -i 's/move/arrows/g' "${FILE}"
+    sed -i 's/off/power-off/g' "${FILE}"
+    sed -i 's/ok-circle/check-circle-o/g' "${FILE}"
+    sed -i 's/ok-sign/check-circle/g' "${FILE}"
+    sed -i 's/ok/check/g' "${FILE}"
+    sed -i 's/paper-clip/paperclip/g' "${FILE}"
+    sed -i 's/paste/clipboard/g' "${FILE}"
+    sed -i 's/phone-sign/phone-square/g' "${FILE}"
+    sed -i 's/picture/picture-o/g' "${FILE}"
+    sed -i 's/pinterest-sign/pinterest-square/g' "${FILE}"
+    sed -i 's/play-circle/play-circle-o/g' "${FILE}"
+    sed -i 's/play-sign/play-circle/g' "${FILE}"
+    sed -i 's/plus-sign-alt/plus-square/g' "${FILE}"
+    sed -i 's/plus-sign/plus-circle/g' "${FILE}"
+    sed -i 's/pushpin/thumb-tack/g' "${FILE}"
+    sed -i 's/question-sign/question-circle/g' "${FILE}"
+    sed -i 's/remove-circle/times-circle-o/g' "${FILE}"
+    sed -i 's/remove-sign/times-circle/g' "${FILE}"
+    sed -i 's/remove/times/g' "${FILE}"
+    sed -i 's/reorder/bars/g' "${FILE}"
+    sed -i 's/resize-full/expand/g' "${FILE}"
+    sed -i 's/resize-horizontal/arrows-h/g' "${FILE}"
+    sed -i 's/resize-small/compress/g' "${FILE}"
+    sed -i 's/resize-vertical/arrows-v/g' "${FILE}"
+    sed -i 's/rss-sign/rss-square/g' "${FILE}"
+    sed -i 's/save/floppy-o/g' "${FILE}"
+    sed -i 's/screenshot/crosshairs/g' "${FILE}"
+    sed -i 's/share-alt/share/g' "${FILE}"
+    sed -i 's/share-sign/share-square/g' "${FILE}"
+    sed -i 's/share/share-square-o/g' "${FILE}"
+    sed -i 's/sign-blank/square/g' "${FILE}"
+    sed -i 's/signin/sign-in/g' "${FILE}"
+    sed -i 's/signout/sign-out/g' "${FILE}"
+    sed -i 's/smile/smile-o/g' "${FILE}"
+    sed -i 's/sort-by-alphabet-alt/sort-alpha-desc/g' "${FILE}"
+    sed -i 's/sort-by-alphabet/sort-alpha-asc/g' "${FILE}"
+    sed -i 's/sort-by-attributes-alt/sort-amount-desc/g' "${FILE}"
+    sed -i 's/sort-by-attributes/sort-amount-asc/g' "${FILE}"
+    sed -i 's/sort-by-order-alt/sort-numeric-desc/g' "${FILE}"
+    sed -i 's/sort-by-order/sort-numeric-asc/g' "${FILE}"
+    sed -i 's/sort-down/sort-asc/g' "${FILE}"
+    sed -i 's/sort-up/sort-desc/g' "${FILE}"
+    sed -i 's/stackexchange/stack-overflow/g' "${FILE}"
+    sed -i 's/star-empty/star-o/g' "${FILE}"
+    sed -i 's/star-half-empty/star-half-o/g' "${FILE}"
+    sed -i 's/sun/sun-o/g' "${FILE}"
+    sed -i 's/thumbs-down-alt/thumbs-o-down/g' "${FILE}"
+    sed -i 's/thumbs-up-alt/thumbs-o-up/g' "${FILE}"
+    sed -i 's/time/clock-o/g' "${FILE}"
+    sed -i 's/trash/trash-o/g' "${FILE}"
+    sed -i 's/tumblr-sign/tumblr-square/g' "${FILE}"
+    sed -i 's/twitter-sign/twitter-square/g' "${FILE}"
+    sed -i 's/unlink/chain-broken/g' "${FILE}"
+    sed -i 's/upload/arrow-circle-o-up/g' "${FILE}"
+    sed -i 's/upload-alt/upload/g' "${FILE}"
+    sed -i 's/warning-sign/exclamation-triangle/g' "${FILE}"
+    sed -i 's/xing-sign/xing-square/g' "${FILE}"
+    sed -i 's/youtube-sign/youtube-square/g' "${FILE}"
+    sed -i 's/zoom-in/search-plus/g' "${FILE}"
+    sed -i 's/zoom-out/search-minus/g' "${FILE}"
+}
+
+# First list all modules we will proceed
+for module in $(ls); do
+
+    echo
+    echo -e "${txtylw}Look up views for ${txtwht}${module}${txtylw} module ..${txtrst}"
+    CWD=$(pwd)
+    cd "${module}"
+
+    for file in $(find . -type f -name '*.jade'); do
+
+        CANONICAL=$(echo $file | sed 's/^\.\/resources\/views\///g')
+        MATCHES=$(grep icon $file | wc -l)
+        echo -n "  -- Check ${CANONICAL}"
+
+        for i in $(seq $((50 - ${#CANONICAL}))); do
+            echo -n " "
+        done
+
+        if [ 0 -eq "${MATCHES}" ]; then
+            echo -e "${bldwht}[ ${txtwht}SKIP ${bldwht}]${txtrst}"
+        else
+            echo -en "${bldwht}[ ${bldgrn}WORK ${bldwht}]${txtrst}"
+            MATCHESSTR=" -> ${txtylw}${MATCHES}${txtrst} matches"
+            echo -en "${MATCHESSTR}"
+
+            for i in $(seq $((30 - ${#MATCHESSTR}))); do
+                echo -n " "
+            done
+
+            upgrade "${file}"
+
+            echo -e " .. ${bldwht}[ ${bldgrn}DONE ${bldwht}]${txtrst}"
+        fi
+
+    done
+
+    cd "${CWD}"
+    echo
+
+done
+
