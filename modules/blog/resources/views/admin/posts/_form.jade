@@ -1,19 +1,6 @@
 form.form-horizontal(role="form", method="POST", action="#{response.path}")
 
   .form-group
-    label.col-lg-2.control-label Slug
-    .col-lg-10
-      input.form-control(
-        type="text",
-        name="post_slug",
-        placeholder="Just type the slug ..",
-        required="required",
-        value="#{('undefined' !== typeof post && null !== post) ? post.slug : ''}")
-
-      span.help-block.
-        Some useful hints for the slug input
-
-  .form-group
     label.col-lg-2.control-label Title
     .col-lg-10
       input.form-control(
@@ -24,20 +11,20 @@ form.form-horizontal(role="form", method="POST", action="#{response.path}")
         value="#{('undefined' !== typeof post && null !== post) ? post.title : ''}")
 
       span.help-block.
-        Some useful hints for the title input
+        Choose a expressive title.
 
   .form-group
     label.col-lg-2.control-label Content
     .col-lg-10
-      input.form-control(
-        type="text",
-        name="post_content",
+      textarea.form-control(
+        name="post_content"
         placeholder="Just type the content ..",
         required="required",
-        value="#{('undefined' !== typeof post && null !== post) ? post.content : ''}")
+        rows="10"
+      ) #{('undefined' !== typeof post && null !== post) ? post.content : ''}
 
       span.help-block.
-        Some useful hints for the content input
+        Allowed formats: HTML and Markdown
 
   .form-group
     .col-lg-offset-2.col-lg-10

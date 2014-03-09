@@ -5,6 +5,9 @@
  * @author Hermann Mayer <jack@hermann-mayer.net>
  */
 
+var slug = require('slug');
+var marked = require('marked');
+
 /**
  * @constructor
  */
@@ -43,7 +46,7 @@ PostsController.actions.index =
 
         var criteria = self.dataGrid.buildNoSqlCriteria(req, res, {
             limit        : 10,
-            properties   : ['title', 'content', 'created_at'],
+            properties   : ['title', 'content', 'slug', 'created_at'],
             fuzzySearch  : true,
             softDeletion : true
         });
@@ -131,6 +134,16 @@ PostsController.actions.show =
                     return self.error.showErrorPage(req, res, err);
                 }
 
+                if (!document) {
+                    return res.render('admin/error/notfound-layout', {
+                        entity: 'Blog post'
+                    });
+                }
+
+                document.content = marked(document.content, {
+                    breaks: true
+                });
+
                 // Render the view
                 res.render(self.view('show'), {
                     post: document
@@ -209,10 +222,10 @@ PostsController.actions.create =
         greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
             var document = new models.Post({
-                author: req.body.post_author,
-                slug: (req.body.post_slug).trim(),
+                author: '531bbf0a5ffe09f730d5de5c', // @TODO: Implement login -> <ObjectId>
                 title: (req.body.post_title).trim(),
-                content: (req.body.post_content).trim()
+                content: (req.body.post_content).trim(),
+                slug: slug((req.body.post_title).trim().toLowerCase())
             });
 
             document.save(function(err, document) {
@@ -252,10 +265,9 @@ PostsController.actions.update =
                     return res.redirect(self.link('index'));
                 }
 
-                document.author = req.body.post_author;
-                document.slug = (req.body.post_slug).trim();
                 document.title = (req.body.post_title).trim();
                 document.content = (req.body.post_content).trim();
+                document.slug = slug((req.body.post_title).trim().toLowerCase());
                 document.updated_at = new Date();
 
                 document.save(function(err, document) {

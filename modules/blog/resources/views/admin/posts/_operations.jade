@@ -1,3 +1,9 @@
+if ('edit' == req.greppy.route.action && 'undefined' !== typeof post)
+
+  a.btn.btn-default(href="#{controller.link('show', { oid: post.id })}", title="Show post details")
+    i.fa.fa-search
+  &nbsp;
+
 - var disableBackLink = false
 
 if ('index' == req.greppy.route.action && 'undefined' !== typeof post)
