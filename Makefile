@@ -15,6 +15,8 @@ install: configure
 
 build:
 	@./node_modules/.bin/grunt
+	@cp public/components/bootstrap/fonts/* public/fonts/
+	@cp public/components/font-awesome/fonts/* public/fonts/
 
 watch:
 	@./node_modules/.bin/grunt watch
