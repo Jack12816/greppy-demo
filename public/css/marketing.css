@@ -12,11 +12,15 @@ body {
 /* Special class on .container surrounding .navbar, used for positioning it into place. */
 .navbar-wrapper {
   position: relative;
-  z-index: 15;
+  z-index: 25;
 }
 
 .navbar-static-top {
     border-width: 0px;
+}
+
+.navbar-fixed-top {
+    border-bottom: 3px solid #48A1CE;
 }
 
 /* CUSTOMIZE THE CAROUSEL
@@ -28,6 +32,8 @@ body {
 
   /* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
   margin-top: -90px;
+
+  border-bottom: 10px solid #0E222B;
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
@@ -36,14 +42,14 @@ body {
 
 /* Declare heights because of positioning of img element */
 .carousel .item {
-  height: 500px;
+  height: 400px;
 }
 .carousel-inner > .item > img {
   position: absolute;
   top: 0;
   left: 0;
   /* min-width: 100%; */
-  height: 500px;
+  height: 400px;
 }
 
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
@@ -118,7 +124,7 @@ body {
     margin-top: 20px;
   }
   /* The navbar becomes detached from the top, so we round the corners */
-  .navbar-wrapper .navbar {
+  .navbar-wrapper .navbar.navbar-static-top {
     border-radius: 4px;
   }
 
@@ -157,5 +163,10 @@ body {
     #fork-on-github {
         display: none;
     }
+}
+
+.anchor {
+    padding-top: 60px;
+    margin-top: -60px;
 }
 

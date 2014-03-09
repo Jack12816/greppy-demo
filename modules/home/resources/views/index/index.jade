@@ -2,84 +2,26 @@ extends ../layout
 
 block content
 
-  .marketing
-    .row
-      .col-lg-4
-        i.img-circle.icon-search.icon-4x
-        h2 Explore
-        p
-          | Explore Greppy's possibilities and get excited for more!
-          | You will be surprised how easy it is to build a fully
-          | working high availability cluster application.
-        p
-          a.btn.btn-default(href="#explore") View details »
-      .col-lg-4
-        i.img-circle.icon-rocket.icon-4x
-        h2 Get Started
-        p
-          | Prepare yourself for Greppy. Learn how to use it by it's
-          | great getting started guide, detailed examples, and
-          | completive API documentation.
-        p
-          a.btn.btn-default(href="#getting-started") View details »
-      .col-lg-4
-        i.img-circle.icon-code.icon-4x
-        h2 Contribute
-        p
-          | Greppy is an open source project licensed under the LGPLv3.
-          | Everyone can fork it on Github and contribute to the project
-          | by sending pull requests.
-        p
-          a.btn.btn-default(href="#contribute") View details »
+  include js/_navbar_scrolling
+  include js/_easter_egg
 
-    hr.featurette-divider
-    a(name="explore")
-    .featurette
-      img.featurette-image.img-circle.pull-right(src="/modules/home/img/home/explore.png")
-      h2.featurette-heading
-        | Take a look at existing applications.&nbsp;
-        span.text-muted Become interested.
-      p.lead.
-        To get a feeling for the ease of writing applications with Greppy
-        you should try our demo application. It's got a frontend module, and
-        a really easy REST service.
+  .marketing.greppy
+    a(name="greppy")
+    include fw/_subnav
+    include fw/_header
+    include fw/_features
 
-      p
-        | Just read more on the GitHub&nbsp;
-        a(target="_blank", href="https://github.com/Jack12816/greppy-demo") project page
-        | .
+  .marketing.greppy-frontend
+    a(name="greppy-frontend")
+    include fe/_subnav
+    include fe/_header
+    include fe/_features
 
-    hr.featurette-divider
-    a(name="getting-started")
-    .featurette
-      img.featurette-image.img-circle.pull-left(src="/modules/home/img/home/getting-started.png")
-      h2.featurette-heading
-        | Learn more about our concepts.&nbsp;
-        span.text-muted You'll be excited.
-      p.lead.
-        You aren't content with the demo anymore?
+  .marketing.greppy-gang
+    a(name="greppy-gang")
+    include gang
 
-      p
-        | Study our concepts and learn all you need to write your own
-        | Greppy-based application. The quickest way is via our&nbsp;
-        a(target="_blank", href="/docs") documentation
-        | .
-
-    hr.featurette-divider
-    a(name="contribute")
-    .featurette
-      img.featurette-image.img-circle.pull-right(src="/modules/home/img/home/contribute.png")
-      h2.featurette-heading
-        | Greppy is open source - contributions are welcome.&nbsp;
-        span.text-muted Just read further on GitHub.
-      p.lead.
-        For getting you started to work on Greppy, read the documentation
-        and watch for issues.
-      p
-      | If you plan to extend Greppy, the easiest way
-      | would be to open an issue and discuss it. For feature requests it
-      | would be the same. So take a look at&nbsp;
-      a(target="_blank", href="https://help.github.com/articles/fork-a-repo") GitHub
-      | .
-
+  .marketing.greppy-contributors
+    a(name="greppy-contributors")
+    include contributors
 

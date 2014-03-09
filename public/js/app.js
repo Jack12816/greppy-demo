@@ -1,4 +1,18 @@
 /**
+ * Mock console.log to prevent errors.
+ */
+try {
+    var c = console;
+} catch (e) {
+    console = {};
+    console.log = function() {};
+    console.debug = function() {};
+    console.warn = function() {};
+    console.error = function() {};
+    console.dir = function() {};
+}
+
+/**
  * Enable smooth scrolling for all internal links.
  */
 $(function () {
@@ -30,7 +44,26 @@ $(function () {
 
     // Autostart carousels
     $('.carousel').carousel({
-        interval: 5000
-    });
+        interval: 7000
+    }).carousel('cycle');
+
+    // Autostart tooltips
+    $('*[data-toggle=tooltip]').tooltip();
+
+    // Dev notes
+    console.log([
+        "   ______",
+        "  / ____/_______  ____  ____  __  __",
+        " / / __/ ___/ _ \\/ __ \\/ __ \\/ / / /",
+        "/ /_/ / /  /  __/ /_/ / /_/ / /_/ /",
+        "\\____/_/   \\___/ .___/ .___/\\__, /",
+        "              /_/   /_/    /____/",
+        "Hey ho!", "",
+        "Interessted in learning more about Greppy? Check out the code behind this ",
+        "application. Maybe you could improve some code, implement new features and ",
+        "become a core developer!", "",
+        "Contact us and stay tuned!",
+        "The Greppy Gang"
+    ].join('\n'));
 });
 

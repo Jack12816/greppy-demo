@@ -2,7 +2,7 @@ script.
   $(function () {
     $('#archive-expand-all-btn').on('click', function() {
       $('.archive .clickable').trigger('click');
-      $(this).find('i').toggleClass('icon-eye-open icon-eye-close');
+      $(this).find('i').toggleClass('fa-eye fa-eye-slash');
     });
   });
 
@@ -12,7 +12,7 @@ script.
       unless (0 == archive.length)
         .pull-right
           a.btn.btn-default.btn-sm#archive-expand-all-btn(title="Expand all years", href="#")
-            i.icon-eye-open
+            i.fa.fa-eye
 
     if (0 == archive.length)
       p No posts are in the archive.
@@ -22,7 +22,7 @@ script.
           .list-group-item
             .badge= year.count
             .list-group-item-heading.clickable(data-toggle="collapse", data-target="#archive-year-#{year.year}")
-              i.icon-calendar
+              i.fa.fa-calendar
               |  #{year.year}
             .list-group-item-text.collapse(id="archive-year-#{year.year}")
               each month in year.months

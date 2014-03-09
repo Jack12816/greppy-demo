@@ -5,26 +5,26 @@ block content
   h2.page-headline Users
     include _search
 
-  - if ('undefined' !== typeof users && users.length > 0)
+  if ('undefined' !== typeof users && users.length > 0)
 
     table.table.table-bordered.table-striped.datagrid.small-bottom-margin
       thead
         tr
           th.text-center(title="Deletion status")
-            i.icon-trash
+            i.fa.fa-trash-o
           th(data-property="username") Username
           th(data-property="email") Email
           th(data-property="fullname") Fullname
           th(data-property="created_at") Created at
           th
-            i.icon-wrench
+            i.fa.fa-wrench
             |  Operations
       tbody
         include _index_rows
 
     include _pagination
 
-  - else
+  else
 
     p No users present.
 

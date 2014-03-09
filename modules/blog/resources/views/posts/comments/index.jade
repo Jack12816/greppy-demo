@@ -4,7 +4,7 @@ a(name="comments")
 h3.headline.clearfix Comments
   .pull-right
     a.btn.btn-primary.btn-sm#new-comment-btn(title="Add a new comment")
-      i.icon-plus
+      i.fa.fa-plus
 
 - var amount = 0
 each comment in post.comments
@@ -24,11 +24,11 @@ a(name="new-comment")
   .col-lg-12
     .well
       h3.headline
-        i.icon-plus-sign
+        i.fa.fa-plus-circle
         |  Create a new comment
         .pull-right
           a.btn.btn-danger.btn-sm#new-comment-close-btn(title="Close")
-            i.icon-remove
+            i.fa.fa-times
       br
       include _form
 

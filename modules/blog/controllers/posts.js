@@ -5,7 +5,9 @@
  * @author Nabil Krause <nabil.krause@silberlicht.eu>
  */
 
-var async = require('async');
+var _      = require('lodash-node');
+var async  = require('async');
+var marked = require('marked');
 
 /**
  * @constructor
@@ -90,7 +92,8 @@ PostsController.actions.search =
 
                 function(posts, callback) {
 
-                    greppy.helper.get('blog.fetcher.post').fetchArchive(function(err, archive) {
+                    greppy.helper.get('blog.controller.post')
+                        .fetchArchive(function(err, archive) {
                         callback && callback(err, posts, archive);
                     });
                 }
@@ -147,8 +150,19 @@ PostsController.actions.show =
                 // Populate all authors of all comments
                 function(post, callback) {
 
-                    models.User.populate(post, 'comments.author', function (err, post) {
+                    models.User.populate(
+                        post, 'comments.author',
+                    function (err, post) {
                         callback && callback(err, post);
+                    });
+                },
+
+                // Generate a captcha for the current session
+                // to prevent spam comments
+                function(post, callback) {
+                    greppy.helper.get('blog.controller.post')
+                        .generateCaptcha(req, function(err, captcha) {
+                        callback && callback(err, post, captcha);
                     });
                 }
 
@@ -157,6 +171,10 @@ PostsController.actions.show =
                 if (err && 'POST_NOT_FOUND' !== err.msg) {
                     return self.error.showErrorPage(req, res, err);
                 }
+
+                post.content = marked(post.content, {
+                    breaks: true
+                });
 
                 // Render the view
                 res.render(self.view('show'), {

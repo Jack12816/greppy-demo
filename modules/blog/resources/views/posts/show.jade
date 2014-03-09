@@ -2,13 +2,13 @@ extends ../layout
 
 block content
 
-  - if (null !== post)
+  if (null !== post)
 
     .row
       .col-lg-8
 
         h3.headline= post.title
-        .content= post.content
+        .content.text-justify !{post.content}
 
       .col-lg-4
         include ../layout/_sidebar
@@ -18,7 +18,7 @@ block content
       .col-lg-12
         include ./comments/index
 
-  - else
+  else
 
     - var entity = 'Post'
     include ../error/notfound

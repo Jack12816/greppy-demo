@@ -1,10 +1,10 @@
-- each post in posts
+each post in posts
 
   tr(class="#{ post.deleted_at ? 'danger' : '' }")
 
     td.min.text-center
-      i(title="Post is #{ post.deleted_at ? '' : 'not' } deleted",
-        data-toggle="tooltip", class="#{ post.deleted_at ? 'icon-remove' : 'icon-ok' }")
+      i.fa(title="Post is #{ post.deleted_at ? '' : 'not' } deleted",
+        data-toggle="tooltip", class="#{ post.deleted_at ? 'fa-times' : 'fa-check' }")
 
     td #{ new String(post.title).words(30) }
     td #{ new String(post.content).words(30) }

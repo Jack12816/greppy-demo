@@ -11,16 +11,16 @@ if ('undefined' === typeof author)
       | #{helper.date.format(post.created_at, 'LLLL')}
 
   .panel-body= (post.content).words(50)
-    &nbsp;
+    |&nbsp;
     a.btn.btn-default.btn-xs(href="/posts/" + post.slug)
-      i.icon-share-alt
+      i.fa.fa-share
       |  Read on
 
   .panel-footer.clearfix
 
     .row.details-banner.clickable
       .col-lg-12.text-center
-        i.icon-plus
+        i.fa.fa-plus
         |  Show details and activities
 
     .row.details.collapse
@@ -37,18 +37,30 @@ if ('undefined' === typeof author)
         .media
           .pull-left
             a(href="/posts/" + post.slug + "#comments")
-              i.icon-comments.icon-2x
+              i.fa.fa-comments.fa-2x
           .media-body
             h5.media-heading Comments
-            p.text-muted #{post.comments.length} Comments
+            p.text-muted
+              if (0 === post.comments.length)
+                | No comments yet
+              else if (1 === post.comments.length)
+                | One comment
+              else if (post.comments.length > 1)
+                | #{post.comments.length} comments
 
       .col-lg-4
         .media
           .pull-left
-            i.icon-eye-open.icon-2x
+            i.fa.fa-eye.fa-2x
           .media-body
             h5.media-heading Statistics
-            p.text-muted #{post.views} Views
+            p.text-muted
+              if (0 === post.views)
+                | No views yet
+              else if (1 === post.views)
+                | One view
+              else if (post.views > 1)
+                | #{post.views} views
 
 //- Clear external injection
 - author = undefined

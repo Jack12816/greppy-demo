@@ -3,6 +3,7 @@
  *
  * @module blog/controller/posts
  * @author Nabil Krause <nabil.krause@silberlicht.eu>
+ * @author Hermann Mayer <hermann.mayer92@gmail.com>
  */
 
 var async  = require('async');
@@ -81,7 +82,8 @@ ArchiveController.actions.show =
 
                 function(posts, callback) {
 
-                    greppy.helper.get('blog.fetcher.post').fetchArchive(function(err, archive) {
+                    greppy.helper.get('blog.controller.post')
+                        .fetchArchive(function(err, archive) {
                         callback && callback(err, posts, archive);
                     });
                 }

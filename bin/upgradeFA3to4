@@ -71,16 +71,6 @@ function upgrade()
 
     FILE="${1}"
 
-    ### New default syntax
-    sed -i 's/icon-fixed-width/fa-fw/g' "${FILE}"
-    sed -i 's/icon-large/fa-lg/g' "${FILE}"
-    sed -i 's/icons-ul/fa-ul/g' "${FILE}"
-    sed -i 's/icon-li/fa-li/g' "${FILE}"
-    sed -i 's/icon-spin/fa-spin/g' "${FILE}"
-    sed -i 's/icon-rotate-/fa-rotate-/g' "${FILE}"
-    sed -i 's/\.icon-/\.fa.fa-/g' "${FILE}"
-    # sed -i 's/icon-/fa-/g' "${FILE}"
-
     ### New icon names
     sed -i 's/icon-ban-circle/fa-ban/g' "${FILE}"
     sed -i 's/icon-bar-chart/fa-bar-chart-o/g' "${FILE}"
@@ -227,8 +217,20 @@ function upgrade()
     sed -i 's/icon-zoom-in/fa-search-plus/g' "${FILE}"
     sed -i 's/icon-zoom-out/fa-search-minus/g' "${FILE}"
 
+    ### New default syntax
+    sed -i 's/icon-fixed-width/fa-fw/g' "${FILE}"
+    sed -i 's/icon-large/fa-lg/g' "${FILE}"
+    sed -i 's/icons-ul/fa-ul/g' "${FILE}"
+    sed -i 's/icon-li/fa-li/g' "${FILE}"
+    sed -i 's/icon-spin/fa-spin/g' "${FILE}"
+    sed -i 's/icon-rotate-/fa-rotate-/g' "${FILE}"
+    sed -i 's/\.icon-/.fa-/g' "${FILE}"
+
     # BS3 icon-bar fix
-    sed -i 's/fa-bar/icon-bar/g' "${FILE}"
+    sed -i 's/fa.fa-bar/icon-bar/g' "${FILE}"
+
+    # Add additional fa class
+    sed -i 's/i\.fa-/i.fa.fa-/g' "${FILE}"
 }
 
 # First list all modules we will proceed
@@ -250,6 +252,7 @@ for module in $(ls); do
             echo -n "  -- Found ${CANONICAL}"
 
             if [ 1 -eq "${SHOW_LINES}" ]; then
+                echo -e "\n"
                 grep --color=always -A1 -B1 'icon-' "${file}"
                 continue
             fi

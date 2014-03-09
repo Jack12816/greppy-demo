@@ -59,12 +59,29 @@ form.form-horizontal(role="form", method="POST", action="#{app.link('posts.comme
         placeholder="Just type the website ..",
         value="#{('undefined' !== typeof comment && null !== comment) ? comment.website : ''}")
 
+  hr.muted
+
+  .form-group
+    label.col-lg-2.control-label Security code *
+    .col-lg-10
+      .input-group
+        span.input-group-addon #{req.session.captcha.question} =
+        input.form-control(
+          type="number",
+          name="comment_captcha",
+          required="required",
+          placeholder="?")
+        span.input-group-addon(
+          data-toggle="tooltip", data-placement="top", data-title="The security code prevents abuse of this functionality, e.g. through automatic advertisement bots."
+        )
+          i.fa.fa-question
+
   input(type="hidden", name="comment_post_id", value="#{post.id}")
 
   .form-group
     .col-lg-offset-2.col-lg-10
       button.btn.btn-primary
-        i.icon-ok
-        &nbsp;
+        i.fa.fa-check
+        |&nbsp;
         |  Create
 

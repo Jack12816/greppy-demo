@@ -2,7 +2,7 @@ extends ../../layout
 
 block content
 
-  - if (null !== user)
+  if (null !== user)
 
     h2.page-headline.bottom-border Edit user details
       .pull-right
@@ -11,7 +11,7 @@ block content
     br
     include _form
 
-  - else
+  else
 
     - var entity = 'User'
     include ../../error/notfound

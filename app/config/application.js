@@ -16,7 +16,7 @@ config.infrastructure = {
         worker : 1
     },
 
-    frontend: {
+    blog: {
         url    : 'http://localhost:3001',
         slaves : ['localhost'],
         host   : '0.0.0.0',
@@ -24,7 +24,7 @@ config.infrastructure = {
         worker : 1
     },
 
-    blog: {
+    docs: {
         url    : 'http://localhost:3002',
         slaves : ['localhost'],
         host   : '0.0.0.0',
@@ -32,19 +32,11 @@ config.infrastructure = {
         worker : 1
     },
 
-    docs: {
+    service: {
         url    : 'http://localhost:3003',
         slaves : ['localhost'],
         host   : '0.0.0.0',
         port   : 3003,
-        worker : 1
-    },
-
-    service: {
-        url    : 'http://localhost:3004',
-        slaves : ['localhost'],
-        host   : '0.0.0.0',
-        port   : 3004,
         worker : 1
     }
 };

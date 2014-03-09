@@ -58,7 +58,8 @@ IndexController.actions.index =
 
                 function(posts, callback) {
 
-                    greppy.helper.get('blog.fetcher.post').fetchArchive(function(err, archive) {
+                    greppy.helper.get('blog.controller.post')
+                        .fetchArchive(function(err, archive) {
                         callback && callback(err, posts, archive);
                     });
                 }

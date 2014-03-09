@@ -1,0 +1,22 @@
+script.
+  $(document).ready( function() {
+      var $navbar = $('.navbar');
+      var $body = $('body');
+      var navTop = $navbar.offset().top;
+
+      var switchNav = function() {
+          var scrollTop = $(this).scrollTop();
+
+          if (scrollTop >= navTop) {
+              $navbar.removeClass('navbar-static-top');
+              $navbar.addClass('navbar-fixed-top');
+          } else {
+              $navbar.addClass('navbar-static-top');
+              $navbar.removeClass('navbar-fixed-top');
+          }
+      };
+
+      $(window).scroll(switchNav);
+      switchNav();
+  });
+

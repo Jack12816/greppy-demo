@@ -11,17 +11,16 @@ a#fork-on-github(href="https://github.com/Jack12816/greppy", target="_blank")
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(href="#{app.linkContext('home')}") Greppy
     .navbar-collapse.collapse
       ul.nav.navbar-nav
         li
-          a(href="#{app.linkContext('home', '/about')}") About
+          a(href="#{app.linkContext('home', '/')}#greppy") Greppy
         li
-          a(href="#{app.linkContext('home', '/gang')}") Gang
+          a(href="#{app.linkContext('home', '/')}#greppy-frontend") Greppy Frontend
         li
-          a(href="#{app.linkContext('home', '/contributors')}") Contributors
+          a(href="#{app.linkContext('home', '/')}#greppy-gang") Gang
         li
-          a(href="#{app.linkContext('frontend')}") Frontend
+          a(href="#{app.linkContext('home', '/')}#greppy-contributors") Contributors
         li
           a(href="#{app.linkContext('docs')}") Documentation
         li.active
@@ -37,38 +36,38 @@ a#fork-on-github(href="https://github.com/Jack12816/greppy", target="_blank")
               value="#{'undefined' === typeof searchQuery ? '' : searchQuery}")
             span.input-group-btn
               button.btn.btn-primary(type="submit")
-                i.icon-search
+                i.fa.fa-search
 
-      ul.nav.navbar-nav.navbar-right
+      // ul.nav.navbar-nav.navbar-right
 
-        // if (true === req.isAuthenticated)
-        li.dropdown(class="#{helper.route.current(req.url, /^\/admin\//i, 'active')}")
-          a#avatar-a.dropdown-toggle(data-toggle="dropdown", href="#")
-            i.icon-wrench.icon-2x
-          ul.dropdown-menu
+      //   // if (true === req.isAuthenticated)
+      //   li.dropdown(class="#{helper.route.current(req.url, /^\/admin\//i, 'active')}")
+      //     a#avatar-a.dropdown-toggle(data-toggle="dropdown", href="#")
+      //       i.fa.fa-wrench.fa-2x
+      //     ul.dropdown-menu
 
-            li(class="#{helper.route.current(req.url, /^\/admin\/users/i, 'active')}")
-              a(href="/admin/users")
-                i.icon-user
-                |  Users
+      //       li(class="#{helper.route.current(req.url, /^\/admin\/users/i, 'active')}")
+      //         a(href="/admin/users")
+      //           i.fa.fa-user
+      //           |  Users
 
-            li(class="#{helper.route.current(req.url, /^\/admin\/posts/i, 'active')}")
-              a(href="/admin/posts")
-                i.icon-file
-                |  Posts
+      //       li(class="#{helper.route.current(req.url, /^\/admin\/posts/i, 'active')}")
+      //         a(href="/admin/posts")
+      //           i.fa.fa-file
+      //           |  Posts
 
-        li.dropdown
-          a#avatar-a.dropdown-toggle(data-toggle="dropdown", href="#")
-            i.icon-user.icon-2x
-          ul.dropdown-menu
+      //   li.dropdown
+      //     a#avatar-a.dropdown-toggle(data-toggle="dropdown", href="#")
+      //       i.fa.fa-user.fa-2x
+      //     ul.dropdown-menu
 
-            li(class="#{helper.route.current(req.url, '/login', 'active')}")
-              a(href="/login")
-                i.icon-signin
-                |  Sign in
+      //       li(class="#{helper.route.current(req.url, '/login', 'active')}")
+      //         a(href="/login")
+      //           i.fa.fa-sign-in
+      //           |  Sign in
 
-            li(class="#{helper.route.current(req.url, '/signup', 'active')}")
-              a(href="/signup")
-                i.icon-key
-                |  Sign up
+      //       li(class="#{helper.route.current(req.url, '/signup', 'active')}")
+      //         a(href="/signup")
+      //           i.fa.fa-key
+      //           |  Sign up
 

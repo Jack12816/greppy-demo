@@ -5,6 +5,8 @@
  * @author Hermann Mayer <jack@hermann-mayer.net>
  */
 
+var async = require('async');
+
 /**
  * @constructor
  */
@@ -39,57 +41,90 @@ CommentsController.actions.create =
     methods : ['POST'],
     action  : function(req, res) {
 
-        greppy.db.get('mongodb.blog').getORM(function(orm, models) {
+        var responseUrl = 'back';
 
-            models.Post.findById((req.body.comment_post_id).trim(), function(err, post) {
+        async.waterfall([
 
-                var responseUrl = res.link('posts', 'show', {slug: post.slug});
+            // Validate the captcha
+            function(callback) {
+                greppy.helper.get('blog.controller.post')
+                    .validateCaptcha(
+                        Number(req.body.comment_captcha), req, callback
+                    );
+            },
 
-                if (err) {
-                    self.form.logAndFlash(req, err);
-                    return res.redirect(responseUrl);
-                }
+            // Find the post
+            function(callback) {
+                greppy.db.get('mongodb.blog').getORM(function(orm, models) {
+                    models.Post.findById(
+                        (req.body.comment_post_id).trim(),
+                    function(err, post) {
 
-                if (!post) {
-                    self.form.logAndFlash(req, new Error('Post was not found'));
-                    return res.redirect(responseUrl);
-                }
+                        responseUrl = res.link('posts', 'show', {slug: post.slug});
 
-                var comment = new models.Comment({
-                    post: post.id,
-                    fullname: (req.body.comment_fullname).trim(),
-                    title: (req.body.comment_title).trim(),
-                    content: (req.body.comment_content).trim(),
-                    email: (req.body.comment_email).trim(),
-                    twitter: (req.body.comment_twitter).trim(),
-                    website: (req.body.comment_website).trim(),
-                });
-
-                comment.save(function(err, comment) {
-
-                    if (err) {
-                        self.form.logAndFlash(req, err);
-                        return res.redirect(responseUrl);
-                    }
-
-                    // Append new comment to post
-                    post.comments.push(comment.id);
-
-                    post.save(function(err, post) {
-
-                        if (err) {
-                            self.form.logAndFlash(req, err);
-                            return res.redirect(responseUrl);
+                        if (!post) {
+                            return callback && callback(
+                                new Error('Post was not found')
+                            );
                         }
 
-                        req.flash('success',
-                            'Saved your <a class="alert-link" href="#comment-'
-                            + comment.slug + '">comment</a>.'
-                        );
-                        return res.redirect(responseUrl);
+                        callback && callback(err, post);
                     });
                 });
-            });
+            },
+
+            // Save the new comment
+            function(post, callback) {
+                greppy.db.get('mongodb.blog').getORM(function(orm, models) {
+                    var comment = new models.Comment({
+                        post     : post.id,
+                        fullname : (req.body.comment_fullname).trim(),
+                        title    : (req.body.comment_title).trim(),
+                        content  : (req.body.comment_content).trim(),
+                        email    : (req.body.comment_email).trim(),
+                        twitter  : (req.body.comment_twitter).trim(),
+                        website  : (req.body.comment_website).trim(),
+                    });
+
+                    comment.save(function(err, comment) {
+                        callback && callback(err, post, comment);
+                    });
+                });
+            },
+
+            // Update the post
+            function(post, comment, callback) {
+                post.comments.push(comment.id);
+                post.save(function(err, post) {
+                    callback && callback(err, post, comment);
+                });
+            }
+
+        ], function(err, post, comment) {
+
+            if (err) {
+
+                if ('NO_CAPTCHA' === err.message) {
+                    err.message = 'The security code is invalid.';
+                }
+
+                if ('INVALID_CAPTCHA' === err.message) {
+                    err.message = 'The security code is invalid. ' +
+                        '(' + req.session.captcha.question + ' = <b>' +
+                        req.session.captcha.solution + '</b>, not ' +
+                        req.body.comment_captcha + ')';
+                }
+
+                self.form.logAndFlash(req, err);
+                return res.redirect(responseUrl);
+            }
+
+            req.flash('success',
+                'Saved your <a class="alert-link" href="#comment-' +
+                comment.slug + '">comment</a>.'
+            );
+
+            res.redirect(responseUrl);
         });
     }
 };
@@ -133,7 +168,7 @@ CommentsController.actions.update =
                         return res.redirect(self.link('edit', {oid: document.id}));
                     }
 
-                    req.flash('success', 'Updated your comment.');
+                    req.flash('success', 'Your comment was updated');
                     res.redirect(self.link('show', {oid: document.id}));
                 });
             });

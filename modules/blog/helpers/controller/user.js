@@ -1,7 +1,7 @@
 /**
- * User Associations Fetcher Helper
+ * User Associations Controller Helper
  *
- * @module blog/helpers/fetcher/user
+ * @module blog/helpers/controller/user
  * @author Hermann Mayer <hermann.mayer92@gmail.com>
  **/
 

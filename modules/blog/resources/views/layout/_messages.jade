@@ -1,19 +1,34 @@
 .flash-container.text-center
 
-  - each message in req.flash("info")
-    .flash-message.alert.alert-dismissable.alert-info
-      button(type="button", class="close", data-dismiss="alert", aria-hidden="true") &times;
+  // With specific close button
+  // each message in req.flash("info")
+  //   .flash-message.alert.alert-dismissable.alert-info
+  //     button(type="button", class="close", data-dismiss="alert", aria-hidden="true") &times;
+  //     span !{message}
+  // each message in req.flash("success")
+  //   .flash-message.alert.alert-dismissable.alert-success
+  //     button(type="button", class="close", data-dismiss="alert", aria-hidden="true") &times;
+  //     span !{message}
+  // each message in req.flash("warning")
+  //   .flash-message.alert.alert-dismissable.alert-warning
+  //     button(type="button", class="close", data-dismiss="alert", aria-hidden="true") &times;
+  //     span !{message}
+  // each message in req.flash("error")
+  //   .flash-message.alert.alert-dismissable.alert-danger
+  //     button(type="button", class="close", data-dismiss="alert", aria-hidden="true") &times;
+  //     span !{message}
+
+  // Can click on the message and it disappears
+  each message in req.flash("info")
+    .flash-message.alert.alert-dismissable.alert-info(data-dismiss="alert")
       span !{message}
-  - each message in req.flash("success")
-    .flash-message.alert.alert-dismissable.alert-success
-      button(type="button", class="close", data-dismiss="alert", aria-hidden="true") &times;
+  each message in req.flash("success")
+    .flash-message.alert.alert-dismissable.alert-success(data-dismiss="alert")
       span !{message}
-  - each message in req.flash("warning")
-    .flash-message.alert.alert-dismissable.alert-warning
-      button(type="button", class="close", data-dismiss="alert", aria-hidden="true") &times;
+  each message in req.flash("warning")
+    .flash-message.alert.alert-dismissable.alert-warning(data-dismiss="alert")
       span !{message}
-  - each message in req.flash("error")
-    .flash-message.alert.alert-dismissable.alert-danger
-      button(type="button", class="close", data-dismiss="alert", aria-hidden="true") &times;
+  each message in req.flash("error")
+    .flash-message.alert.alert-dismissable.alert-danger(data-dismiss="alert")
       span !{message}
 

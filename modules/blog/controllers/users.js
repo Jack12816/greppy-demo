@@ -56,7 +56,9 @@ UsersController.actions.show =
 
         greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
-            models.User.findOne({username: req.params.username}, function(err, document) {
+            models.User.findOne(
+                {username: req.params.username},
+            function(err, document) {
 
                 if (err) {
                     return self.error.showErrorPage(req, res, err);
@@ -64,13 +66,17 @@ UsersController.actions.show =
 
                 if (!document) {
                     return self.error.showErrorPage(
-                        req, res, new Error('User "' + req.params.oid + '" not found'),
+                        req, res, new Error(
+                            'User "' + req.params.oid + '" not found'
+                        ),
                         'notfound-layout', {entity: 'User'}
                     );
                 }
 
                 // Fetch associations
-                greppy.helper.get('blog.fetcher.user').fetch(document, function(err, relations) {
+                greppy.helper.get('blog.controller.user').fetch(
+                    document,
+                function(err, relations) {
 
                     if (err) {
                         return self.error.showErrorPage(req, res, err);

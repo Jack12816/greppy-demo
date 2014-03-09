@@ -5,25 +5,25 @@ block content
   h2.page-headline Posts
     include _search
 
-  - if ('undefined' !== typeof posts && posts.length > 0)
+  if ('undefined' !== typeof posts && posts.length > 0)
 
     table.table.table-bordered.table-striped.datagrid.small-bottom-margin
       thead
         tr
           th.text-center(title="Deletion status")
-            i.icon-trash
+            i.fa.fa-trash-o
           th(data-property="title") Title
           th(data-property="content") Content
           th(data-property="created_at") Created at
           th
-            i.icon-wrench
+            i.fa.fa-wrench
             |  Operations
       tbody
         include _index_rows
 
     include _pagination
 
-  - else
+  else
 
     p No posts present.
 

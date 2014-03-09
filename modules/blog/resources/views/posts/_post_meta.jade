@@ -5,7 +5,9 @@
     .pull-left
       img.img-rounded(src="#{post.author.gravatar}" + 50)
     .media-body
-      a(href="#{app.link('users', 'show', {username: post.author.username})}") #{post.author.fullname}
+      a(
+        href="#{app.link('users', 'show', {username: post.author.username})}"
+      ) #{post.author.fullname}
       br
       p.text-muted #{post.author.status}
 
@@ -15,15 +17,27 @@
     .media
       .pull-left
         a(href="#comments")
-          i.icon-comments.icon-2x
+          i.fa.fa-comments.fa-2x
       .media-body
         h5.media-heading Comments on this post
-        p.text-muted #{post.comments.length} Comments
+        p.text-muted
+          if (0 === post.comments.length)
+            | No comments yet
+          else if (1 === post.comments.length)
+            | One comment
+          else if (post.comments.length > 1)
+            | #{post.comments.length} comments
 
     .media
       .pull-left
-        i.icon-eye-open.icon-2x
+        i.fa.fa-eye.fa-2x
       .media-body
         h5.media-heading Views on this post
-        p.text-muted #{post.views} Views
+        p.text-muted
+          if (0 === post.views)
+            | No views yet
+          else if (1 === post.views)
+            | One view
+          else if (post.views > 1)
+            | #{post.views} views
 

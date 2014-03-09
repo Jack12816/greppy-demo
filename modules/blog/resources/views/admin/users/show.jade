@@ -2,7 +2,7 @@ extends ../../layout
 
 block content
 
-  - if (null !== user)
+  if (null !== user)
 
     h2.page-headline User details
       .pull-right
@@ -43,7 +43,7 @@ block content
           th.min Deleted
           td #{ user.deleted_at ? ('at ' + helper.date.format(user.deleted_at, 'LLLL')) : 'No' }
 
-  - else
+  else
 
     - var entity = 'User'
     include ../../error/notfound

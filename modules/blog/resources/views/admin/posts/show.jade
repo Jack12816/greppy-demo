@@ -2,7 +2,7 @@ extends ../../layout
 
 block content
 
-  - if (null !== post)
+  if (null !== post)
 
     h2.page-headline Post details
       .pull-right
@@ -39,7 +39,7 @@ block content
           th.min Deleted
           td #{ post.deleted_at ? ('at ' + helper.date.format(post.deleted_at, 'LLLL')) : 'No' }
 
-  - else
+  else
 
     - var entity = 'Post'
     include ../../error/notfound

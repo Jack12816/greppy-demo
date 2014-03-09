@@ -1,29 +1,29 @@
 a#fork-on-github(href="https://github.com/Jack12816/greppy", target="_blank")
   img(
-    style="position: absolute; top: 0; right: 0; border: 0; z-index: 9999;",
+    style="position: fixed; top: 0; right: 0; border: 0; z-index: 9999;",
     src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
     alt="Fork me on GitHub")
 
 .navbar-wrapper
   .container
-    .navbar.navbar-inverse.navbar-static-top
+    .navbar.navbar-inverse.navbar-static-top(role="navigation")
       .container
         .navbar-header
           button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href="#{app.linkContext('home')}") Greppy
         .collapse.navbar-collapse
           ul.nav.navbar-nav
-            li(class="#{helper.route.current(req.url, '/about', 'active')}")
-              a(href="/about") About
-            li(class="#{helper.route.current(req.url, '/gang', 'active')}")
-              a(href="/gang") Gang
-            li(class="#{helper.route.current(req.url, '/contributors', 'active')}")
-              a(href="/contributors") Contributors
+            - var root = (helper.route.current(req.url, /^\/$/i, true)) ? '' : '/'
             li
-              a(href="#{app.linkContext('frontend')}") Frontend
+              a(href="#{root}#greppy") Greppy
+            li
+              a(href="#{root}#greppy-frontend") Greppy Frontend
+            li
+              a(href="#{root}#greppy-gang") Gang
+            li
+              a(href="#{root}#greppy-contributors") Contributors
             li
               a(href="#{app.linkContext('docs')}") Documentation
             li
@@ -34,6 +34,9 @@ a#fork-on-github(href="https://github.com/Jack12816/greppy", target="_blank")
     li.active(data-target="#myCarousel", data-slide-to="0")
     li(data-target="#myCarousel", data-slide-to="1")
     li(data-target="#myCarousel", data-slide-to="2")
+    li(data-target="#myCarousel", data-slide-to="3")
+    li(data-target="#myCarousel", data-slide-to="4")
+    li(data-target="#myCarousel", data-slide-to="5")
   .carousel-inner
     .item.active
       img(src="/modules/home/img/slides/slide01.png", alt="")
@@ -44,7 +47,7 @@ a#fork-on-github(href="https://github.com/Jack12816/greppy", target="_blank")
             | Use the power of <b>Node.js</b>, the stack of <b>Express</b>,
             | and the cluster structure of <b>Greppy</b>.
           p
-            a.btn.btn-lg.btn-primary(target="_blank", href="/docs/examples.html") Watch the examples
+            a.btn.btn-lg.btn-primary(target="_blank", href="#{app.linkContext('docs', '/framework/examples.html')}") Watch the examples
     .item
       img(src="/modules/home/img/slides/slide02.png", alt="")
       .container
@@ -65,7 +68,36 @@ a#fork-on-github(href="https://github.com/Jack12816/greppy", target="_blank")
             | While building Greppy we focused on the ability to write
             | applications easily. <br> Doesn't matter which kind or size.
           p
-            a.btn.btn-lg.btn-primary(target="_blank", href="/docs/guide.html") Learn Greppy
+            a.btn.btn-lg.btn-primary(target="_blank", href="#{app.linkContext('docs', '/framework/guide.html')}") Learn Greppy
+    .item
+      img(src="/modules/home/img/slides/slide04.png", alt="")
+      .container
+        .carousel-caption
+          h1 Improve user experiences with a fast development model.
+          p
+            | Greppy supports rapid prototyping of whole application parts.
+            | It is as easy as it gets.
+          p
+            a.btn.btn-lg.btn-primary(target="_blank", href="#{app.linkContext('docs', '/framework/guide.html#scaffolding')}") See the docs
+    .item
+      img(src="/modules/home/img/slides/slide05.png", alt="")
+      .container
+        .carousel-caption
+          h1 Because visualisation should be easy.
+          p
+            | If you don't need to spend hours for data visualisation,
+            | you got more time for cool features.
+          p
+            a.btn.btn-lg.btn-primary(target="_blank", href="#datagrid") Learn about Data-Grids
+    .item
+      img(src="/modules/home/img/slides/slide06.png", alt="")
+      .container
+        .carousel-caption
+          h1 Writing awesome frontends with great features.
+          p
+            | Connect your frontend in a simple way with your Greppy backend.
+          p
+            a.btn.btn-lg.btn-primary(target="_blank", href="#{app.linkContext('docs', '/frontend/guide.html')}") Learn Greppy Frontend
 
   a.left.carousel-control(href="#myCarousel", data-slide="prev")
     span.glyphicon.glyphicon-chevron-left

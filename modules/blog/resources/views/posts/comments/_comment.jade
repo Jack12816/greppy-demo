@@ -20,9 +20,9 @@ if ('undefined' === typeof author)
                 - var url = app.link('posts', 'show', {slug: comment.post.slug}, app.host)
               else
                 - var url = app.url
-              &nbsp;
+              |&nbsp;
               a.btn.btn-default.btn-xs.collapse(href="#{url}#comment-#{comment.slug}")
-                i.icon-external-link
+                i.fa.fa-external-link
                 if ('undefined' !== typeof comment.post.title)
                   |  #{comment.post.title}
                 else
@@ -39,17 +39,17 @@ if ('undefined' === typeof author)
             if author.twitter
               | &nbsp;(
               a(target="_blank", href="http://twitter.com/#{author.twitter}")
-                i.icon-twitter
+                i.fa.fa-twitter
                 |  #{author.twitter}
               | )
 
       .col-lg-6.text-right
         p
-          i.icon-plus-sign-alt
+          i.fa.fa-plus-square
           |  Written at #{helper.date.format(comment.created_at, 'LLLL')}
           if comment.updated_at
             br
-            i.icon-edit
+            i.fa.fa-pencil-square-o
             |  Updated at #{helper.date.format(comment.updated_at, 'LLLL')}
 
   .panel-body= comment.content

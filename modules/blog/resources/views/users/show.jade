@@ -2,7 +2,7 @@ extends ../layout
 
 block content
 
-  - if (null !== user)
+  if (null !== user)
 
     br
     .row
@@ -23,23 +23,23 @@ block content
 
             if (user.status)
               p.text-muted
-                i.icon-star
+                i.fa.fa-star
                 |  #{user.status}
 
             if (user.twitter)
               p.text-muted
-                i.icon-twitter
-                &nbsp;
+                i.fa.fa-twitter
+                |&nbsp;
                 a(target="_blank", href="http://twitter.com/#{user.twitter}") #{user.twitter}
 
             if (user.website)
               p.text-muted
-                i.icon-globe
-                &nbsp;
+                i.fa.fa-globe
+                |&nbsp;
                 a(target="_blank", href="http://#{ user.website }") #{ user.website }
 
             p.text-muted
-              i.icon-time
+              i.fa.fa-clock-o
               |  Joined on #{helper.date.format(user.created_at, 'LL')}
 
       .col-lg-9
@@ -47,7 +47,7 @@ block content
         unless (0 == relations.posts.length)
           include ../posts/_operations
           h3.headline
-            i.icon-file
+            i.fa.fa-file
             |  Latest post
           - var post = relations.posts.shift()
           //- Aliasing for injection
@@ -57,7 +57,7 @@ block content
         unless (0 == relations.comments.length)
           include ../posts/comments/_operations
           h3.headline
-            i.icon-file
+            i.fa.fa-file
             |  Latest comment
           - var comment = relations.comments.shift()
           //- Aliasing for injection
@@ -66,7 +66,7 @@ block content
 
         unless (0 == relations.posts.length)
           h3.headline.clickable(data-toggle="collapse", data-target="#posts")
-            i.icon-file
+            i.fa.fa-file
             |  Posts written by this user
           #posts.collapse
             each post in relations.posts
@@ -76,7 +76,7 @@ block content
 
         unless (0 == relations.comments.length)
           h3.headline.clickable(data-toggle="collapse", data-target="#comments")
-            i.icon-comment
+            i.fa.fa-comment
             |  Comments written by this user
           #comments.collapse
             each comment in relations.comments
@@ -84,7 +84,7 @@ block content
               - var author = user
               include ../posts/comments/_comment
 
-  - else
+  else
 
     - var entity = 'User'
     include ../error/notfound

@@ -21,6 +21,14 @@ var BlogContext = function()
     this.description = 'Context for the domain blog.greppy.org';
 
     // Worker context backends configuration.
+    // Setting this value to null no database
+    // connection will be established. Setting
+    // this value to an empty object will load
+    // all connections of all backends. You can
+    // add an "mysql" property with an array with
+    // the names of your connections, so we will
+    // only load them. An empty array for an property
+    // will load all connections of the given backend.
     this.backends = {
         mongodb: [] // All MongoDB connections
     };
@@ -54,13 +62,6 @@ BlogContext.prototype.configure = function(app, server, callback)
 
     // Common Middleware
     app.use(express.compress());
-
-    if ('development' === greppy.env) {
-        app.use(require('connect-livereload')({
-            port: 35729
-        }));
-    }
-
     app.use(express.static(process.cwd() + '/public'));
 
     // Session ecosystem middleware
@@ -78,35 +79,47 @@ BlogContext.prototype.configure = function(app, server, callback)
     }));
     app.use((require('connect-flash'))());
 
-    // Authentication
-    passport.use(new (require('passport-local').Strategy)({
-            usernameField: 'user_username',
-            passwordField: 'user_password'
-        },
-        function(username, password, done) {
+    // Live-reload on development environments
+    if ('development' === greppy.env) {
+        app.use(require('connect-livereload')({
+            port: 35729
+        }));
+    }
 
-            // @TODO: Lookup user
-            // @TODO: Check credentials
-            // -> done(null, false)
-            // -> done(null, userObj)
+    // // Authentication
+    // passport.use(new (require('passport-local').Strategy)({
+    //         usernameField: 'user_username',
+    //         passwordField: 'user_password'
+    //     },
+    //     function(username, password, done) {
 
-            return done(null, {user: true});
-        }
-    ));
+    //         // @TODO: Lookup user
+    //         // @TODO: Check credentials
+    //         // -> done(null, false)
+    //         // -> done(null, userObj)
 
-    passport.serializeUser(function(user, done) {
-        done(null, JSON.stringify(user));
-    });
+    //         return done(null, {user: true});
+    //     }
+    // ));
 
-    passport.deserializeUser(function(user, done) {
-        done(null, JSON.parse(user));
-    });
+    // passport.serializeUser(function(user, done) {
+    //     done(null, JSON.stringify(user));
+    // });
 
-    app.use(passport.initialize());
-    app.use(passport.session());
+    // passport.deserializeUser(function(user, done) {
+    //     done(null, JSON.parse(user));
+    // });
+
+    // app.use(passport.initialize());
+    // app.use(passport.session());
 
     // Setup post configure hook
     app.postConfigure = function(app, server, callback) {
+
+        // Add 404 error handler
+        app.use(function(req, res, next) {
+            res.render('error/notfound-layout');
+        });
 
         // Add error handler middleware
         app.use(function(err, req, res, next) {

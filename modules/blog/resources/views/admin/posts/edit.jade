@@ -2,7 +2,7 @@ extends ../../layout
 
 block content
 
-  - if (null !== post)
+  if (null !== post)
 
     h2.page-headline.bottom-border Edit post details
       .pull-right
@@ -11,7 +11,7 @@ block content
     br
     include _form
 
-  - else
+  else
 
     - var entity = 'Post'
     include ../../error/notfound

@@ -1,0 +1,21 @@
+script.
+  $(function () {
+
+    var clicked = 0;
+
+    $('#graken').on('click', function() {
+
+      clicked++;
+
+      if (7 === clicked) {
+
+        var cur = $(this);
+        cur.fadeOut(1000, function() {
+            cur.attr('src', '/modules/frontend/img/home/bindings-bad.png');
+        }).fadeIn(1000);
+      }
+
+      return false;
+    });
+  });
+
