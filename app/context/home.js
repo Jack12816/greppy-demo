@@ -59,6 +59,30 @@ DemoContext.prototype.configure = function(app, server, callback)
     }
     app.use(express.static(process.cwd() + '/public'));
 
+    // Setup post configure hook
+    app.postConfigure = function(app, server, callback) {
+
+        // Add 404 error handler
+        app.use(function(req, res, next) {
+            res.render('error/notfound-layout', {
+                enableCarousel: false
+            });
+        });
+
+        // Add error handler middleware
+        app.use(function(err, req, res, next) {
+
+            logger.error(err.stack);
+            res.status(500);
+            res.render('error/catch-all', {
+                error: err,
+                enableCarousel: false
+            });
+        });
+
+        callback && callback();
+    };
+
     // Start listening for connections
     server.listen(workerConfig.port, workerConfig.host);
 

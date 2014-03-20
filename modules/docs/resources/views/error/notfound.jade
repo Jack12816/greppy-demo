@@ -1,13 +1,14 @@
 if ('undefined' === typeof entity)
   - entity = 'Page'
 
-h2.page-headline An error occured
-  .pull-right
-    a.btn(onclick="history.back();", title="Back")
-      i.fa.fa-arrow-left
+.row
+  .col-lg-2
+    a(href="/", title="Back to home")
+      i.fa.fa-times.fa-6x.fa-border-circle.text-info
 
-.error-message
-  h1 #{entity} was not found
-  hr
-  p We apologize for any inconvenience.
+  .col-lg-10
+    .text-left
+      h1 #{entity} was not found
+      hr
+      p We apologize for any inconvenience.
 

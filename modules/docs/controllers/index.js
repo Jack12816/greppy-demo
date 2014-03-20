@@ -5,6 +5,7 @@
  * @author Hermann Mayer <hermann.mayer92@gmail.com>
  */
 
+var async = require('async');
 var fs = require('fs');
 
 /**
@@ -41,18 +42,39 @@ IndexController.actions.index =
     methods : ['GET'],
     action  : function(req, res) {
 
-        if (!req.params.page) {
-            req.params.page = 'index';
-        }
+        async.waterfall([
 
-        // Render the view
-        res.render(self.view(req.params.page), function(err, html) {
+            // Build the view path
+            function(callback) {
 
-            if (err) {
-                res.render('error/notfound-layout');
+                if (!req.params.page) {
+                    req.params.page = 'index';
+                }
+
+                callback && callback(
+                    null, self.view(req.params.page)
+                );
+            },
+
+            // Check the view
+            function(view, callback) {
+                fs.exists(req.app.get('views') + view + '.jade', function(exists) {
+                    callback && callback(
+                        exists ? null : new Error('VIEW_NOT_FOUND'),
+                        view
+                    );
+                })
             }
 
-            res.end(html);
+        ], function(err, view) {
+
+            if (err) {
+                return res.render('error/notfound-layout', {
+                    enableCarousel: false
+                });
+            }
+
+            res.render(view);
         });
     }
 };

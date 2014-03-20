@@ -4,10 +4,15 @@ hr.featurette-divider
   .row
     .col-lg-12
       .text-center
-        img(alt="Greppy Frontend", src="/modules/home/img/greppy-frontend.png").margin-bottom-medium
+        img(
+          alt="Greppy Frontend",
+          src="/modules/home/img/greppy-frontend.png"
+        ).margin-bottom-medium
+
   .row
     .col-lg-4
-      i.fa.fa-th.fa-4x.fa-border-circle.text-muted
+      a(href="#datagrid")
+        i.fa.fa-th.fa-4x.fa-border-circle.text-muted
       h2 Data-Grid
       p.
         Performant. Flexible. Awesome. Build CRUD-pages in minutes which not
@@ -17,7 +22,8 @@ hr.featurette-divider
         a.btn.btn-default(href="#datagrid") View details »
 
     .col-lg-4
-      i.fa.fa-star.fa-4x.fa-border-circle.text-muted
+      a(href="#commons")
+        i.fa.fa-star.fa-4x.fa-border-circle.text-muted
       h2 Commons
       p.
         Offering some neat features like modals, event-based overlays and easy
@@ -26,7 +32,8 @@ hr.featurette-divider
         a.btn.btn-default(href="#commons") View details »
 
     .col-lg-4
-      i.fa.fa-link.fa-4x.fa-border-circle.text-muted
+      a(href="#bindings")
+        i.fa.fa-link.fa-4x.fa-border-circle.text-muted
       h2 Greppy Bindings
       p.
         Unleash the power! In conjunction with Greppy you can create mind-blowing

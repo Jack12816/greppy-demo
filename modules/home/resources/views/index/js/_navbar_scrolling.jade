@@ -1,5 +1,5 @@
 script.
-  $(document).ready( function() {
+  $(document).ready(function() {
       var $navbar = $('.navbar');
       var $body = $('body');
       var navTop = $navbar.offset().top;
@@ -18,5 +18,7 @@ script.
 
       $(window).scroll(switchNav);
       switchNav();
+
+      $('body').scrollspy({ target: '.navbar' });
   });
 

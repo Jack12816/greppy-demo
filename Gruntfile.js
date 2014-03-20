@@ -86,8 +86,9 @@ module.exports = function(grunt) {
                 },
                 files: [
                     'Gruntfile.js',
-                    'modules/**/*.jade'
-                ],
+                    'modules/**/*.jade',
+                    'modules/**/*.png'
+                ]
             }
         }
     });
@@ -103,8 +104,5 @@ module.exports = function(grunt) {
 
     // Content generation (jade to HTML)
     grunt.registerTask('templates', ['shell']);
-
-    // Serve presentation locally
-    grunt.registerTask('serve', ['connect', 'watch']);
 };
 

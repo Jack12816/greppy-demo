@@ -4,9 +4,20 @@ a#fork-on-github(href="https://github.com/Jack12816/greppy", target="_blank")
     src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
     alt="Fork me on GitHub")
 
+if ('undefined' === typeof enableCarousel)
+  - enableCarousel = true
+
+if (true === enableCarousel)
+  - var navbarClass = 'navbar-static-top'
+else
+  - var navbarClass = 'navbar-fixed-top'
+  style.
+    #content {padding-top: 151px !important;}
+    .navbar-wrapper { margin-top: 0px !important; }
+
 .navbar-wrapper
   .container
-    .navbar.navbar-inverse.navbar-static-top(role="navigation")
+    .navbar.navbar-inverse(class="#{navbarClass}", role="navigation")
       .container
         .navbar-header
           button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
@@ -28,79 +39,9 @@ a#fork-on-github(href="https://github.com/Jack12816/greppy", target="_blank")
               a(href="#{app.linkContext('docs')}") Documentation
             li
               a(href="#{app.linkContext('blog')}") Blog
+            li(class="#{helper.route.current(req.url, /^\/resources/i, 'active')}")
+              a(href="/resources") Resources
 
-#myCarousel.carousel.slide
-  ol.carousel-indicators
-    li.active(data-target="#myCarousel", data-slide-to="0")
-    li(data-target="#myCarousel", data-slide-to="1")
-    li(data-target="#myCarousel", data-slide-to="2")
-    li(data-target="#myCarousel", data-slide-to="3")
-    li(data-target="#myCarousel", data-slide-to="4")
-    li(data-target="#myCarousel", data-slide-to="5")
-  .carousel-inner
-    .item.active
-      img(src="/modules/home/img/slides/slide01.png", alt="")
-      .container
-        .carousel-caption
-          h1 Writing high availability applications made easy.
-          p
-            | Use the power of <b>Node.js</b>, the stack of <b>Express</b>,
-            | and the cluster structure of <b>Greppy</b>.
-          p
-            a.btn.btn-lg.btn-primary(target="_blank", href="#{app.linkContext('docs', '/framework/examples.html')}") Watch the examples
-    .item
-      img(src="/modules/home/img/slides/slide02.png", alt="")
-      .container
-        .carousel-caption
-          h1 Simple but powerful by design.
-          p
-            | We built enterprise applications with the help of this framework.
-            | <br>
-            | All our concepts, feature-requests and experiences resulted in Greppy.
-          p
-            a.btn.btn-lg.btn-primary(target="_blank", href="https://github.com/Jack12816/greppy-demo") Take a look at the demo
-    .item
-      img(src="/modules/home/img/slides/slide03.png", alt="")
-      .container
-        .carousel-caption
-          h1 Just concentrate on your application needs,<br>not on the framework.
-          p
-            | While building Greppy we focused on the ability to write
-            | applications easily. <br> Doesn't matter which kind or size.
-          p
-            a.btn.btn-lg.btn-primary(target="_blank", href="#{app.linkContext('docs', '/framework/guide.html')}") Learn Greppy
-    .item
-      img(src="/modules/home/img/slides/slide04.png", alt="")
-      .container
-        .carousel-caption
-          h1 Improve user experiences with a fast development model.
-          p
-            | Greppy supports rapid prototyping of whole application parts.
-            | It is as easy as it gets.
-          p
-            a.btn.btn-lg.btn-primary(target="_blank", href="#{app.linkContext('docs', '/framework/guide.html#scaffolding')}") See the docs
-    .item
-      img(src="/modules/home/img/slides/slide05.png", alt="")
-      .container
-        .carousel-caption
-          h1 Because visualisation should be easy.
-          p
-            | If you don't need to spend hours for data visualisation,
-            | you got more time for cool features.
-          p
-            a.btn.btn-lg.btn-primary(target="_blank", href="#datagrid") Learn about Data-Grids
-    .item
-      img(src="/modules/home/img/slides/slide06.png", alt="")
-      .container
-        .carousel-caption
-          h1 Writing awesome frontends with great features.
-          p
-            | Connect your frontend in a simple way with your Greppy backend.
-          p
-            a.btn.btn-lg.btn-primary(target="_blank", href="#{app.linkContext('docs', '/frontend/guide.html')}") Learn Greppy Frontend
-
-  a.left.carousel-control(href="#myCarousel", data-slide="prev")
-    span.glyphicon.glyphicon-chevron-left
-  a.right.carousel-control(href="#myCarousel", data-slide="next")
-    span.glyphicon.glyphicon-chevron-right
+if (true === enableCarousel)
+  include _carousel
 
