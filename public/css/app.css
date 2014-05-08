@@ -71,7 +71,7 @@ hr { border-color: #E5E5E5 -moz-use-text-color -moz-use-text-color; }
 
 .navbar .input-group-addon, .navbar .input-group-btn { width: auto; }
 
-.nav .active:after {
+.navbar-fixed-top .active:after {
     color: #F1F1F1;
     position: absolute;
     bottom: -3px;
