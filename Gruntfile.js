@@ -41,7 +41,7 @@ module.exports = function(grunt) {
             compress: {
                 files: {
                     'public/build/default.min.js': [
-                        'public/components/jquery/dist/jquery.min.js',
+                        'public/components/jquery/jquery.js',
                         'public/components/greppy/dist/js/greppy.min.js',
                         'public/components/bootstrap/dist/js/bootstrap.min.js',
                         'public/components/spin.js/spin.js',

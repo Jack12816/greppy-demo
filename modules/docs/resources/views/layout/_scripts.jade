@@ -2,7 +2,7 @@ if ('production' === app.env)
   link(rel="stylesheet", href="/build/docs.min.css?version=#{package.version}")
   script(src="/build/docs.min.js?version=#{package.version}")
 else
-  script(src="/components/jquery/dist/jquery.min.js")
+  script(src="/components/jquery/jquery.min.js")
   script(src="/components/bootstrap/dist/js/bootstrap.min.js")
   script(src="/js/app.js")
   script(src="/modules/docs/js/app.js")

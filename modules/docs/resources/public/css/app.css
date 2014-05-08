@@ -1,2 +1,17 @@
-#content{padding-top:151px !important}
+#content {
+    padding-top:151px !important;
+}
+
+.no-decoration-link,
+.no-decoration-link :hover,
+.no-decoration-link :focus {
+    text-decoration: none !important;
+    color: #000;
+}
+
+.no-decoration-link.text-muted,
+.no-decoration-link.text-muted :hover,
+.no-decoration-link.text-muted :focus {
+    color: #999;
+}
 

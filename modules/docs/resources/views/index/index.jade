@@ -3,15 +3,42 @@ extends ../layout
 block content
 
   .row
-    .col-lg-6.text-center
-      i.fa.fa-cogs.fa-10x.fa-border-circle.text-muted
-      h1 Framework
-      p
-        a.btn.btn-default(target="_blank", href="/framework") Read the docs »
+    .col-lg-6
+      .pull-left
+        a.margin-right-tiny.no-decoration-link.text-muted(href="/framework")
+          i.fa.fa-cogs.fa-7x.fa-border-circle.text-muted
+        br
+        br
+        br
 
-    .col-lg-6.text-center
-      i.fa.fa-code.fa-10x.fa-border-circle.text-muted
-      h1 Frontend
+      a.no-decoration-link(href="/framework")
+        h1 Greppy Framework
       p
-        a.btn.btn-default(target="_blank", href="/frontend") Read the docs »
+        | The Greppy Framework documentation will give you much insight
+        | into the internals, concepts, and usage of the framework. We
+        | cover the latest changes with a changelog, a getting started
+        | guide, the API reference, and a cookbook for common examples
+        | and solutions.
+        br
+        br
+        a.btn.btn-default(href="/framework") Read the docs »
+
+    .col-lg-6
+      .pull-left
+        a.margin-right-tiny.no-decoration-link.text-muted(href="/frontend")
+          i.fa.fa-code.fa-7x.fa-border-circle.text-muted
+        br
+        br
+        br
+
+      a.no-decoration-link(href="/frontend")
+        h1 Greppy Frontend
+      p
+        | The Greppy Frontend documentation will enable you to write
+        | awesome applications which are connected to your Greppy backend.
+        | Learn how to solve common problems with the cookbook, build own
+        | solutions based on them with the API reference on hand.
+        br
+        br
+        a.btn.btn-default(href="/frontend") Read the docs »
 

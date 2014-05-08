@@ -37,7 +37,7 @@ html, body { background-color: #F7F7F7; background-image: url("/img/noise.png");
  **/
 #footer{height:140px;padding:16px 0;border-top:5px solid #222222; background-color:#32708F;color:#fff;background-image:url(/img/bubbles.png);box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15) inset;}
 #footer a { color: #fff; }
-#footer a:hover, a:focus { color: #8BBBD3; text-decoration: none; text-shadow: 0px 0px 2px #000; }
+#footer a:hover, #footer a:focus { color: #8BBBD3; text-decoration: none; text-shadow: 0px 0px 2px #000; }
 .branding-head{margin-top:16px}
 .branding-info{width:830px;padding:0 20px}
 #footer-logo{height:80px}
@@ -71,6 +71,21 @@ hr { border-color: #E5E5E5 -moz-use-text-color -moz-use-text-color; }
 
 .navbar .input-group-addon, .navbar .input-group-btn { width: auto; }
 
+.nav .active:after {
+    color: #F1F1F1;
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    width: 0px;
+    height: 0px;
+    margin-left: -9px;
+    vertical-align: middle;
+    content: " ";
+    border-right: 8px solid transparent;
+    border-bottom: 9px solid;
+    border-left: 9px solid transparent;
+}
+
 .fa-6x { font-size: 6em; }
 .fa-7x { font-size: 7em; }
 .fa-8x { font-size: 8em; }
@@ -98,6 +113,30 @@ hr { border-color: #E5E5E5 -moz-use-text-color -moz-use-text-color; }
 .light {
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 200;
+}
+
+.margin-right-tiny {
+    margin-right: 1.5em;
+}
+
+.margin-right-small {
+    margin-right: 3em;
+}
+
+.margin-right-medium {
+    margin-right: 6em;
+}
+
+.margin-right-large {
+    margin-right: 9em;
+}
+
+.margin-right-grande {
+    margin-right: 18em;
+}
+
+.margin-bottom-tiny {
+    margin-bottom: 1.5em;
 }
 
 .margin-bottom-small {
