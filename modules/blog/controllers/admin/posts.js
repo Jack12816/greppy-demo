@@ -219,6 +219,11 @@ PostsController.actions.create =
     methods : ['POST'],
     action  : function(req, res) {
 
+        // @TODO: Implement login
+        if ('production' !== greppy.env) {
+            return res.redirect(self.link('index'));
+        }
+
         greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
             var document = new models.Post({
@@ -252,6 +257,11 @@ PostsController.actions.update =
     path    : '/:oid',
     methods : ['POST'],
     action  : function(req, res) {
+
+        // @TODO: Implement login
+        if ('production' !== greppy.env) {
+            return res.redirect(self.link('index'));
+        }
 
         greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
@@ -296,6 +306,11 @@ PostsController.actions.destroy =
     methods : ['DELETE'],
     action  : function(req, res) {
 
+        // @TODO: Implement login
+        if ('production' !== greppy.env) {
+            return res.redirect(self.link('index'));
+        }
+
         greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
             models.Post.findById(req.params.oid, function(err, document) {
@@ -334,6 +349,11 @@ PostsController.actions.restore =
     path    : '/:oid/restore',
     methods : ['POST'],
     action  : function(req, res) {
+
+        // @TODO: Implement login
+        if ('production' !== greppy.env) {
+            return res.redirect(self.link('index'));
+        }
 
         greppy.db.get('mongodb.blog').getORM(function(orm, models) {
 
